@@ -1,6 +1,7 @@
 package songbox.house.service;
 
 import songbox.house.domain.dto.response.discogs.DiscogsReleaseDto;
+import songbox.house.domain.entity.MusicCollection;
 import songbox.house.util.ProgressListener;
 
 import java.util.List;
@@ -26,6 +27,8 @@ public interface FrontendFriendlyService {
     DiscogsReleaseDto saveToCollection(String discogsLink);
 
     List<DiscogsReleaseDto> getSavedReleases();
+
+    MusicCollection getDefaultMusicCollection();
 
     void deleteFromCollection(Long id);
 }

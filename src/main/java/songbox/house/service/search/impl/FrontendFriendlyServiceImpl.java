@@ -87,7 +87,7 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
             SongDto expectedSongDto = song.getValue().get(0);
 
             SearchQuery searchQuery = new SearchQuery(String.format("%s %s - %s", releaseInfo.getAudioLabelReleaseName(), artistTitleDto.getArtist(), artistTitleDto.getTitle()));
-            searchQuery.setFetchArtwork(false);
+            searchQuery.setFetchArtwork(true);
             searchQuery.setFilterByArtistTitle(false);
 
             SearchQuery searchQueryWithoutLabel = new SearchQuery(String.format("%s - %s", artistTitleDto.getArtist(), artistTitleDto.getTitle()));
@@ -145,7 +145,8 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
         discogsReleaseRepository.deleteById(id);
     }
 
-    private MusicCollection getOrCreateMusicCollection() {
+    @Override
+    public MusicCollection getDefaultMusicCollection() {
         return musicCollectionService.getOrCreate("frontend-friendly-collection");
     }
 
@@ -161,7 +162,7 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
         discogsRelease.setGenres(
                 discogsReleaseDto.getGenres().stream().map(genreService::getOrCreate).collect(toSet())
         );
-        discogsRelease.setCollections(new HashSet<>(Collections.singletonList(getOrCreateMusicCollection())));
+        discogsRelease.setCollections(new HashSet<>(Collections.singletonList(getDefaultMusicCollection())));
 
         return discogsRelease;
     }
