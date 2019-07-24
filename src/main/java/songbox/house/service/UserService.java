@@ -8,7 +8,8 @@ import java.util.Set;
 
 public interface UserService {
 
-    UserInfo findByUserName(final String userName);
+    UserInfo findByUserName(String userName);
+    UserInfo findByUserNameOrCreate(String userName);
 
     UserInfo getCurrentUser();
 

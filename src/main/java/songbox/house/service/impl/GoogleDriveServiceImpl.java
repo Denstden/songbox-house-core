@@ -3,15 +3,20 @@ package songbox.house.service.impl;
 import com.google.api.client.http.FileContent;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.util.TextUtils;
 import org.springframework.stereotype.Service;
 import songbox.house.domain.entity.Track;
 import songbox.house.service.GoogleAuthenticationService;
 import songbox.house.service.GoogleDriveService;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import static java.io.File.createTempFile;
@@ -23,26 +28,82 @@ import static org.apache.commons.io.FileUtils.writeByteArrayToFile;
 @AllArgsConstructor
 @FieldDefaults(makeFinal = true, level = PRIVATE)
 public class GoogleDriveServiceImpl implements GoogleDriveService {
-
+    private static final String FOLDER_NAME = "SongboxHouse";
     private static final String MIME_TYPE = "audio/mpeg";
+    public static final String GOOGLE_DRIVE_MIMETYPE_FOLDER = "application/vnd.google-apps.folder";
 
     GoogleAuthenticationService authenticationService;
 
-    @Override
-    public void upload(Track track) {
-        final Drive drive = authenticationService.getDrive();
+    private File getFolderOrCreate(Drive drive, String folderName, File parentFolder) throws IOException {
+        FileList fileList = drive.files().list()
+                .setQ(String.format("name = '%s' and mimeType = '%s'", folderName, GOOGLE_DRIVE_MIMETYPE_FOLDER))
+                .execute();
+        List<File> files = fileList.getFiles();
+        if (files.isEmpty()) {
+            File fileMetadata = new File();
+            fileMetadata.setName(folderName);
+            fileMetadata.setMimeType(GOOGLE_DRIVE_MIMETYPE_FOLDER);
+            if (parentFolder != null) {
+                fileMetadata.setParents(Collections.singletonList(parentFolder.getId()));
+            }
+
+            File file = drive.files().create(fileMetadata)
+                    .setFields("id" + (parentFolder != null ? ", parents" : ""))
+                    .execute();
+            return file;
+        }
+
+        return files.get(0);
+    }
+
+    private File getRootFolder(Drive drive) throws IOException {
+        return getFolderOrCreate(drive, FOLDER_NAME, null);
+    }
+
+
+    private void upload(Track track, String userName, boolean useCurrentUser,
+                        String folder, String genreFolder) {
+        Drive drive;
+        if (useCurrentUser) {
+            drive = authenticationService.getDrive();
+        } else {
+            drive = authenticationService.getDrive(userName); //test
+        }
 
         try {
             final File fileMetadata = createMetadata(track);
             final FileContent content = createContent(track);
 
+            File initFolder;
+
+            if (!TextUtils.isBlank(genreFolder)) {
+                initFolder = getFolderOrCreate(drive, genreFolder, getRootFolder(drive));
+            } else {
+                initFolder = getRootFolder(drive);
+            }
+
+            if (folder != null) {
+                initFolder = getFolderOrCreate(drive, folder, initFolder);
+            }
+
+            fileMetadata.setParents(Collections.singletonList(initFolder.getId()));
             final File uploadedFile = drive.files().create(fileMetadata, content)
-                    .setFields("id")
+                    .setFields("id, parents")
                     .execute();
             log.info("Uploaded file with id {}", uploadedFile.getId());
         } catch (Exception e) {
             log.error("Can't upload file to the google drive", e);
         }
+    }
+
+    @Override
+    public void upload(Track track) {
+        upload(track, null, true, null,null);
+    }
+
+    @Override
+    public void upload(String userName, Track track, String folder, String genreFolder) {
+        upload(track, userName, false, folder, genreFolder);
     }
 
     private File createMetadata(Track track) {

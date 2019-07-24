@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import songbox.house.domain.dto.request.UserDto;
 import songbox.house.domain.entity.user.GoogleApiToken;
 import songbox.house.domain.entity.user.UserInfo;
 import songbox.house.repository.GoogleApiTokenRepository;
@@ -40,6 +41,8 @@ import static songbox.house.util.Constants.APP_NAME;
 @AllArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationService {
+    // TODO
+    public static final String REDIRECT_DOMAIN = "http://localhost:8080";
 
     private static final String YOUTUBE_TOKEN_URL = "/api/google/token";
     private static final List<String> SCOPES = Lists.newArrayList("https://www.googleapis.com/auth/youtube",
@@ -97,12 +100,35 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
     }
 
     @Override
-    public String getRequestAccessUrl(String requestUrl) {
+    public Drive getDrive(String userName) {
+        UserInfo userInfo = userService.findByUserName(userName);
+
+        GoogleApiToken token = googleApiTokenRepository.findByUserId(userInfo.getUserId());
+
+        return ofNullable(token)
+                .map(this::initCredential)
+                .map(this::initDrive)
+                .orElseThrow(() -> new RuntimeException("Google API credentials not found"));
+    }
+
+    @Override
+    public String getRequestAccessUrl() {
         UserInfo currentUser = userService.getCurrentUser();
 
         return GOOGLE_AUTHORIZATION_CODE_FLOW
                 .newAuthorizationUrl()
-                .setRedirectUri(getRedirectUrl(requestUrl))
+                .setRedirectUri(getRedirectUrl())
+                .setState(currentUser.getUserId().toString())
+                .build();
+    }
+
+    @Override
+    public String getRequestAccessUrl(String userName) {
+        UserInfo currentUser = userService.findByUserNameOrCreate(userName);
+
+        return GOOGLE_AUTHORIZATION_CODE_FLOW
+                .newAuthorizationUrl()
+                .setRedirectUri(getRedirectUrl())
                 .setState(currentUser.getUserId().toString())
                 .build();
     }
@@ -148,7 +174,7 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
         try {
             return of(GOOGLE_AUTHORIZATION_CODE_FLOW
                     .newTokenRequest(code)
-                    .setRedirectUri(getRedirectUrl(requestUrl))
+                    .setRedirectUri(getRedirectUrl())
                     .execute());
         } catch (IOException e) {
             log.error("Exception during getting access token", e);
@@ -170,9 +196,7 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
         return googleApiToken;
     }
 
-    private String getRedirectUrl(String requestUrl) {
-        GenericUrl url = new GenericUrl(requestUrl);
-        url.setRawPath(YOUTUBE_TOKEN_URL);
-        return url.build();
+    private String getRedirectUrl() {
+        return REDIRECT_DOMAIN + YOUTUBE_TOKEN_URL;
     }
 }
