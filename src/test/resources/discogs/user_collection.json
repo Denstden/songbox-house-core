@@ -1,0 +1,2372 @@
+{
+  "pagination": {
+    "per_page": 50,
+    "items": 109,
+    "page": 1,
+    "urls": {
+      "last": "https://api.discogs.com/users/denstden/collection/folders/0/releases?per_page=50&link=https%3A%2F%2Fwww.discogs.com%2FTime-Modem-The-Time-Of-The-Gathering%2Frelease%2F184710&page=3&collectionId=11",
+      "next": "https://api.discogs.com/users/denstden/collection/folders/0/releases?per_page=50&link=https%3A%2F%2Fwww.discogs.com%2FTime-Modem-The-Time-Of-The-Gathering%2Frelease%2F184710&page=2&collectionId=11"
+    },
+    "pages": 3
+  },
+  "releases": [
+    {
+      "instance_id": 286593443,
+      "date_added": "2018-03-15T10:27:27-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "030303",
+            "entity_type": "1",
+            "catno": "030EP006",
+            "resource_url": "https://api.discogs.com/labels/164577",
+            "id": 164577,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM"
+            ],
+            "text": "Red",
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Retape",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/3043604",
+            "id": 3043604
+          }
+        ],
+        "thumb": "",
+        "title": "Signals On The Double",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/5806030",
+        "year": 2014,
+        "id": 5806030
+      },
+      "id": 5806030,
+      "rating": 0
+    },
+    {
+      "instance_id": 286019363,
+      "date_added": "2018-03-12T12:55:15-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "ACEW",
+            "entity_type": "1",
+            "catno": "A.C.E.W. - 005",
+            "resource_url": "https://api.discogs.com/labels/8446",
+            "id": 8446,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "45 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "A Credible Eye Witness",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/8826",
+            "id": 8826
+          }
+        ],
+        "thumb": "",
+        "title": "Sonic Wall",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/10069777",
+        "year": 2017,
+        "id": 10069777
+      },
+      "id": 10069777,
+      "rating": 5
+    },
+    {
+      "instance_id": 296422573,
+      "date_added": "2018-04-30T16:58:32-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Analogical Force",
+            "entity_type": "1",
+            "catno": "AF010",
+            "resource_url": "https://api.discogs.com/labels/906282",
+            "id": 906282,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "EP",
+              "Limited Edition"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Pye Corner Audio",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/2232791",
+            "id": 2232791
+          }
+        ],
+        "thumb": "",
+        "title": "Island Of Ghosts EP",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/11184492",
+        "year": 2017,
+        "id": 11184492
+      },
+      "id": 11184492,
+      "rating": 5
+    },
+    {
+      "instance_id": 294671104,
+      "date_added": "2018-04-22T09:43:19-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Anodyne (2)",
+            "entity_type": "1",
+            "catno": "ano 2",
+            "resource_url": "https://api.discogs.com/labels/11974",
+            "id": 11974,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Biochip C.",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/1284",
+            "id": 1284
+          }
+        ],
+        "thumb": "",
+        "title": "GU-D / I'm Walking",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/105623",
+        "year": 1995,
+        "id": 105623
+      },
+      "id": 105623,
+      "rating": 0
+    },
+    {
+      "instance_id": 296540327,
+      "date_added": "2018-05-01T07:52:57-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Art-Aud",
+            "entity_type": "1",
+            "catno": "A-A02",
+            "resource_url": "https://api.discogs.com/labels/771981",
+            "id": 771981,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM"
+            ],
+            "text": "180gr.",
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Sprawl",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/12962",
+            "id": 12962
+          }
+        ],
+        "thumb": "",
+        "title": "Time Tunnel",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/9945963",
+        "year": 2017,
+        "id": 9945963
+      },
+      "id": 9945963,
+      "rating": 0
+    },
+    {
+      "instance_id": 287629718,
+      "date_added": "2018-03-19T16:25:21-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Balkan Vinyl",
+            "entity_type": "1",
+            "catno": "BV11",
+            "resource_url": "https://api.discogs.com/labels/177614",
+            "id": 177614,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "Limited Edition"
+            ],
+            "text": "Red",
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Mark Archer",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/58983",
+            "id": 58983
+          }
+        ],
+        "thumb": "",
+        "title": "Armageddon Remixes (Part 1)",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/5124677",
+        "year": 2014,
+        "id": 5124677
+      },
+      "id": 5124677,
+      "rating": 0
+    },
+    {
+      "instance_id": 283448985,
+      "date_added": "2018-03-01T12:16:04-08:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Between Places",
+            "entity_type": "1",
+            "catno": "BP001",
+            "resource_url": "https://api.discogs.com/labels/1348265",
+            "id": 1348265,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "45 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Das Muster",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/2176762",
+            "id": 2176762
+          }
+        ],
+        "thumb": "",
+        "title": "Fehlersuche",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/10968330",
+        "year": 2017,
+        "id": 10968330
+      },
+      "id": 10968330,
+      "rating": 5
+    },
+    {
+      "instance_id": 288022792,
+      "date_added": "2018-03-21T14:49:06-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "BKO Productions Ltd.",
+            "entity_type": "1",
+            "catno": "12BK02",
+            "resource_url": "https://api.discogs.com/labels/45514",
+            "id": 45514,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "45 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "2"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Bah Samba",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/9216",
+            "id": 9216
+          }
+        ],
+        "thumb": "",
+        "title": "Portuguese Love",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/493430",
+        "year": 2004,
+        "id": 493430
+      },
+      "id": 493430,
+      "rating": 5
+    },
+    {
+      "instance_id": 296422753,
+      "date_added": "2018-04-30T17:00:01-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "B\u00f6rft Records",
+            "entity_type": "1",
+            "catno": "B\u00f6rft132",
+            "resource_url": "https://api.discogs.com/labels/1902",
+            "id": 1902,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "Limited Edition"
+            ],
+            "text": " Hand stamped",
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Luke Eargoggle",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/20155",
+            "id": 20155
+          }
+        ],
+        "thumb": "",
+        "title": "Train To Illusion ",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/7767254",
+        "year": 2015,
+        "id": 7767254
+      },
+      "id": 7767254,
+      "rating": 0
+    },
+    {
+      "instance_id": 286593739,
+      "date_added": "2018-03-15T10:28:41-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "B\u00f6rft Records",
+            "entity_type": "1",
+            "catno": "B\u00d6RFT 151",
+            "resource_url": "https://api.discogs.com/labels/1902",
+            "id": 1902,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "Mini-Album"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Ola Bergman",
+            "anv": "Obergman",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/124177",
+            "id": 124177
+          }
+        ],
+        "thumb": "",
+        "title": "Universal Hologram",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/11097976",
+        "year": 2017,
+        "id": 11097976
+      },
+      "id": 11097976,
+      "rating": 5
+    },
+    {
+      "instance_id": 287629752,
+      "date_added": "2018-03-19T16:25:38-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "BOY Records",
+            "entity_type": "1",
+            "catno": "BOY 8824-12",
+            "resource_url": "https://api.discogs.com/labels/2028",
+            "id": 2028,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "45 RPM",
+              "Maxi-Single"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Time Modem",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/25751",
+            "id": 25751
+          }
+        ],
+        "thumb": "",
+        "title": "Welcome To The 90's",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/184698",
+        "year": 1990,
+        "id": 184698
+      },
+      "id": 184698,
+      "rating": 5
+    },
+    {
+      "instance_id": 307868462,
+      "date_added": "2018-07-03T14:18:37-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Bunker Records",
+            "entity_type": "1",
+            "catno": "BUNKER 4011",
+            "resource_url": "https://api.discogs.com/labels/1908",
+            "id": 1908,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "LP",
+              "Limited Edition",
+              "White Label"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Pantser Fabriek",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/3665562",
+            "id": 3665562
+          }
+        ],
+        "thumb": "",
+        "title": "Untitled",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/10694421",
+        "year": 2017,
+        "id": 10694421
+      },
+      "id": 10694421,
+      "rating": 5
+    },
+    {
+      "instance_id": 296539820,
+      "date_added": "2018-05-01T07:50:32-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Cabrera",
+            "entity_type": "1",
+            "catno": "CBR06",
+            "resource_url": "https://api.discogs.com/labels/982389",
+            "id": 982389,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "EP"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Cadency",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/4616909",
+            "id": 4616909
+          }
+        ],
+        "thumb": "",
+        "title": "Gazing In A Social Hub",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/9649842",
+        "year": 2017,
+        "id": 9649842
+      },
+      "id": 9649842,
+      "rating": 5
+    },
+    {
+      "instance_id": 286593371,
+      "date_added": "2018-03-15T10:27:12-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Central Processing Unit",
+            "entity_type": "1",
+            "catno": "00001010",
+            "resource_url": "https://api.discogs.com/labels/424941",
+            "id": 424941,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "45 RPM",
+              "Limited Edition"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "DMX Krew",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/983",
+            "id": 983
+          }
+        ],
+        "thumb": "",
+        "title": "A New Life",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/5613476",
+        "year": 2014,
+        "id": 5613476
+      },
+      "id": 5613476,
+      "rating": 5
+    },
+    {
+      "instance_id": 276710554,
+      "date_added": "2018-01-30T14:13:17-08:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Circus Company",
+            "entity_type": "1",
+            "catno": "CCS 003",
+            "resource_url": "https://api.discogs.com/labels/6339",
+            "id": 6339,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\""
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Ark",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/1061",
+            "id": 1061
+          }
+        ],
+        "thumb": "",
+        "title": "Alleluyark Vol_3",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/210562",
+        "year": 2003,
+        "id": 210562
+      },
+      "id": 210562,
+      "rating": 5
+    },
+    {
+      "instance_id": 287629658,
+      "date_added": "2018-03-19T16:24:54-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Classic",
+            "entity_type": "1",
+            "catno": "CMC75",
+            "resource_url": "https://api.discogs.com/labels/221",
+            "id": 221,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\""
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Derrick Carter",
+            "anv": "Derrick L. Carter",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/3338",
+            "id": 3338
+          }
+        ],
+        "thumb": "",
+        "title": "Mo Pschidt",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/24527",
+        "year": 2000,
+        "id": 24527
+      },
+      "id": 24527,
+      "rating": 5
+    },
+    {
+      "instance_id": 286019042,
+      "date_added": "2018-03-12T12:54:01-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Cleopatra",
+            "entity_type": "1",
+            "catno": "CLP 2339",
+            "resource_url": "https://api.discogs.com/labels/1004",
+            "id": 1004,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "LP",
+              "Album",
+              "Limited Edition",
+              "Reissue"
+            ],
+            "text": "Red",
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Le\u00e6ther Strip",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/11888",
+            "id": 11888
+          }
+        ],
+        "thumb": "",
+        "title": "Solitary Confinement",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/7819821",
+        "year": 2015,
+        "id": 7819821
+      },
+      "id": 7819821,
+      "rating": 5
+    },
+    {
+      "instance_id": 276700981,
+      "date_added": "2018-01-30T13:31:13-08:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Clone Aqualung Series",
+            "entity_type": "1",
+            "catno": "CAL004",
+            "resource_url": "https://api.discogs.com/labels/165523",
+            "id": 165523,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "45 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Drexciya",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/1172",
+            "id": 1172
+          }
+        ],
+        "thumb": "",
+        "title": "Black Sea",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/6860153",
+        "year": 2015,
+        "id": 6860153
+      },
+      "id": 6860153,
+      "rating": 5
+    },
+    {
+      "instance_id": 286593502,
+      "date_added": "2018-03-15T10:27:39-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Clone Classic Cuts",
+            "entity_type": "1",
+            "catno": "C#CC25LP",
+            "resource_url": "https://api.discogs.com/labels/70336",
+            "id": 70336,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "Compilation",
+              "Remastered"
+            ],
+            "name": "Vinyl",
+            "qty": "2"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Drexciya",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/1172",
+            "id": 1172
+          }
+        ],
+        "thumb": "",
+        "title": "Journey Of The Deep Sea Dweller IV",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/5178667",
+        "year": 2013,
+        "id": 5178667
+      },
+      "id": 5178667,
+      "rating": 5
+    },
+    {
+      "instance_id": 286593399,
+      "date_added": "2018-03-15T10:27:20-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Clone West Coast Series",
+            "entity_type": "1",
+            "catno": "CWCS08.2",
+            "resource_url": "https://api.discogs.com/labels/157378",
+            "id": 157378,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "45 RPM"
+            ],
+            "text": "Blue",
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "The Exaltics",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/1029388",
+            "id": 1029388
+          }
+        ],
+        "thumb": "",
+        "title": "Some Other Place Vol. 2",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/5753179",
+        "year": 2014,
+        "id": 5753179
+      },
+      "id": 5753179,
+      "rating": 5
+    },
+    {
+      "instance_id": 276702764,
+      "date_added": "2018-01-30T13:38:16-08:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Craigie Knowes",
+            "entity_type": "1",
+            "catno": "CKNOWEP3",
+            "resource_url": "https://api.discogs.com/labels/921036",
+            "id": 921036,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "EP"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Various",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/194",
+            "id": 194
+          }
+        ],
+        "thumb": "",
+        "title": "Knowes Universal Broadcast (Seg. 2)",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/10490247",
+        "year": 2017,
+        "id": 10490247
+      },
+      "id": 10490247,
+      "rating": 5
+    },
+    {
+      "instance_id": 286593484,
+      "date_added": "2018-03-15T10:27:35-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Cultivated Electronics",
+            "entity_type": "1",
+            "catno": "CE015",
+            "resource_url": "https://api.discogs.com/labels/99223",
+            "id": 99223,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "EP",
+              "33 \u2153 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Various",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/194",
+            "id": 194
+          }
+        ],
+        "thumb": "",
+        "title": "World Electronix Remixes",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/5707521",
+        "year": 2014,
+        "id": 5707521
+      },
+      "id": 5707521,
+      "rating": 5
+    },
+    {
+      "instance_id": 299629062,
+      "date_added": "2018-05-17T14:22:06-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Cultivated Electronics",
+            "entity_type": "1",
+            "catno": "CE017",
+            "resource_url": "https://api.discogs.com/labels/99223",
+            "id": 99223,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "EP"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "&",
+            "name": "Sync 24",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/152818",
+            "id": 152818
+          },
+          {
+            "join": "",
+            "name": "Morphology",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/1600030",
+            "id": 1600030
+          }
+        ],
+        "thumb": "",
+        "title": "Low Pass Gateway",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/6951420",
+        "year": 2015,
+        "id": 6951420
+      },
+      "id": 6951420,
+      "rating": 5
+    },
+    {
+      "instance_id": 294454345,
+      "date_added": "2018-04-21T14:09:10-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Cultivated Electronics",
+            "entity_type": "1",
+            "catno": "CE019",
+            "resource_url": "https://api.discogs.com/labels/99223",
+            "id": 99223,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "EP"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "&",
+            "name": "Sync 24",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/152818",
+            "id": 152818
+          },
+          {
+            "join": "",
+            "name": "Silicon Scally",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/5055",
+            "id": 5055
+          }
+        ],
+        "thumb": "",
+        "title": "Jack Out EP",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/8925732",
+        "year": 2016,
+        "id": 8925732
+      },
+      "id": 8925732,
+      "rating": 5
+    },
+    {
+      "instance_id": 299631771,
+      "date_added": "2018-05-17T14:40:13-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Cultivated Electronics",
+            "entity_type": "1",
+            "catno": "CE020",
+            "resource_url": "https://api.discogs.com/labels/99223",
+            "id": 99223,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "EP"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Various",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/194",
+            "id": 194
+          }
+        ],
+        "thumb": "",
+        "title": "10 Years Electronics",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/9701369",
+        "year": 2017,
+        "id": 9701369
+      },
+      "id": 9701369,
+      "rating": 0
+    },
+    {
+      "instance_id": 299631838,
+      "date_added": "2018-05-17T14:40:38-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Cultivated Electronics",
+            "entity_type": "1",
+            "catno": "CE021",
+            "resource_url": "https://api.discogs.com/labels/99223",
+            "id": 99223,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "x",
+            "name": "Sync 24",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/152818",
+            "id": 152818
+          },
+          {
+            "join": "/",
+            "name": "Privacy (3)",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/3411756",
+            "id": 3411756
+          },
+          {
+            "join": "",
+            "name": "DeFeKT (8)",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/1814470",
+            "id": 1814470
+          }
+        ],
+        "thumb": "",
+        "title": "Split Excursions Vol. 1",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/10460707",
+        "year": 2017,
+        "id": 10460707
+      },
+      "id": 10460707,
+      "rating": 0
+    },
+    {
+      "instance_id": 296422691,
+      "date_added": "2018-04-30T16:59:28-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Cultivated Electronics",
+            "entity_type": "1",
+            "catno": "CE022",
+            "resource_url": "https://api.discogs.com/labels/99223",
+            "id": 99223,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "EP"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "The Resonance Committee",
+            "anv": "Resonance Committee",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/6018508",
+            "id": 6018508
+          }
+        ],
+        "thumb": "",
+        "title": "Curvepusher Sessions Vol 1",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/10889231",
+        "year": 2017,
+        "id": 10889231
+      },
+      "id": 10889231,
+      "rating": 5
+    },
+    {
+      "instance_id": 299631695,
+      "date_added": "2018-05-17T14:39:51-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Cultivated Electronics",
+            "entity_type": "1",
+            "catno": "CE023",
+            "resource_url": "https://api.discogs.com/labels/99223",
+            "id": 99223,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Morphology",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/1600030",
+            "id": 1600030
+          }
+        ],
+        "thumb": "",
+        "title": "Mind Stealers EP",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/11570912",
+        "year": 2018,
+        "id": 11570912
+      },
+      "id": 11570912,
+      "rating": 5
+    },
+    {
+      "instance_id": 299631659,
+      "date_added": "2018-05-17T14:39:36-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Cultivated Electronics",
+            "entity_type": "1",
+            "catno": "CE024",
+            "resource_url": "https://api.discogs.com/labels/99223",
+            "id": 99223,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "EP"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "And",
+            "name": "Jensen Interceptor (2)",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/2784219",
+            "id": 2784219
+          },
+          {
+            "join": "",
+            "name": "Assembler Code",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/5422649",
+            "id": 5422649
+          }
+        ],
+        "thumb": "",
+        "title": "Hyper Reality",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/11909133",
+        "year": 2018,
+        "id": 11909133
+      },
+      "id": 11909133,
+      "rating": 5
+    },
+    {
+      "instance_id": 276707070,
+      "date_added": "2018-01-30T13:57:40-08:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "DC Trax",
+            "entity_type": "1",
+            "catno": "DCTRAX003",
+            "resource_url": "https://api.discogs.com/labels/1027484",
+            "id": 1027484,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "45 RPM",
+              "Maxi-Single",
+              "Stereo"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Dark Circles (2)",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/5266903",
+            "id": 5266903
+          }
+        ],
+        "thumb": "",
+        "title": "Cans / Torpor / Papoose",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/11449588",
+        "year": 0,
+        "id": 11449588
+      },
+      "id": 11449588,
+      "rating": 5
+    },
+    {
+      "instance_id": 288037558,
+      "date_added": "2018-03-21T16:06:46-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Dee",
+            "entity_type": "1",
+            "catno": "014 680",
+            "resource_url": "https://api.discogs.com/labels/9675",
+            "id": 9675,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Dee",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/30347",
+            "id": 30347
+          }
+        ],
+        "thumb": "",
+        "title": "Feeling Hm-Pa-Paa-Paaa",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/84157",
+        "year": 1995,
+        "id": 84157
+      },
+      "id": 84157,
+      "rating": 5
+    },
+    {
+      "instance_id": 296422501,
+      "date_added": "2018-04-30T16:57:56-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Delsin",
+            "entity_type": "1",
+            "catno": "x-dsr5",
+            "resource_url": "https://api.discogs.com/labels/457",
+            "id": 457,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "Reissue"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Claro Intelecto",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/44229",
+            "id": 44229
+          }
+        ],
+        "thumb": "",
+        "title": "Peace Of Mind",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/5422659",
+        "year": 2014,
+        "id": 5422659
+      },
+      "id": 5422659,
+      "rating": 5
+    },
+    {
+      "instance_id": 307868372,
+      "date_added": "2018-07-03T14:17:52-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Djax-Up-Beats",
+            "entity_type": "1",
+            "catno": "DJAX-UP-218",
+            "resource_url": "https://api.discogs.com/labels/235",
+            "id": 235,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "2"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Mike Dearborn",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/860",
+            "id": 860
+          }
+        ],
+        "thumb": "",
+        "title": "Moments",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/8590",
+        "year": 1995,
+        "id": 8590
+      },
+      "id": 8590,
+      "rating": 5
+    },
+    {
+      "instance_id": 288025212,
+      "date_added": "2018-03-21T14:59:36-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "DMC",
+            "entity_type": "1",
+            "catno": "DMC 182/1",
+            "resource_url": "https://api.discogs.com/labels/4243",
+            "id": 4243,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "Limited Edition",
+              "33 \u2153 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Various",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/194",
+            "id": 194
+          }
+        ],
+        "thumb": "",
+        "title": "House Nation 182",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/549855",
+        "year": 1998,
+        "id": 549855
+      },
+      "id": 549855,
+      "rating": 5
+    },
+    {
+      "instance_id": 276707325,
+      "date_added": "2018-01-30T13:58:50-08:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "E-Beamz",
+            "entity_type": "1",
+            "catno": "E-BEAMZ018",
+            "resource_url": "https://api.discogs.com/labels/1077339",
+            "id": 1077339,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Nyra",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/1134032",
+            "id": 1134032
+          }
+        ],
+        "thumb": "",
+        "title": "Eternal Ends",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/11298774",
+        "year": 2017,
+        "id": 11298774
+      },
+      "id": 11298774,
+      "rating": 5
+    },
+    {
+      "instance_id": 294669525,
+      "date_added": "2018-04-22T09:38:04-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "East End Dubs Vinyl",
+            "entity_type": "1",
+            "catno": "EEDV005",
+            "resource_url": "https://api.discogs.com/labels/546991",
+            "id": 546991,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\""
+            ],
+            "text": "180 gram, Yellow",
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "East End Dubs",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/3039433",
+            "id": 3039433
+          }
+        ],
+        "thumb": "",
+        "title": "Tools Volume 4",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/6960200",
+        "year": 2015,
+        "id": 6960200
+      },
+      "id": 6960200,
+      "rating": 5
+    },
+    {
+      "instance_id": 299633261,
+      "date_added": "2018-05-17T14:50:09-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Edge Records",
+            "entity_type": "1",
+            "catno": "*6",
+            "resource_url": "https://api.discogs.com/labels/643",
+            "id": 643,
+            "entity_type_name": "Label"
+          },
+          {
+            "name": "Edge Records",
+            "entity_type": "1",
+            "catno": "EDGE 6",
+            "resource_url": "https://api.discogs.com/labels/643",
+            "id": 643,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "EP",
+              "45 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Various",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/194",
+            "id": 194
+          }
+        ],
+        "thumb": "",
+        "title": "The Brotherhood Of Structure EP",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/20501",
+        "year": 1993,
+        "id": 20501
+      },
+      "id": 20501,
+      "rating": 0
+    },
+    {
+      "instance_id": 276704830,
+      "date_added": "2018-01-30T13:47:31-08:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Egyptian Empire Records",
+            "entity_type": "1",
+            "catno": "DMSR-00841",
+            "resource_url": "https://api.discogs.com/labels/825",
+            "id": 825,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "Test Pressing"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Egyptian Lover",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/4098",
+            "id": 4098
+          }
+        ],
+        "thumb": "",
+        "title": "I Need A Freak / My House On The Nile",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/10601851",
+        "year": 2017,
+        "id": 10601851
+      },
+      "id": 10601851,
+      "rating": 5
+    },
+    {
+      "instance_id": 276705479,
+      "date_added": "2018-01-30T13:50:21-08:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Egyptian Empire Records",
+            "entity_type": "1",
+            "catno": "DMSR00842",
+            "resource_url": "https://api.discogs.com/labels/825",
+            "id": 825,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM"
+            ],
+            "text": "190g",
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Egyptian Lover",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/4098",
+            "id": 4098
+          }
+        ],
+        "thumb": "",
+        "title": "Seduced (ReMix) / Belly Dance",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/10785793",
+        "year": 2017,
+        "id": 10785793
+      },
+      "id": 10785793,
+      "rating": 5
+    },
+    {
+      "instance_id": 283448184,
+      "date_added": "2018-03-01T12:12:30-08:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Eleganz",
+            "entity_type": "1",
+            "catno": "ELG022",
+            "resource_url": "https://api.discogs.com/labels/1400381",
+            "id": 1400381,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\""
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Nothingface",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/20786",
+            "id": 20786
+          }
+        ],
+        "thumb": "",
+        "title": "Wir Marschieren",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/24584",
+        "year": 2001,
+        "id": 24584
+      },
+      "id": 24584,
+      "rating": 5
+    },
+    {
+      "instance_id": 307867307,
+      "date_added": "2018-07-03T14:09:35-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Emotions Electric",
+            "entity_type": "1",
+            "catno": "EE0002",
+            "resource_url": "https://api.discogs.com/labels/720827",
+            "id": 720827,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Lost Trax",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/551328",
+            "id": 551328
+          }
+        ],
+        "thumb": "",
+        "title": "Reflections",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/9498572",
+        "year": 2017,
+        "id": 9498572
+      },
+      "id": 9498572,
+      "rating": 0
+    },
+    {
+      "instance_id": 307868644,
+      "date_added": "2018-07-03T14:19:53-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Fantasy",
+            "entity_type": "1",
+            "catno": "D-216",
+            "resource_url": "https://api.discogs.com/labels/1329",
+            "id": 1329,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Cybotron",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/3863",
+            "id": 3863
+          }
+        ],
+        "thumb": "",
+        "title": "Clear",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/17859",
+        "year": 1983,
+        "id": 17859
+      },
+      "id": 17859,
+      "rating": 5
+    },
+    {
+      "instance_id": 299629253,
+      "date_added": "2018-05-17T14:23:15-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Firstcask Records",
+            "entity_type": "1",
+            "catno": "FSK013",
+            "resource_url": "https://api.discogs.com/labels/4131",
+            "id": 4131,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM",
+              "EP"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Asylum Seekers (2)",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/105495",
+            "id": 105495
+          }
+        ],
+        "thumb": "",
+        "title": "Hardcore House EP",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/1156029",
+        "year": 2007,
+        "id": 1156029
+      },
+      "id": 1156029,
+      "rating": 5
+    },
+    {
+      "instance_id": 294454703,
+      "date_added": "2018-04-21T14:10:31-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Frustrated Funk",
+            "entity_type": "1",
+            "catno": "FR-011",
+            "resource_url": "https://api.discogs.com/labels/9239",
+            "id": 9239,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "EP",
+              "45 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Blackploid",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/520721",
+            "id": 520721
+          }
+        ],
+        "thumb": "",
+        "title": "Inhaltsverzeichnis EP",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/692470",
+        "year": 2006,
+        "id": 692470
+      },
+      "id": 692470,
+      "rating": 5
+    },
+    {
+      "instance_id": 276704593,
+      "date_added": "2018-01-30T13:46:23-08:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Frustrated Funk",
+            "entity_type": "1",
+            "catno": "FR038",
+            "resource_url": "https://api.discogs.com/labels/9239",
+            "id": 9239,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\""
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Adapta",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/2228194",
+            "id": 2228194
+          }
+        ],
+        "thumb": "",
+        "title": "Vohx Continues",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/10822509",
+        "year": 2017,
+        "id": 10822509
+      },
+      "id": 10822509,
+      "rating": 5
+    },
+    {
+      "instance_id": 294669976,
+      "date_added": "2018-04-22T09:39:34-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Future Sessions",
+            "entity_type": "1",
+            "catno": "FS002",
+            "resource_url": "https://api.discogs.com/labels/1041315",
+            "id": 1041315,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "33 \u2153 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "/",
+            "name": "Myles Serg\u00e9",
+            "anv": "Myles Serge",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/648422",
+            "id": 648422
+          },
+          {
+            "join": "",
+            "name": "G. Marcell",
+            "anv": "G . Marcell",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/131014",
+            "id": 131014
+          }
+        ],
+        "thumb": "",
+        "title": "The Future Is You",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/9277722",
+        "year": 2016,
+        "id": 9277722
+      },
+      "id": 9277722,
+      "rating": 5
+    },
+    {
+      "instance_id": 285930668,
+      "date_added": "2018-03-12T05:11:35-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "High Fashion Music",
+            "entity_type": "1",
+            "catno": "MS 39",
+            "resource_url": "https://api.discogs.com/labels/5658",
+            "id": 5658,
+            "entity_type_name": "Label"
+          },
+          {
+            "name": "Dureco Benelux",
+            "entity_type": "1",
+            "catno": "MS 39",
+            "resource_url": "https://api.discogs.com/labels/30300",
+            "id": 30300,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "45 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Fruitcake",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/142508",
+            "id": 142508
+          }
+        ],
+        "thumb": "",
+        "title": "I Like The Way",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/572855",
+        "year": 1982,
+        "id": 572855
+      },
+      "id": 572855,
+      "rating": 0
+    },
+    {
+      "instance_id": 285930923,
+      "date_added": "2018-03-12T05:13:36-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "High Fashion Music",
+            "entity_type": "1",
+            "catno": "MS 39",
+            "resource_url": "https://api.discogs.com/labels/5658",
+            "id": 5658,
+            "entity_type_name": "Label"
+          },
+          {
+            "name": "Dureco Benelux",
+            "entity_type": "1",
+            "catno": "MS 39",
+            "resource_url": "https://api.discogs.com/labels/30300",
+            "id": 30300,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "45 RPM"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Fruitcake",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/142508",
+            "id": 142508
+          }
+        ],
+        "thumb": "",
+        "title": "I Like The Way",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/572855",
+        "year": 1982,
+        "id": 572855
+      },
+      "id": 572855,
+      "rating": 0
+    },
+    {
+      "instance_id": 307867196,
+      "date_added": "2018-07-03T14:08:42-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Housetime Records",
+            "entity_type": "1",
+            "catno": "HT1015",
+            "resource_url": "https://api.discogs.com/labels/5814",
+            "id": 5814,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "45 RPM",
+              "Repress"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Gene Hunt",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/2186",
+            "id": 2186
+          }
+        ],
+        "thumb": "",
+        "title": "Living In A Land",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/3246342",
+        "year": 1998,
+        "id": 3246342
+      },
+      "id": 3246342,
+      "rating": 0
+    },
+    {
+      "instance_id": 288008800,
+      "date_added": "2018-03-21T13:50:56-07:00",
+      "basic_information": {
+        "labels": [
+          {
+            "name": "Infuse",
+            "entity_type": "1",
+            "catno": "Infuse 006",
+            "resource_url": "https://api.discogs.com/labels/634456",
+            "id": 634456,
+            "entity_type_name": "Label"
+          }
+        ],
+        "formats": [
+          {
+            "descriptions": [
+              "12\"",
+              "EP"
+            ],
+            "name": "Vinyl",
+            "qty": "1"
+          }
+        ],
+        "artists": [
+          {
+            "join": "",
+            "name": "Sonodab",
+            "anv": "",
+            "tracks": "",
+            "role": "",
+            "resource_url": "https://api.discogs.com/artists/845202",
+            "id": 845202
+          }
+        ],
+        "thumb": "",
+        "title": "Escape EP",
+        "cover_image": "",
+        "resource_url": "https://api.discogs.com/releases/6150138",
+        "year": 2014,
+        "id": 6150138
+      },
+      "id": 6150138,
+      "rating": 5
+    }
+  ]
+}
