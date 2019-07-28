@@ -1,0 +1,24 @@
+{
+  "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/9CtH-B1u8fEjy5kqCPuMUSgucO4\"",
+  "items": [
+    {
+      "contentDetails": {
+        "relatedPlaylists": {
+          "favorites": "FLKYUqRwfH2wQpOGrEp1qgmg",
+          "likes": "LLKYUqRwfH2wQpOGrEp1qgmg",
+          "uploads": "UUKYUqRwfH2wQpOGrEp1qgmg",
+          "watchHistory": "HL",
+          "watchLater": "WL"
+        }
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/YGLxAAs8nIQKD14YccuMASvl0qA\"",
+      "id": "UCKYUqRwfH2wQpOGrEp1qgmg",
+      "kind": "youtube#channel"
+    }
+  ],
+  "kind": "youtube#channelListResponse",
+  "pageInfo": {
+    "resultsPerPage": 1,
+    "totalResults": 1
+  }
+}

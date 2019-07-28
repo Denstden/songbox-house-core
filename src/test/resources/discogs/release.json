@@ -1,0 +1,291 @@
+{
+  "status": "Accepted",
+  "videos": [
+    {
+      "duration": 402,
+      "embed": true,
+      "title": "Techno Bert - Neue Dimensionen",
+      "description": "Techno Bert - Neue Dimensionen",
+      "uri": "https://www.youtube.com/watch?v=E9P5cKnbilU"
+    },
+    {
+      "duration": 207,
+      "embed": true,
+      "title": "Intro",
+      "description": "Intro",
+      "uri": "https://www.youtube.com/watch?v=bCsdQIKinK8"
+    },
+    {
+      "duration": 362,
+      "embed": true,
+      "title": "Neue Dimensionen (Instrumental)",
+      "description": "Neue Dimensionen (Instrumental)",
+      "uri": "https://www.youtube.com/watch?v=tVvBztzpjX4"
+    },
+    {
+      "duration": 454,
+      "embed": true,
+      "title": "Neue Dimensionen (Paris Mix)",
+      "description": "Neue Dimensionen (Paris Mix)",
+      "uri": "https://www.youtube.com/watch?v=GdCsr07xrLc"
+    },
+    {
+      "duration": 333,
+      "embed": true,
+      "title": "Neue Dimensionen (Madrid Mix)",
+      "description": "Neue Dimensionen (Madrid Mix)",
+      "uri": "https://www.youtube.com/watch?v=WMoX-RGNpI0"
+    }
+  ],
+  "series": [],
+  "labels": [
+    {
+      "name": "Target Records (3)",
+      "entity_type": "1",
+      "catno": "TR. 10065/12",
+      "resource_url": "https://api.discogs.com/labels/90198",
+      "id": 90198,
+      "entity_type_name": "Label"
+    },
+    {
+      "name": "Target Records (3)",
+      "entity_type": "1",
+      "catno": "TARGET RECORDS 10065/12",
+      "resource_url": "https://api.discogs.com/labels/90198",
+      "id": 90198,
+      "entity_type_name": "Label"
+    }
+  ],
+  "year": 1990,
+  "community": {
+    "status": "Accepted",
+    "rating": {
+      "count": 79,
+      "average": 4.56
+    },
+    "want": 641,
+    "contributors": [
+      {
+        "username": "jodo60",
+        "resource_url": "https://api.discogs.com/users/jodo60"
+      },
+      {
+        "username": "eiskristall",
+        "resource_url": "https://api.discogs.com/users/eiskristall"
+      },
+      {
+        "username": "chriscrx69",
+        "resource_url": "https://api.discogs.com/users/chriscrx69"
+      },
+      {
+        "username": "Masakari",
+        "resource_url": "https://api.discogs.com/users/Masakari"
+      },
+      {
+        "username": "Axis303",
+        "resource_url": "https://api.discogs.com/users/Axis303"
+      },
+      {
+        "username": "rv_records",
+        "resource_url": "https://api.discogs.com/users/rv_records"
+      },
+      {
+        "username": "MaximusMCX",
+        "resource_url": "https://api.discogs.com/users/MaximusMCX"
+      },
+      {
+        "username": "www-the-shop-fr",
+        "resource_url": "https://api.discogs.com/users/www-the-shop-fr"
+      },
+      {
+        "username": "SeRKeT",
+        "resource_url": "https://api.discogs.com/users/SeRKeT"
+      }
+    ],
+    "have": 142,
+    "submitter": {
+      "username": "jodo60",
+      "resource_url": "https://api.discogs.com/users/jodo60"
+    },
+    "data_quality": "Correct"
+  },
+  "artists": [
+    {
+      "join": "",
+      "name": "Techno Bert",
+      "anv": "",
+      "tracks": "",
+      "role": "",
+      "resource_url": "https://api.discogs.com/artists/48542",
+      "id": 48542
+    }
+  ],
+  "images": [
+    {
+      "uri": "",
+      "height": 602,
+      "width": 600,
+      "resource_url": "",
+      "type": "primary",
+      "uri150": ""
+    },
+    {
+      "uri": "",
+      "height": 593,
+      "width": 600,
+      "resource_url": "",
+      "type": "secondary",
+      "uri150": ""
+    },
+    {
+      "uri": "",
+      "height": 607,
+      "width": 600,
+      "resource_url": "",
+      "type": "secondary",
+      "uri150": ""
+    },
+    {
+      "uri": "",
+      "height": 615,
+      "width": 600,
+      "resource_url": "",
+      "type": "secondary",
+      "uri150": ""
+    },
+    {
+      "uri": "",
+      "height": 227,
+      "width": 600,
+      "resource_url": "",
+      "type": "secondary",
+      "uri150": ""
+    }
+  ],
+  "format_quantity": 1,
+  "id": 57994,
+  "artists_sort": "Techno Bert",
+  "genres": [
+    "Electronic"
+  ],
+  "thumb": "",
+  "num_for_sale": 8,
+  "title": "Neue Dimensionen",
+  "date_changed": "2017-12-22T18:21:05-08:00",
+  "master_id": 76982,
+  "lowest_price": 34.97,
+  "styles": [
+    "Techno"
+  ],
+  "released_formatted": "1990",
+  "formats": [
+    {
+      "qty": "1",
+      "descriptions": [
+        "12\""
+      ],
+      "name": "Vinyl"
+    }
+  ],
+  "estimated_weight": 230,
+  "master_url": "https://api.discogs.com/masters/76982",
+  "released": "1990",
+  "date_added": "2002-10-11T14:26:39-07:00",
+  "extraartists": [
+    {
+      "join": "",
+      "name": "G.De Wolf",
+      "anv": "",
+      "tracks": "",
+      "role": "Artwork By [Cover Design]",
+      "resource_url": "",
+      "id": 0
+    },
+    {
+      "join": "",
+      "name": "Roberto Passera",
+      "anv": "R. Passera",
+      "tracks": "",
+      "role": "Composed By",
+      "resource_url": "https://api.discogs.com/artists/437927",
+      "id": 437927
+    },
+    {
+      "join": "",
+      "name": "Stefano Cundari",
+      "anv": "S. Cundari",
+      "tracks": "",
+      "role": "Composed By",
+      "resource_url": "https://api.discogs.com/artists/260299",
+      "id": 260299
+    },
+    {
+      "join": "",
+      "name": "M.D. & C.R.",
+      "anv": "",
+      "tracks": "",
+      "role": "Executive Producer",
+      "resource_url": "https://api.discogs.com/artists/2712045",
+      "id": 2712045
+    },
+    {
+      "join": "",
+      "name": "Alex Orlowski",
+      "anv": "A. Orlowski",
+      "tracks": "",
+      "role": "Mixed By",
+      "resource_url": "https://api.discogs.com/artists/731572",
+      "id": 731572
+    },
+    {
+      "join": "",
+      "name": "Roberto Passera",
+      "anv": "R. Passera",
+      "tracks": "",
+      "role": "Producer",
+      "resource_url": "https://api.discogs.com/artists/437927",
+      "id": 437927
+    }
+  ],
+  "tracklist": [
+    {
+      "duration": "3:27",
+      "position": "A1",
+      "type_": "track",
+      "title": "Intro"
+    },
+    {
+      "duration": "5:58",
+      "position": "A2",
+      "type_": "track",
+      "title": "Neue Dimensionen"
+    },
+    {
+      "duration": "5:58",
+      "position": "B",
+      "type_": "track",
+      "title": "Neue Dimensionen (Instrumental)"
+    }
+  ],
+  "notes": "Produced for Doremix Prod.\r\nConstructive ideas: Dimitri Lambrecht.\r\n\r\nPublished by & Licensed from M.C.E.\r\nMade in Belgium\n",
+  "identifiers": [
+    {
+      "type": "Rights Society",
+      "value": "SABAM"
+    }
+  ],
+  "companies": [
+    {
+      "name": "Target Records (3)",
+      "entity_type": "9",
+      "catno": "",
+      "resource_url": "https://api.discogs.com/labels/90198",
+      "id": 90198,
+      "entity_type_name": "Distributed By"
+    }
+  ],
+  "uri": "https://www.discogs.com/Techno-Bert-Neue-Dimensionen/release/57994",
+  "country": "Belgium",
+  "resource_url": "https://api.discogs.com/releases/57994",
+  "data_quality": "Correct"
+}

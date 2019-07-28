@@ -1,0 +1,1142 @@
+{
+  "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/JJqAJ5xDJYrhPGedxZAlRRkjyZs\"",
+  "items": [
+    {
+      "contentDetails": {
+        "videoId": "RnLQI_mVJSU",
+        "videoPublishedAt": "2018-08-06T09:10:02.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/84sJGzQx6cU_j0Ps-sW-6xZLenQ\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLlJuTFFJX21WSlNV",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 0,
+        "publishedAt": "2018-08-06T11:16:47.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "RnLQI_mVJSU"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/RnLQI_mVJSU/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/RnLQI_mVJSU/hqdefault.jpg",
+            "width": 480
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/RnLQI_mVJSU/mqdefault.jpg",
+            "width": 320
+          }
+        },
+        "title": "Helena hauff-Dekmantel 05-08-2018"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "5LScH42aSTQ",
+        "videoPublishedAt": "2018-03-02T16:30:00.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/e273uY1b69uoQHqVPqp5bYZYG8s\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLjVMU2NINDJhU1RR",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "► A three-hour masterclass in techno and electro from Dave Clarke. Serious business.\n► Subscribe to our YT channel: http://blrrm.tv/subscribe",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 1,
+        "publishedAt": "2018-07-23T16:15:29.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "5LScH42aSTQ"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/5LScH42aSTQ/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/5LScH42aSTQ/hqdefault.jpg",
+            "width": 480
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/5LScH42aSTQ/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/5LScH42aSTQ/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Dave Clarke Boiler Room x Eristoff \"Into The Dark\" DJ Set"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "9YHc8ACpeBA",
+        "videoPublishedAt": "2011-02-28T02:54:11.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/cAW-opv17Ng4U0YatyJg55yHDTE\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLjlZSGM4QUNwZUJB",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "Axodry - You 1989",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 2,
+        "publishedAt": "2018-06-13T23:22:34.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "9YHc8ACpeBA"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/9YHc8ACpeBA/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/9YHc8ACpeBA/hqdefault.jpg",
+            "width": 480
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/9YHc8ACpeBA/mqdefault.jpg",
+            "width": 320
+          }
+        },
+        "title": "Axodry - You 1989"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "OdJy_g1G7Ho",
+        "videoPublishedAt": "2017-09-08T12:34:10.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/YJkWgkz_bsJCtZQq_jS4JE540xs\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLk9kSnlfZzFHN0hv",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "► Quite possibly the most exciting DJ in the world right now, Helena Hauff finally returned to BR and tore the final set of our Dekmantel 2017 to smithereens.\n► Subscribe to our YT channel: http://blrrm.tv/subscribe",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 3,
+        "publishedAt": "2018-06-13T10:51:09.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "OdJy_g1G7Ho"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/OdJy_g1G7Ho/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/OdJy_g1G7Ho/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/OdJy_g1G7Ho/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/OdJy_g1G7Ho/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/OdJy_g1G7Ho/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Helena Hauff Boiler Room x Dekmantel Festival DJ Set"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "P9_L6eplvxo",
+        "videoPublishedAt": "2016-04-28T11:14:45.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/BUxWaxW0cIuWkxe0lNqylovR3n0\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLlA5X0w2ZXBsdnhv",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "Support the artist, buy the music\n\nhttps://www.discogs.com/Mesak-Bessemerbirne/release/7770607",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 4,
+        "publishedAt": "2018-06-09T10:13:22.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "P9_L6eplvxo"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/P9_L6eplvxo/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/P9_L6eplvxo/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/P9_L6eplvxo/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/P9_L6eplvxo/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/P9_L6eplvxo/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Mesak -  Romu"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "ItEvxRBv6iU",
+        "videoPublishedAt": "2016-08-10T21:09:27.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/3YndRg7pB3GfGbD0EvqLkN9n4Dg\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLkl0RXZ4UkJ2NmlV",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "09.08.2016",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 5,
+        "publishedAt": "2018-05-31T21:15:35.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "ItEvxRBv6iU"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/ItEvxRBv6iU/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/ItEvxRBv6iU/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/ItEvxRBv6iU/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/ItEvxRBv6iU/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/ItEvxRBv6iU/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Prosumer Live @ Dommune"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "uSZVdPmqRO4",
+        "videoPublishedAt": "2014-04-26T14:29:53.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/3e3h87xO5C0c-MMrQtFDKZptqvA\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLnVTWlZkUG1xUk80",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "Buy : http://www.juno.co.uk/products/traumprinz-i-love-ya/528702-01/\nBuy : http://www.redeyerecords.co.uk/vinyl/51760-TRAUMPRINZ%20004-traumprinz\nLabel : Traumprinz\nCatalog : TRAUMPRINZ 004 \nRelease : 28-04-14\nGenre : Techno\n\nSupport the artist!\n\nhttps://www.facebook.com/pages/TECH-MINIMAL-SOUND/117466024943987?fref=ts\n\nProblems with this video Copyright? Send me a message and i will remove",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 6,
+        "publishedAt": "2018-05-28T20:12:31.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "uSZVdPmqRO4"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/uSZVdPmqRO4/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/uSZVdPmqRO4/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/uSZVdPmqRO4/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/uSZVdPmqRO4/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/uSZVdPmqRO4/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Traumprinz - Something Magic (Original Mix)"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "0XSnfiAj7gY",
+        "videoPublishedAt": "2008-07-29T01:49:16.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/N_KZo4QJMYhiZKguRkQwdh56yUU\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLjBYU25maUFqN2dZ",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "Great Classic.",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 7,
+        "publishedAt": "2018-05-28T10:13:43.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "0XSnfiAj7gY"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/0XSnfiAj7gY/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/0XSnfiAj7gY/hqdefault.jpg",
+            "width": 480
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/0XSnfiAj7gY/mqdefault.jpg",
+            "width": 320
+          }
+        },
+        "title": "Gerideau - Take a Stand for Love"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "bnpKnylkyuE",
+        "videoPublishedAt": "2018-05-08T10:17:48.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/E0YKL418t9Hj3dHjaE9JJ_WuV38\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLmJucEtueWxreXVF",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "DJ Pierre once said of Hardfloor that \"they make acid as though they were born to make acid.\" Well, the Düsseldorf duo are back with the brand new Lights, Camera, Acid EP, and we're happy to announce that their talent for crafting earth-shattering dancefloor bombs remains intact. We're happy to be premiering the flip today, which finds Hardfloor ploughing more of a twitchy electro furrow.\n\nPre-order here: www.redeyerecords.co.uk/vinyl/96425-byr007-hardfloor-lights--camera--acid-ep",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 8,
+        "publishedAt": "2018-05-09T12:16:32.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "bnpKnylkyuE"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/bnpKnylkyuE/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/bnpKnylkyuE/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/bnpKnylkyuE/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/bnpKnylkyuE/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/bnpKnylkyuE/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "PREMIERE: Hardfloor - Yo! Bum Rush The Silver Box [Byrd Out]"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "XgUKjSM885s",
+        "videoPublishedAt": "2017-05-09T11:17:40.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/uImlYCh5QdtwYyBwPHEBnm0ch_c\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLlhnVUtqU004ODVz",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "https://www.discogs.com/Fastgraph-Systematic/release/23742\r\n\r\nSubscribe to our channel: http://bit.ly/231fWQm\r\n\r\nFacebook: http://bit.ly/1T9uCYp\r\n\r\nTwitter: http://bit.ly/1SIYOiL\r\n\r\nGoogle+: http://bit.ly/1UcF8mw\r\n\r\nFastgraph - Crypto Fanatic\n\r\n\r-Video Upload powered by https://www.TunesToTube.com",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 9,
+        "publishedAt": "2018-04-17T14:34:34.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "XgUKjSM885s"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/XgUKjSM885s/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/XgUKjSM885s/hqdefault.jpg",
+            "width": 480
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/XgUKjSM885s/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/XgUKjSM885s/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Fastgraph - Crypto Fanatic"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "uGjR-o_StaI",
+        "videoPublishedAt": "2017-12-03T08:08:44.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/2cDYV8Z1WyIp-Jfd_BHFnmk-25c\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLnVHalItb19TdGFJ",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "Support the label, buy it here:\nhttps://hardwax.com/78810/umwelt/encoding-the-future/\nhttps://clone.nl/item48267.html\nhttps://www.decks.de/track/umwelt-encoding_the_future/cb8-uj\nhttps://www.juno.co.uk/products/umwelt-encoding-the-future/666879-01/\nhttps://www.deejay.de/Umwelt_Encoding_The_Future_SHIP053_Vinyl__292757\n\nArtist: Umwelt\nTitle: Encoding the Future\nLabel: Shipwrec\nCatalogue: SHIP053\nFormat: 12\" Vinyl\nGenre: Electronic\nStyle: Techno\nRelease date: 17th of November 2017\n\nTracklist:\nA1:    Beyond Existence\nA2:    Outside Me\nA3:    Beauty Of Collapse\nB1:    Journey Through The Universe\nB2:    Escape To The Brave New World\n\nPerfect, spaced out, dystopic Electro bouncers\n ___\nDISCLAIMER: All tracks are uploaded in a low quality for promotional purposes only and with buy links to respect label and artists.\n\nhttps://www.facebook.com/hatecollective/\nor via email: hatemusic1@gmail.com\n\nFollow us on SOUNDCLOUD for exclusive podcast series:\nhttps://soundcloud.com/hate_music",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 10,
+        "publishedAt": "2018-01-30T21:24:26.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "uGjR-o_StaI"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/uGjR-o_StaI/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/uGjR-o_StaI/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/uGjR-o_StaI/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/uGjR-o_StaI/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/uGjR-o_StaI/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Umwelt - Outside Me [SHIP053]"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "WEwQ-PkwjoE",
+        "videoPublishedAt": "2013-02-11T13:24:20.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/s0njj9y3-88_L4oEp8969iH8E-c\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLldFd1EtUGt3am9F",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "Out Now:\nTraxsource: http://tinyurl.com/al5zr9y\nBeatport: http://tinyurl.com/c5mhu5w\nWhatPeoplePlay: http://tinyurl.com/a7vgywq\n\n\nClassic has always been a label of its creator's style and taste, the peculiar flavours of choice from Luke Solomon and Derrick Carter which can usually be identified as either 'Luke records' or 'Derrick records'. With this latest EP, Californian born Ian Lujon a.k.a Giano delivers two tracks which most certainly fall into the 'Derrick records' category; straight for the jugular house music, made solely for the hips & ass rather than for the head & the heart.",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 11,
+        "publishedAt": "2017-09-16T18:11:22.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "WEwQ-PkwjoE"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/WEwQ-PkwjoE/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/WEwQ-PkwjoE/hqdefault.jpg",
+            "width": 480
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/WEwQ-PkwjoE/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/WEwQ-PkwjoE/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Giano 'This Is House'"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "ep5zt0DbD8k",
+        "videoPublishedAt": "2017-09-01T09:50:35.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/Pu37BbAQg4fjqgwPGevDIw-Nr3c\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLmVwNXp0MERiRDhr",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "#kyivhype #bravefactoryfestival #closer #bravefactory #musicfestival #ukraine #kyiv #kiev #electro #vinyl #annahaleta #alexsavage \nFOLLOW\nhttps://www.facebook.com/kyivhype/",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 12,
+        "publishedAt": "2017-09-01T17:00:28.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "ep5zt0DbD8k"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/ep5zt0DbD8k/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/ep5zt0DbD8k/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/ep5zt0DbD8k/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/ep5zt0DbD8k/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/ep5zt0DbD8k/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Alex Savage & Anna Haleta @ brave factory festival kyiv 24/8/17"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "o5emoqTlYOk",
+        "videoPublishedAt": "2017-04-13T09:17:46.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/xbXyzW3byyql3vvNS11P_apLY1w\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLm81ZW1vcVRsWU9r",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "http://concert.arte.tv/de/time-warp\n\nDie russische Nina Kraviz hat sich in den letzten Jahren aus dem Standard-Techno-Reich herausgebrochen und begeistert mit ihren einzigartigen DJ-Sets, die sich zwischen House, Techno und Acid bewegen. Die Erwartungen immer wieder zerstreuend hat ihr neuartiges fabric 91 Mix  ihren Ruf als eine der interessantesten DJs und Kuratoren unserer Zeit zementiert. Ihre beiden Labels трип und GALAXIID vereinen klassische Cuts und neue Musik aus der ganzen Welt, mit einer Familie von Künstlern an der Spitze der elektronischen Innovation.\n/////////////////\nCes dernières années, la Russe Nina Kraviz s’est affranchie de l’univers de la techno standard. Entre house, techno et acid, elle délivre des sets uniques, d’une redoutable efficacité. Déjouant sans cesse les pronostics, elle s’est imposée comme une des DJ et directrices artistiques les plus intéressantes du moment en prenant les rênes du 91e Fabric mix. Avec ses deux labels трип et GALAXIID, Nina Kraviz mêle production classique et musique nouvelle du monde entier en s’appuyant sur une écurie d’artistes à la pointe de l’innovation électronique.\n/////////////////\n\nARTE Concert vous propose le meilleur de la scène européenne sur tous vos écrans : http://concert.arte.tv\n\n\n\n\nRetrouvez-nous aussi sur les réseaux sociaux :\nFacebook https://www.facebook.com/ARTEConcert\nTwitter https://twitter.com/ARTEconcertFR\nInstagram http://instagram.com/arteconcert",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 13,
+        "publishedAt": "2017-07-10T21:51:48.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "o5emoqTlYOk"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/o5emoqTlYOk/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/o5emoqTlYOk/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/o5emoqTlYOk/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/o5emoqTlYOk/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/o5emoqTlYOk/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Nina Kraviz @ Time Warp 2017 Full Set HiRes – ARTE Concert"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "VPLpg1kzamo",
+        "videoPublishedAt": "2016-10-24T11:38:05.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/TYXMXsFtgo2BA_y3HGczgm7VFYQ\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLlZQTHBnMWt6YW1v",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "► Download audio: http://blrrm.tv/br-app ► More here: http://blrrm.tv/AnjaSchneider\n► Mobilee Records co-founder Anja Schneider taking the helm in the last hour of our boat party.",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 14,
+        "publishedAt": "2017-06-21T21:25:22.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "VPLpg1kzamo"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/VPLpg1kzamo/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/VPLpg1kzamo/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/VPLpg1kzamo/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/VPLpg1kzamo/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/VPLpg1kzamo/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Anja Schneider Boiler Room Berlin DJ Set"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "N82tB_gH90I",
+        "videoPublishedAt": "2016-10-14T17:47:41.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/ulYrY6tqrlTl5AdrSsrfYQTAUUM\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLk44MnRCX2dIOTBJ",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "► Download audio: http://blrrm.tv/br-app  ► More here: http://blrrm.tv/jenferrer1 \n► On a prime Sunday in LA, Jen Ferrer dropped some sublime house tunes for the crowd in her Boiler Room debut.",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 15,
+        "publishedAt": "2017-06-21T20:13:12.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "N82tB_gH90I"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/N82tB_gH90I/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/N82tB_gH90I/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/N82tB_gH90I/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/N82tB_gH90I/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/N82tB_gH90I/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Jen Ferrer Boiler Room Los Angeles DJ Set"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "ZJmhRXs2-30",
+        "videoPublishedAt": "2015-07-16T08:22:39.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/_5MCScIs5_--gmq9FGCpaAddEb4\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLlpKbWhSWHMyLTMw",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "Follow Perlon: https://www.facebook.com/pages/Perlon/27597802331\r\nBuy Record: http://www.discogs.com/Various-Superlongevityfive/release/2519446\r\nMore Music: https://www.facebook.com/DoFunkk\r\n\r\nCopyright Notice:\r\nI do not own the rights of this song. It was uploaded for the only propose of sharing good quality music with the underground community. If you want me to remove this video, simply comment or message me. I will remove it immediately after receiving your message/comment. No Copyright infringement is intended in any way. To avoid piracy, this track was converted to mp3 in a LOW BIT RATE (96kbps) and then uploaded.",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 16,
+        "publishedAt": "2017-06-19T21:24:16.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "ZJmhRXs2-30"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/ZJmhRXs2-30/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/ZJmhRXs2-30/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/ZJmhRXs2-30/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/ZJmhRXs2-30/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/ZJmhRXs2-30/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Dimbiman - SPF30  [Perlon ‎– PERL84]"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "LaQVVPHbwDE",
+        "videoPublishedAt": "2017-06-13T15:24:09.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/An54X2P1KqfdZGZVwsl4fNv-SvE\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLkxhUVZWUEhid0RF",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "Agoria @ Montparnasse Tower Observation Deck for Cercle\n\n☞ Agoria\nhttps://www.facebook.com/agoriaofficial/\nhttps://soundcloud.com/agoria\n\nBig thanks to Montparnasse Tower Observation Deck for their warm welcome (https://www.facebook.com/MontparnasseTowerObservationDeck/)\n\nFilmed 210 meters high, from the 59th's floor of the Montparnasse Tower in Paris.\n\nThanks to our partners City of Paris, Trax Magazine, TSUGI, Villa Schweppes, minutebuzz, HERO, LE BONBON, Radio FG, BETC Pop, FL Group.\n____\n\nVideo credits:\n\nArtist: Agoria\nProduced by Cercle\nExecutive producers: Philippe Tuchmann & Derek Barbolla\nDirected by: Derek Barbolla\nAssisted by: Pol Souchier & Quentin Eynaud\nSound Engineer: Aurélien Moisan\nDirectors of photography: Anatole Vaillant & Jérémie Tridard\nLive Editors: Agathe Faccendini & Pol Souchier\n____\n\nFollow us on http://www.cercle.live",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 17,
+        "publishedAt": "2017-06-14T17:36:12.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "LaQVVPHbwDE"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/LaQVVPHbwDE/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/LaQVVPHbwDE/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/LaQVVPHbwDE/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/LaQVVPHbwDE/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/LaQVVPHbwDE/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Agoria @ Montparnasse Tower Observation Deck for Cercle"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "nBmyHvOGHa4",
+        "videoPublishedAt": "2016-09-18T08:40:03.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/5BD6sE4BRbQPRMjDCAdLNQEE2ig\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLm5CbXlIdk9HSGE0",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "LABYRINTH CLUB presents\n\n▦ AMELIE LENS (BE) all night long\nwww.soundcloud.com/amelielens\nwww.facebook.com/amelielensmusic\n\nTruly one of the most exciting export products Belgium has to offer these days - Amelie Lens is taking the scene by storm ever since releasing her solid debut EP on the Italian Lyase Recordings. The title track Exhale quickly began living it’s own life as a very recognisable and uptempo floorfiller. Lens’ mesmerising whisper driven by buoyant percussion and a heart-throbbing bass is a gimmick that grows on you fast but delicately before it leaves you craving for more.\n\nA collective sign of approval came from Berlin based power duo Pan-Pot who reached out to Amelie and asked her to get involved with Second State, Tassilo and Thomas’ own imprint. The label is what you might call a real family endeavour. Although not bound by blood, their artists share a strong ‘next of kin’-like love and appreciation for each others work.\nA happy home to grow up in and a promising platform for Lens to release her music on for many years to come.\n\nAs a DJ, Amelie has had a lot of exposure this year which earned her the amazing opportunity to curate her own nights at Labyrinth club in Hasselt. She shares the line-up with big industry names while giving local talent a platform to get discovered. The name 'Exhale' - taken from her Lyase EP earlier this year - acts as a brand name for quality club nights that will produce and capture the beauty of form and harmony found in techno music.",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 18,
+        "publishedAt": "2017-06-14T17:35:47.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "nBmyHvOGHa4"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/nBmyHvOGHa4/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/nBmyHvOGHa4/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/nBmyHvOGHa4/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/nBmyHvOGHa4/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/nBmyHvOGHa4/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "AMELIE LENS ALLNIGHTER ● LABYRINTH CLUB /SLASH9.tv"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "1q-1Bpy168g",
+        "videoPublishedAt": "2017-06-06T14:38:40.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/XnA5Bao4aO7j-llKduUdw2oAXgU\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLjFxLTFCcHkxNjhn",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "Amelie Lens @ LaPlage de Glazart for Cercle\n\n☞ Amelie Lens\nhttps://www.facebook.com/amelielensmusic/\nhttps://soundcloud.com/amelielens\n\nBig thanks to LaPlage de Glazart for their warm welcome (https://www.facebook.com/LaplageDeGlazart/)\n\nAnd to our partner TRAX Magazine (https://www.facebook.com/traxmagazine/)\n____\n\nVideo credits:\n\nArtist: Amelie Lens\nProduced by Cercle\nExecutive producers: Philippe Tuchmann & Derek Barbolla\nDirected by: Derek Barbolla\nAssisted by: Pol Souchier & Quentin Eynaud\nSound Engineer: Aurélien\nAssisted by: Aurélien Moisan\nDirectors of photography: Anatole Vaillant & Jérémie Tridard\nLive Editor: Agathe Faccendini\n____\n\nFollow us on http://www.cercle.live",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 19,
+        "publishedAt": "2017-06-14T14:46:04.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "1q-1Bpy168g"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/1q-1Bpy168g/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/1q-1Bpy168g/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/1q-1Bpy168g/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/1q-1Bpy168g/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/1q-1Bpy168g/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Amelie Lens @ LaPlage de Glazart for Cercle"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "Ow530rJ9W9w",
+        "videoPublishedAt": "2015-06-09T20:35:20.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/fzaxsC6uyMOP4oPqGl8hs3Tm9v8\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLk93NTMwcko5Vzl3",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "Floorplan aka Robert Hood lays down an immense techno set incorporating disco and gospel roots into his relentless 4/4 framework. Recorded live at Weather Festival Paris 2015: http://www.weatherfestival.fr\nRobert Hood's 'M-Print: 20 Years of M-Plant Music' is out now: http://btprt.dj/1B0tELu\n\nOver the weekend MixmagTV crossed the English channel to one of the most eagerly anticipated events of the summer – Weather Festival. \n\nSet on the outskirts of Paris the likes likes of Apollonia, Ben Klock, Jeff Mills, Mathew Herbert, DVS1, Juan Atkins & Moritz von Oswald, Ricardo Villalobos and lots more soundtracked the three-day event.\n\nMixmag TV had the honour of recording the legendary Robert Hood performing under his Floorplan alias. A founding member of arguably the most influential techno label in the world, Underground Resistance, and M-Plant label boss, there are few artists as influential as this man. \n\nOccasionally incorporating elements of disco, house and gospel within his relentless techno framework, the mix is a celebration of the history of Chicago and Detroit and a masterclass in how to lay down a truly religious set. \n\nCheck what we think could be one of the most memorable two hours to have ever been recorded on MixmagTV\n\n1.The Pressure bySound of Blackness\n2.New Blood (Robert Hood mix)byBen Sims\n3.Never Grow Old(Mark Broom dublate mix) byFloorplan\n4.UNKNOWN\n5.PhobiabyFloorplan\n6.Get DownbyGary Beck\n7.Dollar Bill Y'all (vocal mix)byBen Sims\n8.UNKNOWN\n9.Club MCM (Mark Broom Re-edit)byClub Mcm\n10.Get Over U (Gifted Souls remix)byFrankie Knuckles Pres Directors Cut, B Slade\n11.UNKNOWN\n12.Chord PrinciplebyFloorplan\n13.Let's RidebyFloorplan\n14.Hallelujah Anyway (Directors Cut Signature Praise)byCandi Staton\n15.ConfessbyFloorplan\n16.RascalbyGary Beck\n17.UNKNOWN\n18.Bassline (Ben Sims 25th Anniversary edit)byReese\n19.French Kiss (Mark Broom edit) By Lil Louie\n20.Good Life (feat Inner City - Pig & Dan Less Is More remix)byKevin Saunderson\n21.LovebyBen Sims\n22.We Magnify His Name (original mix)byFloorplan\n23.You Can Make It (B's Preacher Man Mix) byShawn Christopher\n24.The Bomb (Club Mix) byThe Bucketheads\n25. All Day (Robert Hood remix)byGingy and Bordello\n26.Never Grow Old byFloorplan\n27.Shooting Stars (Ben Sims dub mix)byMark Ambrose\n28.Hallelujah Anyway (Directors Cut Signature Praise)byCandi Staton\n29.Love & Hurt (Gary Beck remix)byBen Sims\n30.UNKNOWN\n31.EclipsebyFloorplan\n32.RitualbyFloorplan\n33.Reverse ProcessedbyRitzi Lee\n34.UNKNOWN",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 20,
+        "publishedAt": "2017-06-12T19:57:33.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "Ow530rJ9W9w"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/Ow530rJ9W9w/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/Ow530rJ9W9w/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/Ow530rJ9W9w/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/Ow530rJ9W9w/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/Ow530rJ9W9w/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "FLOORPLAN aka Robert Hood religious techno DJ set  @ Weather Festival Paris"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "TROAayhxAJU",
+        "videoPublishedAt": "2015-03-22T12:50:00.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/rxgoWwuUCX2jYRpqB3TmozG12FI\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLlRST0FheWh4QUpV",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "https://www.facebook.com/OskarOffermannOfficial\nhttp://oskaroffermann.com/\nhttps://www.facebook.com/zolajesusofficial\nhttp://zolajesus.com\nPhotography by Noël Alva http://Instagram.com/noel.alva",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 21,
+        "publishedAt": "2017-06-03T13:26:38.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "TROAayhxAJU"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/TROAayhxAJU/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/TROAayhxAJU/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/TROAayhxAJU/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/TROAayhxAJU/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/TROAayhxAJU/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Zola Jesus - Hikikomori (Oskar Offermann Remix)"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "enRhZMqeYTU",
+        "videoPublishedAt": "2016-03-28T07:53:04.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/j1WMW6rhm2jhg73unDUngYca_xI\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLmVuUmhaTXFlWVRV",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "No Copyright Intended.\n\nAll rights reserved by Ten Walls and David August.",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 22,
+        "publishedAt": "2017-06-03T12:04:57.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "enRhZMqeYTU"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/enRhZMqeYTU/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/enRhZMqeYTU/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/enRhZMqeYTU/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/enRhZMqeYTU/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/enRhZMqeYTU/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Ten Walls - Gotham (David August Remix)"
+      }
+    },
+    {
+      "contentDetails": {
+        "videoId": "m-zomSg1Uo0",
+        "videoPublishedAt": "2016-03-11T10:17:17.000Z"
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/KK1pW9qFjqPOChMPnEU2rrOI6UA\"",
+      "id": "TExLWVVxUndmSDJ3UXBPR3JFcDFxZ21nLm0tem9tU2cxVW8w",
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "description": "Maybe the clubbiest track of his album \"le grand to do\", its effective simplicity in the beginning leads us into relentless trumpet and violin sounds and in the end even finishes the most perplex dancer with the gangster vocals from the beginning. good work\n\nSupport the artist!\nhttp://www.kompakt.fm/releases/le_grand_to_do\n\n-------------------------------------------\n\nhttps://soundcloud.com/demi-douzaine-...\nhttps://www.facebook.com/DemiDouzaine...\n\n-------------------------------------------\n\nBeautey",
+        "playlistId": "LLKYUqRwfH2wQpOGrEp1qgmg",
+        "position": 24,
+        "publishedAt": "2017-05-25T20:22:35.000Z",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "m-zomSg1Uo0"
+        },
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/m-zomSg1Uo0/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/m-zomSg1Uo0/hqdefault.jpg",
+            "width": 480
+          },
+          "maxres": {
+            "height": 720,
+            "url": "https://i.ytimg.com/vi/m-zomSg1Uo0/maxresdefault.jpg",
+            "width": 1280
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/m-zomSg1Uo0/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/m-zomSg1Uo0/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Oskar Offermann - Banunanas"
+      }
+    }
+  ],
+  "kind": "youtube#playlistItemListResponse",
+  "nextPageToken": "CBkQAA",
+  "pageInfo": {
+    "resultsPerPage": 25,
+    "totalResults": 34
+  }
+}

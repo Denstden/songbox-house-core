@@ -1,0 +1,52 @@
+{
+  "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/y-VobisNfLekP7aS1vzDexqSc-M\"",
+  "items": [
+    {
+      "contentDetails": {
+        "itemCount": 34
+      },
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/MuJa8rHAxMvI5lKdOvs8e6KVwhk\"",
+      "id": "LLKYUqRwfH2wQpOGrEp1qgmg",
+      "kind": "youtube#playlist",
+      "snippet": {
+        "channelId": "UCKYUqRwfH2wQpOGrEp1qgmg",
+        "channelTitle": "Denys Storozhenko",
+        "defaultLanguage": "en",
+        "description": "",
+        "localized": {
+          "description": "",
+          "title": "Liked videos"
+        },
+        "publishedAt": "2016-11-21T10:47:53.000Z",
+        "thumbnails": {
+          "default": {
+            "height": 90,
+            "url": "https://i.ytimg.com/vi/5LScH42aSTQ/default.jpg",
+            "width": 120
+          },
+          "high": {
+            "height": 360,
+            "url": "https://i.ytimg.com/vi/5LScH42aSTQ/hqdefault.jpg",
+            "width": 480
+          },
+          "medium": {
+            "height": 180,
+            "url": "https://i.ytimg.com/vi/5LScH42aSTQ/mqdefault.jpg",
+            "width": 320
+          },
+          "standard": {
+            "height": 480,
+            "url": "https://i.ytimg.com/vi/5LScH42aSTQ/sddefault.jpg",
+            "width": 640
+          }
+        },
+        "title": "Liked videos"
+      }
+    }
+  ],
+  "kind": "youtube#playlistListResponse",
+  "pageInfo": {
+    "resultsPerPage": 5,
+    "totalResults": 1
+  }
+}
