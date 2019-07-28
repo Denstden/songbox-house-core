@@ -1,0 +1,24 @@
+*.iml
+*/target/*
+.idea/*
+*/.idea/*
+.gradle/*
+*/schema/*
+build/*
+out/*
+downloaded/*
+node_modules/*
+
+*.classpath
+*.project
+*/.settings/*
+.settings/*
+*.class
+
+# Package Files #
+*.war
+*.ear
+
+env.properties
+*.log
+client_secrets.json
