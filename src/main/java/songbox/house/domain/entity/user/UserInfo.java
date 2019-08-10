@@ -5,6 +5,8 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import songbox.house.domain.entity.MusicCollection;
+import songbox.house.domain.entity.TrackContent;
 import songbox.house.domain.entity.YoutubePlaylist;
 
 import javax.persistence.CascadeType;
@@ -21,6 +23,9 @@ import javax.persistence.TemporalType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.LAZY;
 
 @Table
 @Entity
@@ -64,14 +69,13 @@ public class UserInfo {
             orphanRemoval = true
     )
     private List<YoutubePlaylist> youtubePlaylists = new ArrayList<>();
-    
+
     @Column
     private Bool telegramBotUseGoogleDrive;
 
     @Column
     private String vkCookie;
 
-    @Column
-    private Long defaultCollection;
-
+    @OneToOne(cascade = ALL)
+    private MusicCollection defaultCollection;
 }
