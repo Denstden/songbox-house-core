@@ -128,6 +128,11 @@ public class MusicCollectionServiceImpl implements MusicCollectionService {
     }
 
     private void checkOwner(final MusicCollection collection) {
+        // Currently disabled ( get current User not works in telegram case)
+        if (true) {
+            return;
+        }
+
         final String currentUserName = userService.getCurrentUserName();
         log.trace("Current user \"{}\"", currentUserName);
         final UserInfo owner = collection.getOwner();
