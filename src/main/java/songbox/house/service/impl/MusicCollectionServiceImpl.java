@@ -81,6 +81,21 @@ public class MusicCollectionServiceImpl implements MusicCollectionService {
     }
 
     @Override
+    public Iterable<MusicCollection> findAll(String userName) {
+        return repository.findByOwner_UserName(userName);
+    }
+
+    @Override
+    public boolean isOwner(Long collectionId, UserInfo userInfo) {
+        MusicCollection collection = findById(collectionId);
+        if (collection == null) {
+            return false;
+        }
+
+        return collection.getOwner().equals(userInfo);
+    }
+
+    @Override
     public boolean exists(final String name) {
         return repository.findByCollectionNameIgnoreCase(name) != null;
     }

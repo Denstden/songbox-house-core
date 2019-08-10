@@ -1,6 +1,7 @@
 package songbox.house.domain.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -63,4 +64,14 @@ public class UserInfo {
             orphanRemoval = true
     )
     private List<YoutubePlaylist> youtubePlaylists = new ArrayList<>();
+    
+    @Column
+    private Bool telegramBotUseGoogleDrive;
+
+    @Column
+    private String vkCookie;
+
+    @Column
+    private Long defaultCollection;
+
 }
