@@ -7,6 +7,7 @@ public interface MusicCollectionService {
     MusicCollection save(MusicCollection collection);
 
     MusicCollection create(String name);
+    MusicCollection create(String name, UserInfo userInfo);
 
     MusicCollection findByName(String name);
 

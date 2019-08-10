@@ -40,15 +40,18 @@ public class MusicCollectionServiceImpl implements MusicCollectionService {
             throw new ExistsException("Music collection with name \"" + name + "\" already exists.");
         }
 
-        final MusicCollection collection = createCollectionWithName(name);
+        final MusicCollection collection = createCollectionWithName(name, userService.getCurrentUser());
 
         return repository.save(collection);
     }
 
-    private MusicCollection createCollectionWithName(final String name) {
+    @Override
+    public MusicCollection create(String name, UserInfo userInfo) {
+        return repository.save(createCollectionWithName(name, userInfo));
+    }
+
+    private MusicCollection createCollectionWithName(final String name, UserInfo owner) {
         final MusicCollection collection = new MusicCollection(name);
-        final String currentUserName = userService.getCurrentUserName();
-        final UserInfo owner = userService.findByUserName(currentUserName);
         collection.setOwner(owner);
         return collection;
     }
