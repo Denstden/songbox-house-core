@@ -40,18 +40,15 @@ public class MusicCollectionServiceImpl implements MusicCollectionService {
             throw new ExistsException("Music collection with name \"" + name + "\" already exists.");
         }
 
-        final MusicCollection collection = createCollectionWithName(name, userService.getCurrentUser());
+        final MusicCollection collection = createCollectionWithName(name);
 
         return repository.save(collection);
     }
 
-    @Override
-    public MusicCollection create(String name, UserInfo userInfo) {
-        return repository.save(createCollectionWithName(name, userInfo));
-    }
-
-    private MusicCollection createCollectionWithName(final String name, UserInfo owner) {
+    private MusicCollection createCollectionWithName(final String name) {
         final MusicCollection collection = new MusicCollection(name);
+        final String currentUserName = userService.getCurrentUserName();
+        final UserInfo owner = userService.findByUserName(currentUserName);
         collection.setOwner(owner);
         return collection;
     }
@@ -84,21 +81,6 @@ public class MusicCollectionServiceImpl implements MusicCollectionService {
     }
 
     @Override
-    public Iterable<MusicCollection> findAll(String userName) {
-        return repository.findByOwner_UserName(userName);
-    }
-
-    @Override
-    public boolean isOwner(Long collectionId, UserInfo userInfo) {
-        MusicCollection collection = findById(collectionId);
-        if (collection == null) {
-            return false;
-        }
-
-        return collection.getOwner().equals(userInfo);
-    }
-
-    @Override
     public boolean exists(final String name) {
         return repository.findByCollectionNameIgnoreCase(name) != null;
     }
@@ -128,11 +110,6 @@ public class MusicCollectionServiceImpl implements MusicCollectionService {
     }
 
     private void checkOwner(final MusicCollection collection) {
-        // Currently disabled ( get current User not works in telegram case)
-        if (true) {
-            return;
-        }
-
         final String currentUserName = userService.getCurrentUserName();
         log.trace("Current user \"{}\"", currentUserName);
         final UserInfo owner = collection.getOwner();

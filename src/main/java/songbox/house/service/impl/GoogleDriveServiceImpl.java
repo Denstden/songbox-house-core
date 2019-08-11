@@ -60,15 +60,8 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
         return getFolderOrCreate(drive, FOLDER_NAME, null);
     }
 
-
-    private void upload(Track track, String userName, boolean useCurrentUser,
-                        String folder, String genreFolder) {
-        Drive drive;
-        if (useCurrentUser) {
-            drive = authenticationService.getDrive();
-        } else {
-            drive = authenticationService.getDrive(userName); //test
-        }
+    public void upload(Track track, String folder, String genreFolder) {
+        Drive drive = authenticationService.getDrive();
 
         try {
             final File fileMetadata = createMetadata(track);
@@ -98,12 +91,7 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
 
     @Override
     public void upload(Track track) {
-        upload(track, null, true, null,null);
-    }
-
-    @Override
-    public void upload(String userName, Track track, String folder, String genreFolder) {
-        upload(track, userName, false, folder, genreFolder);
+        upload(track, null, null);
     }
 
     private File createMetadata(Track track) {

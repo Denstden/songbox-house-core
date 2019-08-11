@@ -100,31 +100,8 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
     }
 
     @Override
-    public Drive getDrive(String userName) {
-        UserInfo userInfo = userService.findByUserName(userName);
-
-        GoogleApiToken token = googleApiTokenRepository.findByUserId(userInfo.getUserId());
-
-        return ofNullable(token)
-                .map(this::initCredential)
-                .map(this::initDrive)
-                .orElseThrow(() -> new RuntimeException("Google API credentials not found"));
-    }
-
-    @Override
     public String getRequestAccessUrl() {
         UserInfo currentUser = userService.getCurrentUser();
-
-        return GOOGLE_AUTHORIZATION_CODE_FLOW
-                .newAuthorizationUrl()
-                .setRedirectUri(getRedirectUrl())
-                .setState(currentUser.getUserId().toString())
-                .build();
-    }
-
-    @Override
-    public String getRequestAccessUrl(String userName) {
-        UserInfo currentUser = userService.findByUserNameOrCreate(userName);
 
         return GOOGLE_AUTHORIZATION_CODE_FLOW
                 .newAuthorizationUrl()
