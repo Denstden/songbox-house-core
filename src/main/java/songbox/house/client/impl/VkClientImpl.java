@@ -2,11 +2,14 @@ package songbox.house.client.impl;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.util.TextUtils;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import songbox.house.client.VkClient;
+import songbox.house.domain.entity.user.UserProperty;
+import songbox.house.service.UserService;
 import songbox.house.util.Configuration;
 
 import javax.annotation.PostConstruct;
@@ -31,19 +34,31 @@ public class VkClientImpl implements VkClient {
     private static final String PATH_BASE = "https://vk.com";
 
     private Configuration configuration;
+    private UserService userService;
 
     private final Map<String, String> cookies = new HashMap<>();
 
     @Autowired
-    public VkClientImpl(Configuration configuration) {
+    public VkClientImpl(Configuration configuration,
+                        UserService userService) {
         this.configuration = configuration;
+        this.userService = userService;
     }
 
     @PostConstruct
     public void defaultCookies() {
         final Map<String, String> cookies = new HashMap<>();
+        String cookieString = "";
 
-        String[] cookiesArray = configuration.getConnection().getVkCookie().split(";");
+        UserProperty userProperty = userService.getUserProperty();
+        if (!TextUtils.isEmpty(userProperty.getVkCookie())) {
+           cookieString = userProperty.getVkCookie();
+           log.info("Use cookies from UserProperty");
+        } else {
+            cookieString = configuration.getConnection().getVkCookie();
+        }
+
+        String[] cookiesArray = cookieString.split(";");
         for (String cookie : cookiesArray) {
             String[] split = cookie.split("=");
             cookies.put(split[0].trim(), split[1].trim());
