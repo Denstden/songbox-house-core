@@ -1,12 +1,9 @@
 package songbox.house.domain.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import songbox.house.domain.entity.MusicCollection;
-import songbox.house.domain.entity.TrackContent;
 import songbox.house.domain.entity.YoutubePlaylist;
 
 import javax.persistence.CascadeType;
@@ -26,7 +23,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.LAZY;
 
 @Table
 @Entity
@@ -71,14 +67,8 @@ public class UserInfo {
     )
     private List<YoutubePlaylist> youtubePlaylists = new ArrayList<>();
 
-    @Column
-    private Bool telegramBotUseGoogleDrive;
-
-    @Column
-    private String vkCookie;
-
     @OneToOne(cascade = ALL)
-    private MusicCollection defaultCollection;
+    private UserProperty userProperty;
 
     @Override
     public boolean equals(Object o) {
