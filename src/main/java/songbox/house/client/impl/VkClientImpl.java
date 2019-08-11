@@ -36,8 +36,6 @@ public class VkClientImpl implements VkClient {
     private Configuration configuration;
     private UserService userService;
 
-    private final Map<String, String> cookies = new HashMap<>();
-
     @Autowired
     public VkClientImpl(Configuration configuration,
                         UserService userService) {
@@ -45,16 +43,18 @@ public class VkClientImpl implements VkClient {
         this.userService = userService;
     }
 
-    @PostConstruct
-    public void defaultCookies() {
-        final Map<String, String> cookies = new HashMap<>();
+    @Override
+    public Map<String, String> getCookies() {
+        Map<String, String> cookies = new HashMap<>();
         String cookieString = "";
+        try {
+            UserProperty userProperty = userService.getUserProperty();
+            cookieString = userProperty.getVkCookie();
+        } catch (Exception e) {
+            log.error("", e);
+        }
 
-        UserProperty userProperty = userService.getUserProperty();
-        if (!TextUtils.isEmpty(userProperty.getVkCookie())) {
-           cookieString = userProperty.getVkCookie();
-           log.info("Use cookies from UserProperty");
-        } else {
+        if (TextUtils.isEmpty(cookieString)) {
             cookieString = configuration.getConnection().getVkCookie();
         }
 
@@ -64,23 +64,7 @@ public class VkClientImpl implements VkClient {
             cookies.put(split[0].trim(), split[1].trim());
         }
 
-        setCookies(cookies);
-    }
-
-    @Override
-    public void addCookies(Map<String, String> cookies) {
-        this.cookies.putAll(cookies);
-    }
-
-    @Override
-    public void setCookies(Map<String, String> cookies) {
-        clearCookies();
-        addCookies(cookies);
-    }
-
-    @Override
-    public void clearCookies() {
-        this.cookies.clear();
+        return cookies;
     }
 
     @Override
@@ -146,7 +130,7 @@ public class VkClientImpl implements VkClient {
     }
 
     private Connection proxiedConnection(final String url, final Connection.Method method) {
-        final Connection connection = connect(url).userAgent(USER_AGENT).cookies(cookies).method(method);
+        final Connection connection = connect(url).userAgent(USER_AGENT).cookies(getCookies()).method(method);
 
         return (configuration != null && configuration.getProxy() != null) ?
                 connection.proxy(configuration.getProxy().getIp(), configuration.getProxy().getPort()) :
