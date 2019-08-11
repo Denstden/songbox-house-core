@@ -21,7 +21,7 @@ public class UserProperty {
     @Column
     private Boolean telegramBotUseGoogleDrive;
 
-    @Column
+    @Column(length = 2048)
     private String vkCookie;
 
     @OneToOne(cascade = ALL)
