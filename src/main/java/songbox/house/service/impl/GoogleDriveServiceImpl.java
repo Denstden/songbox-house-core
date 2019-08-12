@@ -9,9 +9,12 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.util.TextUtils;
 import org.springframework.stereotype.Service;
+import songbox.house.domain.entity.MusicCollection;
 import songbox.house.domain.entity.Track;
 import songbox.house.service.GoogleAuthenticationService;
 import songbox.house.service.GoogleDriveService;
+import songbox.house.service.MusicCollectionService;
+import songbox.house.service.UserService;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -29,10 +32,12 @@ import static org.apache.commons.io.FileUtils.writeByteArrayToFile;
 @FieldDefaults(makeFinal = true, level = PRIVATE)
 public class GoogleDriveServiceImpl implements GoogleDriveService {
     private static final String FOLDER_NAME = "SongboxHouse";
+    private static final String DEFAULT_COLLECTION_FOLDER = "DefaultCollection";
     private static final String MIME_TYPE = "audio/mpeg";
     public static final String GOOGLE_DRIVE_MIMETYPE_FOLDER = "application/vnd.google-apps.folder";
 
     GoogleAuthenticationService authenticationService;
+    UserService userService;
 
     private File getFolderOrCreate(Drive drive, String folderName, File parentFolder) throws IOException {
         FileList fileList = drive.files().list()
@@ -57,7 +62,15 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
     }
 
     private File getRootFolder(Drive drive) throws IOException {
-        return getFolderOrCreate(drive, FOLDER_NAME, null);
+        String collectionFolder;
+        MusicCollection defaultCollection = userService.getUserProperty().getDefaultCollection();
+        if (defaultCollection == null) {
+            collectionFolder = DEFAULT_COLLECTION_FOLDER;
+        } else {
+            collectionFolder = defaultCollection.getCollectionName();
+        }
+
+        return getFolderOrCreate(drive, collectionFolder, getFolderOrCreate(drive, FOLDER_NAME, null));
     }
 
     public void upload(Track track, String folder, String genreFolder) {
