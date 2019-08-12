@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import songbox.house.client.VkClient;
 import songbox.house.domain.dto.response.vk.VkSearchResponseDto;
+import songbox.house.service.UserService;
 import songbox.house.service.search.SearchQuery;
 import songbox.house.service.search.vk.VkSearchPerformer;
 import songbox.house.service.search.vk.VkSearchResultAnalyzer;
 import songbox.house.util.Configuration;
+import songbox.house.util.ThreadLocalAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ import static songbox.house.util.ExecutorUtil.createExecutorService;
 import static songbox.house.util.JsonUtils.responseToObject;
 import static songbox.house.util.JsonUtils.searchFromNewsFeedResponseToObject;
 import static songbox.house.util.RetryUtil.getOptionalWithRetries;
+import static songbox.house.util.ThreadLocalAuth.applyContext;
 
 @Slf4j
 @Service
@@ -69,8 +72,8 @@ public class VkSearchPerformerImpl implements VkSearchPerformer {
 
     private CompletionService<List<VkSearchResponseDto>> submitSearch(SearchQuery searchQuery) {
         CompletionService<List<VkSearchResponseDto>> searchCompletionService = new ExecutorCompletionService<>(searchExecutorService);
-        searchCompletionService.submit(() -> getSearchResultFromMusic(searchQuery));
-        searchCompletionService.submit(() -> getSearchResultFromNewsFeed(searchQuery));
+        searchCompletionService.submit(applyContext(() -> getSearchResultFromMusic(searchQuery)));
+        searchCompletionService.submit(applyContext(() -> getSearchResultFromNewsFeed(searchQuery)));
         return searchCompletionService;
     }
 

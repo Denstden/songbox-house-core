@@ -5,6 +5,7 @@ import com.mpatric.mp3agic.ID3v24Tag;
 import com.mpatric.mp3agic.Mp3File;
 import lombok.extern.slf4j.Slf4j;
 import songbox.house.domain.entity.VkAudio;
+import songbox.house.util.ThreadLocalAuth;
 import ws.schild.jave.AudioAttributes;
 import ws.schild.jave.Encoder;
 import ws.schild.jave.EncodingAttributes;
@@ -29,7 +30,7 @@ import static songbox.house.util.Constants.PERFORMANCE_MARKER;
 import static songbox.house.util.RetryUtil.getOptionalWithRetries;
 
 @Slf4j
-public class VkDownloadTrackTask implements Callable<Optional<byte[]>> {
+public class VkDownloadTrackTask extends ThreadLocalAuth.LocalAuthCallable<Optional<byte[]>> {
 
     private static final String AUDIO_CODEC = "libmp3lame";
 
@@ -56,7 +57,7 @@ public class VkDownloadTrackTask implements Callable<Optional<byte[]>> {
     }
 
     @Override
-    public Optional<byte[]> call() {
+    public Optional<byte[]> callWithContext() {
         final String indexUrl = vkAudio.getUrl();
         log.info("Starting downloading {} - {}, index url {}", vkAudio.getArtist(), vkAudio.getTitle(), indexUrl);
         return getOptionalWithRetries(vkAudio.isM3U8() ? vkTrackDownloader::downloadM3U8Content : vkTrackDownloader::downloadMp3Content,

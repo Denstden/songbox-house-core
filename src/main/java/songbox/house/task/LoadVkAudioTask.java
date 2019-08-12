@@ -6,6 +6,7 @@ import org.jsoup.Connection.Response;
 import songbox.house.client.VkClient;
 import songbox.house.domain.entity.VkAudio;
 import songbox.house.util.JsonUtils;
+import songbox.house.util.ThreadLocalAuth;
 
 import javax.script.Invocable;
 import java.util.List;
@@ -20,7 +21,7 @@ import static songbox.house.util.Constants.JSON_DELIMITER;
 import static songbox.house.util.RetryUtil.getOptionalWithRetries;
 
 @Slf4j
-public class LoadVkAudioTask implements Callable<List<VkAudio>> {
+public class LoadVkAudioTask extends ThreadLocalAuth.LocalAuthCallable<List<VkAudio>> {
 
     private final String ids;
     private final Long vkUserId;
@@ -37,7 +38,7 @@ public class LoadVkAudioTask implements Callable<List<VkAudio>> {
     }
 
     @Override
-    public List<VkAudio> call() throws InterruptedException {
+    public List<VkAudio> callWithContext() throws InterruptedException {
         return getOptionalWithRetries(this::reloadIdsResponse, ids, retries, "load_vk_audio")
                 .map(this::processResponse)
                 .orElse(emptyList());
