@@ -162,6 +162,11 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
     private void saveToken(GoogleTokenResponse googleTokenResponse, Long userId) {
         GoogleApiToken googleApiToken = createToken(googleTokenResponse, userId);
 
+        GoogleApiToken oldToken = googleApiTokenRepository.findByUserId(userId);
+        if (oldToken != null) {
+            googleApiTokenRepository.delete(oldToken);
+        }
+
         googleApiTokenRepository.save(googleApiToken);
     }
 
