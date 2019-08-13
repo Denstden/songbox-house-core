@@ -40,10 +40,19 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
     UserService userService;
 
     private File getFolderOrCreate(Drive drive, String folderName, File parentFolder) throws IOException {
+        String q;
+        if (parentFolder == null) {
+            q = String.format("name = '%s' and mimeType = '%s'",
+                    folderName.replaceAll("'", "").replaceAll("\"", ""),
+                    GOOGLE_DRIVE_MIMETYPE_FOLDER);
+        } else {
+            q = String.format("name = '%s' and mimeType = '%s' and parents in '%s'",
+                    folderName.replaceAll("'", "").replaceAll("\"", ""),
+                    GOOGLE_DRIVE_MIMETYPE_FOLDER,
+                    parentFolder.getId());
+        }
         FileList fileList = drive.files().list()
-                .setQ(String.format("name = '%s' and mimeType = '%s'",
-                        folderName.replaceAll("'", "").replaceAll("\"", ""),
-                        GOOGLE_DRIVE_MIMETYPE_FOLDER))
+                .setQ(q)
                 .execute();
         List<File> files = fileList.getFiles();
         if (files.isEmpty()) {
