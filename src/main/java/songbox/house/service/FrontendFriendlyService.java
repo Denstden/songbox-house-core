@@ -28,7 +28,5 @@ public interface FrontendFriendlyService {
 
     List<DiscogsReleaseDto> getSavedReleases();
 
-    MusicCollection getDefaultMusicCollection();
-
     void deleteFromCollection(Long id);
 }

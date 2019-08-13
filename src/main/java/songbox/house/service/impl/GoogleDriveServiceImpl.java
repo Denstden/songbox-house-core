@@ -40,14 +40,15 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
     UserService userService;
 
     private File getFolderOrCreate(Drive drive, String folderName, File parentFolder) throws IOException {
+        String escapedFolderName = folderName.replaceAll("'", "").replaceAll("\"", "");
         String q;
         if (parentFolder == null) {
             q = String.format("name = '%s' and mimeType = '%s'",
-                    folderName.replaceAll("'", "").replaceAll("\"", ""),
+                    escapedFolderName,
                     GOOGLE_DRIVE_MIMETYPE_FOLDER);
         } else {
             q = String.format("name = '%s' and mimeType = '%s' and parents in '%s'",
-                    folderName.replaceAll("'", "").replaceAll("\"", ""),
+                    escapedFolderName,
                     GOOGLE_DRIVE_MIMETYPE_FOLDER,
                     parentFolder.getId());
         }

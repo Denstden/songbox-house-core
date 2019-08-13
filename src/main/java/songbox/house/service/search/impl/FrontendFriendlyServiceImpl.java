@@ -12,11 +12,7 @@ import songbox.house.domain.entity.DiscogsRelease;
 import songbox.house.domain.entity.Genre;
 import songbox.house.domain.entity.MusicCollection;
 import songbox.house.repository.DiscogsReleaseRepository;
-import songbox.house.service.DiscogsFacade;
-import songbox.house.service.DiscogsWebsiteService;
-import songbox.house.service.FrontendFriendlyService;
-import songbox.house.service.GenreService;
-import songbox.house.service.MusicCollectionService;
+import songbox.house.service.*;
 import songbox.house.service.search.SearchQuery;
 import songbox.house.service.search.SearchServiceFacade;
 import songbox.house.util.Pair;
@@ -43,6 +39,7 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
     DiscogsWebsiteService discogsWebsiteService;
     SearchServiceFacade searchServiceFacade;
     MusicCollectionService musicCollectionService;
+    UserService userService;
 
 
     GenreService genreService;
@@ -145,8 +142,11 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
         discogsReleaseRepository.deleteById(id);
     }
 
-    @Override
-    public MusicCollection getDefaultMusicCollection() {
+    private MusicCollection getDefaultMusicCollection() {
+        MusicCollection defaultCollection = userService.getUserProperty().getDefaultCollection();
+        if (defaultCollection != null) {
+            return defaultCollection;
+        }
         return musicCollectionService.getOrCreate("frontend-friendly-collection");
     }
 

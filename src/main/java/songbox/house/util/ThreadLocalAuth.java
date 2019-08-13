@@ -69,11 +69,9 @@ public class ThreadLocalAuth {
     }
 
     public static <V> Callable<V> applyContext(Callable<V> task) {
-        ThreadLocalCopier threadLocalCopier = createThreadLocalCopier();
         return new LocalAuthCallable<V>() {
             @Override
             public V callWithContext() throws Exception {
-                threadLocalCopier.applyToThisThread();
                 return task.call();
             }
         };
