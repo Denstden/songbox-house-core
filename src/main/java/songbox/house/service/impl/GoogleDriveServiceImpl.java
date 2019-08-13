@@ -41,7 +41,9 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
 
     private File getFolderOrCreate(Drive drive, String folderName, File parentFolder) throws IOException {
         FileList fileList = drive.files().list()
-                .setQ(String.format("name = '%s' and mimeType = '%s'", folderName, GOOGLE_DRIVE_MIMETYPE_FOLDER))
+                .setQ(String.format("name = '%s' and mimeType = '%s'",
+                        folderName.replaceAll("'", "").replaceAll("\"", ""),
+                        GOOGLE_DRIVE_MIMETYPE_FOLDER))
                 .execute();
         List<File> files = fileList.getFiles();
         if (files.isEmpty()) {
@@ -61,13 +63,18 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
         return files.get(0);
     }
 
-    private File getRootFolder(Drive drive) throws IOException {
+    private File getRootFolder(Drive drive, Track track) throws IOException {
         String collectionFolder;
-        MusicCollection defaultCollection = userService.getUserProperty().getDefaultCollection();
-        if (defaultCollection == null) {
-            collectionFolder = DEFAULT_COLLECTION_FOLDER;
+
+        if (track.getCollections() != null && !track.getCollections().isEmpty()) {
+            collectionFolder = track.getCollections().iterator().next().getCollectionName();
         } else {
-            collectionFolder = defaultCollection.getCollectionName();
+            MusicCollection defaultCollection = userService.getUserProperty().getDefaultCollection();
+            if (defaultCollection != null) {
+                collectionFolder = defaultCollection.getCollectionName();
+            } else {
+                collectionFolder = DEFAULT_COLLECTION_FOLDER;
+            }
         }
 
         return getFolderOrCreate(drive, collectionFolder, getFolderOrCreate(drive, FOLDER_NAME, null));
@@ -83,9 +90,9 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
             File initFolder;
 
             if (!TextUtils.isBlank(genreFolder)) {
-                initFolder = getFolderOrCreate(drive, genreFolder, getRootFolder(drive));
+                initFolder = getFolderOrCreate(drive, genreFolder, getRootFolder(drive, track));
             } else {
-                initFolder = getRootFolder(drive);
+                initFolder = getRootFolder(drive, track);
             }
 
             if (folder != null) {
