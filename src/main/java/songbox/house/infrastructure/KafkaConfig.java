@@ -6,6 +6,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -18,6 +19,9 @@ import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
+import songbox.house.service.KafkaConsumer;
+import songbox.house.service.KafkaService;
+import songbox.house.service.impl.KafkaServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,10 +33,11 @@ import static org.apache.kafka.clients.consumer.ConsumerConfig.KEY_DESERIALIZER_
 import static org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG;
 import static org.apache.kafka.clients.producer.ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG;
 import static org.apache.kafka.clients.producer.ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG;
-import static songbox.house.service.impl.KafkaServiceImpl.FAILED_QUERIES_TOPIC_NAME;
+import static songbox.house.service.KafkaConsumer.FAILED_QUERIES_TOPIC_NAME;
 
 @Configuration
 @EnableKafka
+@ConditionalOnProperty(name = "kafka.enabled", matchIfMissing = true, havingValue = "true")
 public class KafkaConfig {
 
     @Value(value = "${kafka.bootstrapAddress}")
@@ -81,5 +86,15 @@ public class KafkaConfig {
     @Bean
     public NewTopic failedQueries() {
         return new NewTopic(FAILED_QUERIES_TOPIC_NAME, 1, (short) 1);
+    }
+
+    @Bean
+    public KafkaConsumer kafkaConsumer() {
+        return new KafkaConsumer();
+    }
+
+    @Bean
+    public KafkaService kafkaService() {
+        return new KafkaServiceImpl(kafkaTemplate());
     }
 }
