@@ -4,7 +4,6 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
-import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -13,11 +12,11 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.YouTube.Builder;
 import com.google.common.collect.Lists;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import songbox.house.domain.dto.request.UserDto;
 import songbox.house.domain.entity.user.GoogleApiToken;
 import songbox.house.domain.entity.user.UserInfo;
 import songbox.house.repository.GoogleApiTokenRepository;
@@ -38,12 +37,8 @@ import static songbox.house.util.Constants.APP_NAME;
 
 @Service
 @Slf4j
-@AllArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationService {
-    // TODO
-    public static final String REDIRECT_DOMAIN = "http://localhost:8080";
-
     private static final String YOUTUBE_TOKEN_URL = "/api/google/token";
     private static final List<String> SCOPES = Lists.newArrayList("https://www.googleapis.com/auth/youtube",
             "https://www.googleapis.com/auth/drive");
@@ -53,6 +48,16 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
 
     private static final GoogleClientSecrets GOOGLE_CLIENT_SECRETS = loadClientSecrets();
     private static final GoogleAuthorizationCodeFlow GOOGLE_AUTHORIZATION_CODE_FLOW = initFlow();
+
+    @Autowired
+    public GoogleAuthenticationServiceImpl(
+            @Value("${songbox.house.google.auth.redirect_domain}") String redirectDomain,
+            GoogleApiTokenRepository googleApiTokenRepository,
+            UserService userService) {
+        this.redirectDomain = redirectDomain;
+        this.googleApiTokenRepository = googleApiTokenRepository;
+        this.userService = userService;
+    }
 
     private static GoogleClientSecrets loadClientSecrets() {
         try {
@@ -72,6 +77,7 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
                 .setAccessType("offline").build();
     }
 
+    private String redirectDomain;
     GoogleApiTokenRepository googleApiTokenRepository;
     UserService userService;
 
@@ -179,6 +185,6 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
     }
 
     private String getRedirectUrl() {
-        return REDIRECT_DOMAIN + YOUTUBE_TOKEN_URL;
+        return redirectDomain + YOUTUBE_TOKEN_URL;
     }
 }
