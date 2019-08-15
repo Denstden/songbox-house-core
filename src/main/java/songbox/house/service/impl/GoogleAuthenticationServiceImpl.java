@@ -51,7 +51,7 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
 
     @Autowired
     public GoogleAuthenticationServiceImpl(
-            @Value("${songbox.house.google.auth.redirect_domain}") String redirectDomain,
+            @Value("${songbox.house.google.auth.redirectdomain}") String redirectDomain,
             GoogleApiTokenRepository googleApiTokenRepository,
             UserService userService) {
         this.redirectDomain = redirectDomain;
