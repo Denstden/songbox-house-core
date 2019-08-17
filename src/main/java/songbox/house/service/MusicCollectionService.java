@@ -2,6 +2,8 @@ package songbox.house.service;
 
 import songbox.house.domain.entity.MusicCollection;
 
+import java.util.Set;
+
 public interface MusicCollectionService {
     MusicCollection save(MusicCollection collection);
 
@@ -20,4 +22,6 @@ public interface MusicCollectionService {
     boolean exists(String name);
 
     MusicCollection getOrCreate(String name);
+
+    boolean checkCanGet(final Set<MusicCollection> collections);
 }

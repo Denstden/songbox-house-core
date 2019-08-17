@@ -1,11 +1,9 @@
 package songbox.house.service;
 
 import songbox.house.domain.dto.request.UserDto;
-import songbox.house.domain.entity.MusicCollection;
 import songbox.house.domain.entity.user.UserInfo;
 
 import java.util.Optional;
-import java.util.Set;
 
 public interface UserService {
 
@@ -14,8 +12,6 @@ public interface UserService {
     UserInfo createAdminIfNotExists();
 
     UserInfo createUser(final UserDto userDto);
-
-    boolean checkCanGet(final Set<MusicCollection> collections);
 
     UserInfo getCurrentUser();
 

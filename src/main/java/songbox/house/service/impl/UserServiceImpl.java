@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import songbox.house.domain.dto.request.UserDto;
-import songbox.house.domain.entity.MusicCollection;
 import songbox.house.domain.entity.user.UserInfo;
 import songbox.house.domain.entity.user.UserRole;
 import songbox.house.exception.NotExistsException;
@@ -16,10 +15,8 @@ import songbox.house.service.UserRoleService;
 import songbox.house.service.UserService;
 
 import java.util.Optional;
-import java.util.Set;
 
 import static java.text.MessageFormat.format;
-import static org.springframework.util.CollectionUtils.isEmpty;
 import static songbox.house.domain.entity.user.UserRole.RoleName.ADMIN;
 import static songbox.house.domain.entity.user.UserRole.RoleName.USER;
 
@@ -76,18 +73,6 @@ public class UserServiceImpl implements UserService {
         userInfo.setRole(userRoleService.findByName(USER));
 
         return userInfoRepository.save(userInfo);
-    }
-
-    @Override
-    public boolean checkCanGet(Set<MusicCollection> collections) {
-        if (isEmpty(collections)) {
-            return false;
-        }
-
-        return collections.stream()
-                .map(MusicCollection::getOwner)
-                .map(UserInfo::getName)
-                .anyMatch(currentUserService.getCurrentUserName()::equalsIgnoreCase);
     }
 
     @Override
