@@ -4,30 +4,24 @@ import songbox.house.domain.dto.request.UserDto;
 import songbox.house.domain.entity.MusicCollection;
 import songbox.house.domain.entity.user.UserInfo;
 
+import java.util.Optional;
 import java.util.Set;
 
 public interface UserService {
 
     UserInfo findByUserName(final String userName);
 
-    UserInfo getCurrentUser();
-
-    String getCurrentUserName();
-
     UserInfo createAdminIfNotExists();
 
     UserInfo createUser(final UserDto userDto);
 
-    default boolean checkCanGet(final Set<MusicCollection> collections) {
-        if (collections != null) {
-            for (final MusicCollection collection : collections) {
-                final UserInfo userInfo = collection.getOwner();
-                if (userInfo.getUserName().equals(getCurrentUserName())) {
-                    return true;
-                }
-            }
-        }
+    boolean checkCanGet(final Set<MusicCollection> collections);
 
-        return false;
-    }
+    UserInfo getCurrentUser();
+
+    String getCurrentUserName();
+
+    Optional<UserInfo> getByTelegramId(final String telegramId);
+
+    boolean assignTelegramId(final String login, final String password, final String telegramId);
 }
