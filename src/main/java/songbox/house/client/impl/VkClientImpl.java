@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import songbox.house.client.VkClient;
 import songbox.house.domain.entity.user.UserProperty;
+import songbox.house.service.UserPropertyService;
 import songbox.house.service.UserService;
 import songbox.house.util.Configuration;
 
@@ -34,13 +35,13 @@ public class VkClientImpl implements VkClient {
     private static final String PATH_BASE = "https://vk.com";
 
     private Configuration configuration;
-    private UserService userService;
+    private UserPropertyService userPropertyService;
 
     @Autowired
     public VkClientImpl(Configuration configuration,
-                        UserService userService) {
+                        UserPropertyService userPropertyService) {
         this.configuration = configuration;
-        this.userService = userService;
+        this.userPropertyService = userPropertyService;
     }
 
     @Override
@@ -48,7 +49,7 @@ public class VkClientImpl implements VkClient {
         Map<String, String> cookies = new HashMap<>();
         String cookieString = "";
         try {
-            UserProperty userProperty = userService.getUserProperty();
+            UserProperty userProperty = userPropertyService.getUserProperty();
             cookieString = userProperty.getVkCookie();
         } catch (Exception e) {
             log.error("", e);

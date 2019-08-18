@@ -29,7 +29,6 @@ import songbox.house.service.AuthorService;
 import songbox.house.service.BitRateAndSizeService;
 import songbox.house.service.MusicCollectionService;
 import songbox.house.service.TrackService;
-import songbox.house.service.UserService;
 import songbox.house.service.search.vk.VkAudioService;
 import songbox.house.service.search.vk.VkDownloadService;
 
@@ -58,7 +57,6 @@ public class TrackServiceImpl implements TrackService {
     TrackRepository trackRepository;
     GenreRepository genreRepository;
     MusicCollectionService collectionService;
-    UserService userService;
     AuthorService authorService;
     TrackConverter trackConverter;
 
@@ -68,14 +66,13 @@ public class TrackServiceImpl implements TrackService {
     Boolean saveToBD;
 
     public TrackServiceImpl(TrackRepository trackRepository, GenreRepository genreRepository,
-            MusicCollectionService collectionService, UserService userService, AuthorService authorService,
+            MusicCollectionService collectionService, AuthorService authorService,
             TrackConverter trackConverter, BitRateAndSizeService bitRateAndSizeService,
             VkAudioService vkAudioService, VkDownloadService vkDownloadService,
             @Value("${songbox.house.vk.download.save_to_db.enabled}") Boolean saveToBD) {
         this.trackRepository = trackRepository;
         this.genreRepository = genreRepository;
         this.collectionService = collectionService;
-        this.userService = userService;
         this.authorService = authorService;
         this.trackConverter = trackConverter;
         this.bitRateAndSizeService = bitRateAndSizeService;
@@ -148,7 +145,7 @@ public class TrackServiceImpl implements TrackService {
         final Track track = trackRepository.findById(trackId)
                 .orElseThrow(() -> new NotExistsException(format("Track with id {0} not exists!", trackId)));
 
-        boolean canGet = userService.checkCanGet(track.getCollections());
+        boolean canGet = collectionService.checkCanGet(track.getCollections());
 
         if (!canGet) {
             throw new AccessDeniedException("User have not permissions to get track");
@@ -160,7 +157,7 @@ public class TrackServiceImpl implements TrackService {
     @Override
     public Iterable<Track> getByIds(Set<Long> trackIds) {
         return stream(trackRepository.findAllById(trackIds).spliterator(), false)
-                .filter(track -> userService.checkCanGet(track.getCollections()))
+                .filter(track -> collectionService.checkCanGet(track.getCollections()))
                 .collect(Collectors.toList());
     }
 

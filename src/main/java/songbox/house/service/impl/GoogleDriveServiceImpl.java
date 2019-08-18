@@ -11,10 +11,7 @@ import org.apache.http.util.TextUtils;
 import org.springframework.stereotype.Service;
 import songbox.house.domain.entity.MusicCollection;
 import songbox.house.domain.entity.Track;
-import songbox.house.service.GoogleAuthenticationService;
-import songbox.house.service.GoogleDriveService;
-import songbox.house.service.MusicCollectionService;
-import songbox.house.service.UserService;
+import songbox.house.service.*;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -37,7 +34,7 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
     public static final String GOOGLE_DRIVE_MIMETYPE_FOLDER = "application/vnd.google-apps.folder";
 
     GoogleAuthenticationService authenticationService;
-    UserService userService;
+    UserPropertyService userPropertyService;
 
     private File getFolderOrCreate(Drive drive, String folderName, File parentFolder) throws IOException {
         String escapedFolderName = folderName.replaceAll("'", "").replaceAll("\"", "");
@@ -79,7 +76,7 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
         if (track.getCollections() != null && !track.getCollections().isEmpty()) {
             collectionFolder = track.getCollections().iterator().next().getCollectionName();
         } else {
-            MusicCollection defaultCollection = userService.getUserProperty().getDefaultCollection();
+            MusicCollection defaultCollection = userPropertyService.getUserProperty().getDefaultCollection();
             if (defaultCollection != null) {
                 collectionFolder = defaultCollection.getCollectionName();
             } else {

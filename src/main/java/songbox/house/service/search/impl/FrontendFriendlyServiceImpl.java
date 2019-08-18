@@ -39,7 +39,7 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
     DiscogsWebsiteService discogsWebsiteService;
     SearchServiceFacade searchServiceFacade;
     MusicCollectionService musicCollectionService;
-    UserService userService;
+    UserPropertyService userPropertyService;
 
 
     GenreService genreService;
@@ -143,7 +143,7 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
     }
 
     private MusicCollection getDefaultMusicCollection() {
-        MusicCollection defaultCollection = userService.getUserProperty().getDefaultCollection();
+        MusicCollection defaultCollection = userPropertyService.getUserProperty().getDefaultCollection();
         if (defaultCollection != null) {
             return defaultCollection;
         }

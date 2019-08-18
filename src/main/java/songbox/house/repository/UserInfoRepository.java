@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface UserInfoRepository extends CrudRepository<UserInfo, Long> {
     Optional<UserInfo> findByUserName(String userName);
+
+    Optional<UserInfo> findByTelegramId(String telegramId);
 }
