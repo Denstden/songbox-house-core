@@ -5,7 +5,7 @@ import com.mpatric.mp3agic.ID3v24Tag;
 import com.mpatric.mp3agic.Mp3File;
 import lombok.extern.slf4j.Slf4j;
 import songbox.house.domain.entity.VkAudio;
-import songbox.house.util.ThreadLocalAuth;
+import songbox.house.util.ThreadChange;
 import ws.schild.jave.AudioAttributes;
 import ws.schild.jave.Encoder;
 import ws.schild.jave.EncodingAttributes;
@@ -17,7 +17,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Random;
-import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -30,7 +29,7 @@ import static songbox.house.util.Constants.PERFORMANCE_MARKER;
 import static songbox.house.util.RetryUtil.getOptionalWithRetries;
 
 @Slf4j
-public class VkDownloadTrackTask extends ThreadLocalAuth.LocalAuthCallable<Optional<byte[]>> {
+public class VkDownloadTrackTask extends ThreadChange.LocalAuthCallable<Optional<byte[]>> {
 
     private static final String AUDIO_CODEC = "libmp3lame";
 

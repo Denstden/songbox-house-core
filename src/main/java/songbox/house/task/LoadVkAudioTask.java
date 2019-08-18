@@ -6,12 +6,11 @@ import org.jsoup.Connection.Response;
 import songbox.house.client.VkClient;
 import songbox.house.domain.entity.VkAudio;
 import songbox.house.util.JsonUtils;
-import songbox.house.util.ThreadLocalAuth;
+import songbox.house.util.ThreadChange;
 
 import javax.script.Invocable;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 
 import static java.util.Collections.emptyList;
 import static java.util.Optional.empty;
@@ -21,7 +20,7 @@ import static songbox.house.util.Constants.JSON_DELIMITER;
 import static songbox.house.util.RetryUtil.getOptionalWithRetries;
 
 @Slf4j
-public class LoadVkAudioTask extends ThreadLocalAuth.LocalAuthCallable<List<VkAudio>> {
+public class LoadVkAudioTask extends ThreadChange.LocalAuthCallable<List<VkAudio>> {
 
     private final String ids;
     private final Long vkUserId;

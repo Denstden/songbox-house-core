@@ -2,8 +2,6 @@ package songbox.house.service;
 
 import songbox.house.domain.dto.request.UserDto;
 import songbox.house.domain.entity.user.UserInfo;
-import songbox.house.domain.entity.user.UserProperty;
-import songbox.house.util.ThreadLocalAuth;
 
 import java.util.Optional;
 
