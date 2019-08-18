@@ -109,11 +109,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NotExistsException(format("User with name {0} not exists.", userName)));
     }
 
-    @Override
-    public UserInfo findByUserNameOrCreate(String userName) {
-        return null;
-    }
-
     private void setRequiredAdminFields(final UserInfo admin) {
         admin.setActive(true);
         admin.setPassword(strongPasswordEncryptor.encryptPassword(adminPassword));

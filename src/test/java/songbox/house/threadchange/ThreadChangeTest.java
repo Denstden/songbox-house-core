@@ -51,7 +51,7 @@ public class ThreadChangeTest {
     }
 
     @Test
-    public void testThreadIsChangedAsRunnable() {
+    public void shouldPassThreadIsChangedAsRunnable() {
         ThreadLocalThreadChangeListener threadLocalThreadChangeListener = new ThreadLocalThreadChangeListener();
         ThreadChange.addThreadChangeListener(threadLocalThreadChangeListener);
 
@@ -82,7 +82,7 @@ public class ThreadChangeTest {
     }
 
     @Test
-    public void testThreadIsChangedAsTask() {
+    public void shouldPassThreadIsChangedAsTask() {
         ThreadLocalThreadChangeListener threadLocalThreadChangeListener = new ThreadLocalThreadChangeListener();
         ThreadChange.addThreadChangeListener(threadLocalThreadChangeListener);
 
@@ -116,7 +116,7 @@ public class ThreadChangeTest {
     }
 
     @Test
-    public void testMultipleTasks() {
+    public void shouldPassMultipleTasks() {
         ThreadLocalThreadChangeListener threadLocalThreadChangeListener = new ThreadLocalThreadChangeListener();
         ThreadChange.addThreadChangeListener(threadLocalThreadChangeListener);
 

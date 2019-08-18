@@ -143,7 +143,7 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
     }
 
     private MusicCollection getDefaultMusicCollection() {
-        MusicCollection defaultCollection = userPropertyService.getUserProperty().getDefaultCollection();
+        MusicCollection defaultCollection = userPropertyService.getCurrentUserProperty().getDefaultCollection();
         if (defaultCollection != null) {
             return defaultCollection;
         }

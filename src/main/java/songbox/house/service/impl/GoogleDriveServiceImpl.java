@@ -16,7 +16,6 @@ import songbox.house.service.*;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 import static java.io.File.createTempFile;
@@ -36,57 +35,13 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
     GoogleAuthenticationService authenticationService;
     UserPropertyService userPropertyService;
 
-    private File getFolderOrCreate(Drive drive, String folderName, File parentFolder) throws IOException {
-        String escapedFolderName = folderName.replaceAll("'", "").replaceAll("\"", "");
-        String q;
-        if (parentFolder == null) {
-            q = String.format("name = '%s' and mimeType = '%s'",
-                    escapedFolderName,
-                    GOOGLE_DRIVE_MIMETYPE_FOLDER);
-        } else {
-            q = String.format("name = '%s' and mimeType = '%s' and parents in '%s'",
-                    escapedFolderName,
-                    GOOGLE_DRIVE_MIMETYPE_FOLDER,
-                    parentFolder.getId());
-        }
-        FileList fileList = drive.files().list()
-                .setQ(q)
-                .execute();
-        List<File> files = fileList.getFiles();
-        if (files.isEmpty()) {
-            File fileMetadata = new File();
-            fileMetadata.setName(folderName);
-            fileMetadata.setMimeType(GOOGLE_DRIVE_MIMETYPE_FOLDER);
-            if (parentFolder != null) {
-                fileMetadata.setParents(Collections.singletonList(parentFolder.getId()));
-            }
 
-            File file = drive.files().create(fileMetadata)
-                    .setFields("id" + (parentFolder != null ? ", parents" : ""))
-                    .execute();
-            return file;
-        }
-
-        return files.get(0);
+    @Override
+    public void upload(Track track) {
+        upload(track, null, null);
     }
 
-    private File getRootFolder(Drive drive, Track track) throws IOException {
-        String collectionFolder;
-
-        if (track.getCollections() != null && !track.getCollections().isEmpty()) {
-            collectionFolder = track.getCollections().iterator().next().getCollectionName();
-        } else {
-            MusicCollection defaultCollection = userPropertyService.getUserProperty().getDefaultCollection();
-            if (defaultCollection != null) {
-                collectionFolder = defaultCollection.getCollectionName();
-            } else {
-                collectionFolder = DEFAULT_COLLECTION_FOLDER;
-            }
-        }
-
-        return getFolderOrCreate(drive, collectionFolder, getFolderOrCreate(drive, FOLDER_NAME, null));
-    }
-
+    @Override
     public void upload(Track track, String folder, String genreFolder) {
         Drive drive = authenticationService.getDrive();
 
@@ -116,9 +71,66 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
         }
     }
 
-    @Override
-    public void upload(Track track) {
-        upload(track, null, null);
+    /**
+     *
+     * @param drive
+     * @param folderName
+     * @param parentFolder
+     * @return a folder or create if not exist
+     * @throws IOException
+     */
+    private File getFolderOrCreate(Drive drive, String folderName, File parentFolder) throws IOException {
+        String escapedFolderName = folderName.replaceAll("'", "").replaceAll("\"", "");
+        String q;
+        if (parentFolder == null) {
+            q = String.format("name = '%s' and mimeType = '%s'",
+                    escapedFolderName,
+                    GOOGLE_DRIVE_MIMETYPE_FOLDER);
+        } else {
+            q = String.format("name = '%s' and mimeType = '%s' and parents in '%s'",
+                    escapedFolderName,
+                    GOOGLE_DRIVE_MIMETYPE_FOLDER,
+                    parentFolder.getId());
+        }
+        FileList fileList = drive.files().list()
+                .setQ(q)
+                .execute();
+        List<File> files = fileList.getFiles();
+        if (files.isEmpty()) {
+            return createFolder(drive, folderName, parentFolder);
+        }
+
+        return files.get(0);
+    }
+
+    private File createFolder(Drive drive, String folderName, File parentFolder) throws IOException {
+        File fileMetadata = new File();
+        fileMetadata.setName(folderName);
+        fileMetadata.setMimeType(GOOGLE_DRIVE_MIMETYPE_FOLDER);
+        if (parentFolder != null) {
+            fileMetadata.setParents(Collections.singletonList(parentFolder.getId()));
+        }
+
+        return drive.files().create(fileMetadata)
+                .setFields("id" + (parentFolder != null ? ", parents" : ""))
+                .execute();
+    }
+
+    private File getRootFolder(Drive drive, Track track) throws IOException {
+        String collectionFolder;
+
+        if (track.getCollections() != null && !track.getCollections().isEmpty()) {
+            collectionFolder = track.getCollections().iterator().next().getCollectionName();
+        } else {
+            MusicCollection defaultCollection = userPropertyService.getCurrentUserProperty().getDefaultCollection();
+            if (defaultCollection != null) {
+                collectionFolder = defaultCollection.getCollectionName();
+            } else {
+                collectionFolder = DEFAULT_COLLECTION_FOLDER;
+            }
+        }
+
+        return getFolderOrCreate(drive, collectionFolder, getFolderOrCreate(drive, FOLDER_NAME, null));
     }
 
     private File createMetadata(Track track) {

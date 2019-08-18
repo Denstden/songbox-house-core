@@ -2,7 +2,7 @@ package songbox.house.client.impl;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.util.TextUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +10,8 @@ import org.springframework.stereotype.Component;
 import songbox.house.client.VkClient;
 import songbox.house.domain.entity.user.UserProperty;
 import songbox.house.service.UserPropertyService;
-import songbox.house.service.UserService;
 import songbox.house.util.Configuration;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,13 +47,13 @@ public class VkClientImpl implements VkClient {
         Map<String, String> cookies = new HashMap<>();
         String cookieString = "";
         try {
-            UserProperty userProperty = userPropertyService.getUserProperty();
+            UserProperty userProperty = userPropertyService.getCurrentUserProperty();
             cookieString = userProperty.getVkCookie();
         } catch (Exception e) {
-            log.error("", e);
+            log.error("Can't load vk cookies", e);
         }
 
-        if (TextUtils.isEmpty(cookieString)) {
+        if (StringUtils.isBlank(cookieString)) {
             cookieString = configuration.getConnection().getVkCookie();
         }
 

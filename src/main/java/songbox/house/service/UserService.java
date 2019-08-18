@@ -8,7 +8,6 @@ import java.util.Optional;
 public interface UserService {
 
     UserInfo findByUserName(String userName);
-    UserInfo findByUserNameOrCreate(String userName);
 
     UserInfo createAdminIfNotExists();
 

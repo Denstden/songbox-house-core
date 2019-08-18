@@ -4,6 +4,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
+import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -50,11 +51,7 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
     private static final GoogleAuthorizationCodeFlow GOOGLE_AUTHORIZATION_CODE_FLOW = initFlow();
 
     @Autowired
-    public GoogleAuthenticationServiceImpl(
-            @Value("${songbox.house.google.auth.redirectdomain}") String redirectDomain,
-            GoogleApiTokenRepository googleApiTokenRepository,
-            UserService userService) {
-        this.redirectDomain = redirectDomain;
+    public GoogleAuthenticationServiceImpl(GoogleApiTokenRepository googleApiTokenRepository, UserService userService) {
         this.googleApiTokenRepository = googleApiTokenRepository;
         this.userService = userService;
     }
@@ -77,7 +74,6 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
                 .setAccessType("offline").build();
     }
 
-    private String redirectDomain;
     GoogleApiTokenRepository googleApiTokenRepository;
     UserService userService;
 
@@ -106,12 +102,12 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
     }
 
     @Override
-    public String getRequestAccessUrl() {
+    public String getRequestAccessUrl(String requestUrl) {
         UserInfo currentUser = userService.getCurrentUser();
 
         return GOOGLE_AUTHORIZATION_CODE_FLOW
                 .newAuthorizationUrl()
-                .setRedirectUri(getRedirectUrl())
+                .setRedirectUri(getRedirectUrl(requestUrl))
                 .setState(currentUser.getUserId().toString())
                 .build();
     }
@@ -157,7 +153,7 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
         try {
             return of(GOOGLE_AUTHORIZATION_CODE_FLOW
                     .newTokenRequest(code)
-                    .setRedirectUri(getRedirectUrl())
+                    .setRedirectUri(getRedirectUrl(requestUrl))
                     .execute());
         } catch (IOException e) {
             log.error("Exception during getting access token", e);
@@ -168,10 +164,8 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
     private void saveToken(GoogleTokenResponse googleTokenResponse, Long userId) {
         GoogleApiToken googleApiToken = createToken(googleTokenResponse, userId);
 
-        GoogleApiToken oldToken = googleApiTokenRepository.findByUserId(userId);
-        if (oldToken != null) {
-            googleApiTokenRepository.delete(oldToken);
-        }
+        // Delete
+        ofNullable(googleApiTokenRepository.findByUserId(userId)).ifPresent(googleApiTokenRepository::delete);
 
         googleApiTokenRepository.save(googleApiToken);
     }
@@ -184,7 +178,9 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
         return googleApiToken;
     }
 
-    private String getRedirectUrl() {
-        return redirectDomain + YOUTUBE_TOKEN_URL;
+    private String getRedirectUrl(String requestUrl) {
+        GenericUrl url = new GenericUrl(requestUrl);
+        url.setRawPath(YOUTUBE_TOKEN_URL);
+        return url.build();
     }
 }

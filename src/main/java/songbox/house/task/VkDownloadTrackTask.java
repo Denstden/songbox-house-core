@@ -5,7 +5,6 @@ import com.mpatric.mp3agic.ID3v24Tag;
 import com.mpatric.mp3agic.Mp3File;
 import lombok.extern.slf4j.Slf4j;
 import songbox.house.domain.entity.VkAudio;
-import songbox.house.util.ThreadChange;
 import ws.schild.jave.AudioAttributes;
 import ws.schild.jave.Encoder;
 import ws.schild.jave.EncodingAttributes;

@@ -8,7 +8,7 @@ public interface GoogleAuthenticationService {
 
     Drive getDrive();
 
-    String getRequestAccessUrl();
+    String getRequestAccessUrl(String requestUrl);
 
     void getTokenAndSave(String code, String state, String requestUrl);
 }

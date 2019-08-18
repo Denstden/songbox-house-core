@@ -18,7 +18,7 @@ public class UserPropertyServiceImpl implements UserPropertyService {
     private final UserService userService;
 
     @Override
-    public UserProperty getUserProperty() {
+    public UserProperty getCurrentUserProperty() {
         UserInfo currentUser = userService.getCurrentUser();
         UserProperty userProperty = currentUser.getUserProperty();
 
