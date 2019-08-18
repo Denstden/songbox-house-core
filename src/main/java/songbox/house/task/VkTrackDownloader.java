@@ -41,7 +41,6 @@ import static java.util.concurrent.Executors.newFixedThreadPool;
 import static javax.crypto.Cipher.DECRYPT_MODE;
 import static javax.crypto.Cipher.getInstance;
 import static songbox.house.util.Constants.PERFORMANCE_MARKER;
-import static songbox.house.util.ThreadChange.applyContext;
 import static songbox.house.util.VkUtil.getPartUrl;
 
 @Slf4j
@@ -129,7 +128,7 @@ public class VkTrackDownloader {
             final String url = getPartUrl(indexUrl, trackData.getUri());
             final boolean needDecrypt = existsAESKey && needDecrypt(trackData.getEncryptionData());
 
-            completionService.submit(applyContext(() -> downloadPart(url, index, needDecrypt)));
+            completionService.submit(() -> downloadPart(url, index, needDecrypt));
         }
     }
 

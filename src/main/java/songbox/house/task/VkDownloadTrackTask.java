@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -29,7 +30,7 @@ import static songbox.house.util.Constants.PERFORMANCE_MARKER;
 import static songbox.house.util.RetryUtil.getOptionalWithRetries;
 
 @Slf4j
-public class VkDownloadTrackTask extends ThreadChange.LocalAuthCallable<Optional<byte[]>> {
+public class VkDownloadTrackTask implements Callable<Optional<byte[]>> {
 
     private static final String AUDIO_CODEC = "libmp3lame";
 
@@ -56,7 +57,7 @@ public class VkDownloadTrackTask extends ThreadChange.LocalAuthCallable<Optional
     }
 
     @Override
-    public Optional<byte[]> callWithContext() {
+    public Optional<byte[]> call() {
         final String indexUrl = vkAudio.getUrl();
         log.info("Starting downloading {} - {}, index url {}", vkAudio.getArtist(), vkAudio.getTitle(), indexUrl);
         return getOptionalWithRetries(vkAudio.isM3U8() ? vkTrackDownloader::downloadM3U8Content : vkTrackDownloader::downloadMp3Content,

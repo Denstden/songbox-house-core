@@ -31,7 +31,6 @@ import static songbox.house.util.ExecutorUtil.createExecutorService;
 import static songbox.house.util.JsonUtils.responseToObject;
 import static songbox.house.util.JsonUtils.searchFromNewsFeedResponseToObject;
 import static songbox.house.util.RetryUtil.getOptionalWithRetries;
-import static songbox.house.util.ThreadChange.applyContext;
 
 @Slf4j
 @Service
@@ -70,8 +69,8 @@ public class VkSearchPerformerImpl implements VkSearchPerformer {
 
     private CompletionService<List<VkSearchResponseDto>> submitSearch(SearchQuery searchQuery) {
         CompletionService<List<VkSearchResponseDto>> searchCompletionService = new ExecutorCompletionService<>(searchExecutorService);
-        searchCompletionService.submit(applyContext(() -> getSearchResultFromMusic(searchQuery)));
-        searchCompletionService.submit(applyContext(() -> getSearchResultFromNewsFeed(searchQuery)));
+        searchCompletionService.submit(() -> getSearchResultFromMusic(searchQuery));
+        searchCompletionService.submit(() -> getSearchResultFromNewsFeed(searchQuery));
         return searchCompletionService;
     }
 

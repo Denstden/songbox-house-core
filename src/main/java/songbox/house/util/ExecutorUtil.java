@@ -8,6 +8,6 @@ public class ExecutorUtil {
 
     public static ExecutorService createExecutorService(int countThreads) {
         final int poolSize = (countThreads < 1) ? 1 : ((countThreads > MAX_POOL_SIZE) ? MAX_POOL_SIZE : countThreads);
-        return Executors.newFixedThreadPool(poolSize);
+        return ThreadChange.newFixedThreadPool(poolSize);
     }
 }

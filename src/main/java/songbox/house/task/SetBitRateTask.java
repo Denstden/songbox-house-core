@@ -6,10 +6,10 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import songbox.house.domain.entity.VkAudio;
 import songbox.house.service.search.vk.VkFileSizeService;
-import songbox.house.util.ThreadChange;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Callable;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Float.compare;
@@ -23,7 +23,7 @@ import static songbox.house.util.VkUtil.getPartUrl;
 @Data
 @FieldDefaults(makeFinal = true, level = PRIVATE)
 @Slf4j
-public class SetBitRateTask extends ThreadChange.LocalAuthCallable<Optional<VkAudio>> {
+public class SetBitRateTask implements Callable<Optional<VkAudio>> {
 
     VkAudio vkAudio;
     VkFileSizeService vkFileSizeService;
@@ -37,7 +37,7 @@ public class SetBitRateTask extends ThreadChange.LocalAuthCallable<Optional<VkAu
     }
 
     @Override
-    public Optional<VkAudio> callWithContext() {
+    public Optional<VkAudio> call() {
         final long startedMs = currentTimeMillis();
         final String indexUrl = vkAudio.getUrl();
         final Short bitrate = vkAudio.isM3U8() ? getBitrateForM3U8(indexUrl) : getBitrateForMP3(indexUrl);

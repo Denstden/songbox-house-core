@@ -11,6 +11,7 @@ import songbox.house.util.ThreadChange;
 import javax.script.Invocable;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Callable;
 
 import static java.util.Collections.emptyList;
 import static java.util.Optional.empty;
@@ -20,7 +21,7 @@ import static songbox.house.util.Constants.JSON_DELIMITER;
 import static songbox.house.util.RetryUtil.getOptionalWithRetries;
 
 @Slf4j
-public class LoadVkAudioTask extends ThreadChange.LocalAuthCallable<List<VkAudio>> {
+public class LoadVkAudioTask implements Callable<List<VkAudio>> {
 
     private final String ids;
     private final Long vkUserId;
@@ -37,7 +38,7 @@ public class LoadVkAudioTask extends ThreadChange.LocalAuthCallable<List<VkAudio
     }
 
     @Override
-    public List<VkAudio> callWithContext() throws InterruptedException {
+    public List<VkAudio> call() throws InterruptedException {
         return getOptionalWithRetries(this::reloadIdsResponse, ids, retries, "load_vk_audio")
                 .map(this::processResponse)
                 .orElse(emptyList());
