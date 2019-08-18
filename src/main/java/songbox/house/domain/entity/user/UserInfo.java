@@ -54,6 +54,9 @@ public class UserInfo {
     @Column
     private Date createDate;
 
+    @Column
+    private String telegramId;
+
     @OneToOne
     private UserRole role;
 
