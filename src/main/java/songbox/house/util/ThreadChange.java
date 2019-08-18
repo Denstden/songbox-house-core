@@ -2,13 +2,14 @@ package songbox.house.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 
 public class ThreadChange {
     public static interface ThreadChangeListener {
-        void didChange();
+        void didChange(String changeUUID);
 
-        void willChange();
+        void willChange(String changeUUID);
     }
 
     private static List<ThreadChangeListener> onThreadChangeListeners = new ArrayList<>();
@@ -21,33 +22,37 @@ public class ThreadChange {
         onThreadChangeListeners.remove(threadChangeListener);
     }
 
-    private static void notifyThreadChangeListenersDidChangeThread() {
-        onThreadChangeListeners.forEach(ThreadChangeListener::didChange);
+    private static void notifyThreadChangeListenersDidChangeThread(String changeUUID) {
+        onThreadChangeListeners.forEach(it -> it.didChange(changeUUID));
     }
 
-    private static void notifyThreadChangeListenersWillChangeThread() {
-        onThreadChangeListeners.forEach(ThreadChangeListener::willChange);
+    private static void notifyThreadChangeListenersWillChangeThread(String changeUUID) {
+        onThreadChangeListeners.forEach(it -> it.willChange(changeUUID));
     }
 
 
     public abstract static class LocalAuthCallable<V> implements Callable<V> {
+        private final String changeUUID;
+
         public LocalAuthCallable() {
-            notifyThreadChangeListenersWillChangeThread();
+            this.changeUUID = UUID.randomUUID().toString();
+            notifyThreadChangeListenersWillChangeThread(changeUUID);
         }
 
         public abstract V callWithContext() throws Exception;
 
         @Override
         public V call() throws Exception {
-            notifyThreadChangeListenersDidChangeThread();
+            notifyThreadChangeListenersDidChangeThread(changeUUID);
             return callWithContext();
         }
     }
 
     public static Runnable applyContext(Runnable task) {
-        notifyThreadChangeListenersWillChangeThread();
+        String changeUUID = UUID.randomUUID().toString();
+        notifyThreadChangeListenersWillChangeThread(changeUUID);
         return () -> {
-            notifyThreadChangeListenersDidChangeThread();
+            notifyThreadChangeListenersDidChangeThread(changeUUID);
             task.run();
         };
     }
