@@ -1,19 +1,22 @@
 package songbox.house.threadchange;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import songbox.house.util.ExecutorUtil;
 import songbox.house.util.ThreadChange;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import static org.junit.Assert.*;
 
 public class ThreadChangeTest {
+    ExecutorService executorService = null;
     static ThreadLocal<String> threadLocal = new ThreadLocal<>();
     private class ThreadLocalThreadChangeListener implements ThreadChange.ThreadChangeListener {
         Map<String, String> changeUUIDToThreadLocalValue = new ConcurrentHashMap<>();
@@ -22,6 +25,7 @@ public class ThreadChangeTest {
             String localValue = changeUUIDToThreadLocalValue.get(changeUUID);
             assertNotNull(localValue);
 
+            assertNull("Context is not cleared", threadLocal.get());
             threadLocal.set(localValue);
         }
 
@@ -41,22 +45,28 @@ public class ThreadChangeTest {
     }
 
     @Before
-    public void clearThreadLocal() {
+    public void init() {
         threadLocal.set(null);
+        executorService = ExecutorUtil.createExecutorService(4);
     }
 
     @Test
     public void testThreadIsChangedAsRunnable() {
-        ThreadChange.addThreadChangeListener(new ThreadLocalThreadChangeListener());
+        ThreadLocalThreadChangeListener threadLocalThreadChangeListener = new ThreadLocalThreadChangeListener();
+        ThreadChange.addThreadChangeListener(threadLocalThreadChangeListener);
+
         String userName = UUID.randomUUID().toString();
         threadLocal.set(userName);
         System.out.println("Hello my name is: " + userName);
 
         final boolean[] taskIsFinished = {false};
-        ExecutorService executorService = ExecutorUtil.createExecutorService(4);
-        executorService.submit(() -> {
-            System.out.println("Hello from another thread, my name is :" + threadLocal.get());
-            taskIsFinished[0] = true;
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                assertEquals(userName, threadLocal.get());
+                System.out.println("Hello from another thread, my name is :" + threadLocal.get());
+                taskIsFinished[0] = true;
+            }
         });
 
 
@@ -67,22 +77,26 @@ public class ThreadChangeTest {
                 e.printStackTrace();
             }
         }
+
+        ThreadChange.removeThreadChangeListener(threadLocalThreadChangeListener);
     }
 
     @Test
     public void testThreadIsChangedAsTask() {
+        ThreadLocalThreadChangeListener threadLocalThreadChangeListener = new ThreadLocalThreadChangeListener();
+        ThreadChange.addThreadChangeListener(threadLocalThreadChangeListener);
 
-        ThreadChange.addThreadChangeListener(new ThreadLocalThreadChangeListener());
         String userName = UUID.randomUUID().toString();
         threadLocal.set(userName);
-        System.out.println("Hello my name is: " + userName);
 
         final boolean[] taskIsFinished = {false};
-        ExecutorService executorService = ExecutorUtil.createExecutorService(4);
+
+        System.out.println("Hello my name is: " + userName);
 
         executorService.submit(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
+                assertEquals(userName, threadLocal.get());
                 System.out.println("Hello from another as task thread, my name is :" + threadLocal.get());
                 taskIsFinished[0] = true;
                 return null;
@@ -97,5 +111,38 @@ public class ThreadChangeTest {
                 e.printStackTrace();
             }
         }
+
+        ThreadChange.removeThreadChangeListener(threadLocalThreadChangeListener);
+    }
+
+    @Test
+    public void testMultipleTasks() {
+        ThreadLocalThreadChangeListener threadLocalThreadChangeListener = new ThreadLocalThreadChangeListener();
+        ThreadChange.addThreadChangeListener(threadLocalThreadChangeListener);
+
+        int taskCount = 64;
+        AtomicInteger tasksDone = new AtomicInteger();
+
+        String userName = UUID.randomUUID().toString();
+        threadLocal.set(userName);
+
+        for (int i = 0; i < taskCount; i++) {
+            executorService.submit((Callable<Void>) () -> {
+                assertEquals(userName, threadLocal.get());
+                tasksDone.getAndIncrement();
+                return null;
+            });
+        }
+
+
+        while (tasksDone.get() != taskCount) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        ThreadChange.removeThreadChangeListener(threadLocalThreadChangeListener);
     }
 }
