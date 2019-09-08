@@ -24,6 +24,6 @@ public class UserProperty {
     @Column(length = 2048)
     private String vkCookie;
 
-    @OneToOne(cascade = ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private MusicCollection defaultCollection;
 }

@@ -60,7 +60,7 @@ public class UserInfo {
     )
     private List<YoutubePlaylist> youtubePlaylists = new ArrayList<>();
 
-    @OneToOne(cascade = ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private UserProperty userProperty;
 
     @Override
