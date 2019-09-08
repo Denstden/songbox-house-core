@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface UserService {
 
-    UserInfo findByUserName(final String userName);
+    UserInfo findByUserName(String userName);
 
     UserInfo createAdminIfNotExists();
 

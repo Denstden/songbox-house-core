@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -37,4 +38,18 @@ public class MusicCollection {
     private UserInfo owner;
 
     //TODO list users who can see collection
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MusicCollection that = (MusicCollection) o;
+        return Objects.equals(collectionId, that.collectionId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(collectionId);
+    }
 }

@@ -2,14 +2,16 @@ package songbox.house.client.impl;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import songbox.house.client.VkClient;
+import songbox.house.domain.entity.user.UserProperty;
+import songbox.house.service.UserPropertyService;
 import songbox.house.util.Configuration;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,41 +33,37 @@ public class VkClientImpl implements VkClient {
     private static final String PATH_BASE = "https://vk.com";
 
     private Configuration configuration;
-
-    private final Map<String, String> cookies = new HashMap<>();
+    private UserPropertyService userPropertyService;
 
     @Autowired
-    public VkClientImpl(Configuration configuration) {
+    public VkClientImpl(Configuration configuration,
+                        UserPropertyService userPropertyService) {
         this.configuration = configuration;
+        this.userPropertyService = userPropertyService;
     }
 
-    @PostConstruct
-    public void defaultCookies() {
-        final Map<String, String> cookies = new HashMap<>();
+    @Override
+    public Map<String, String> getCookies() {
+        Map<String, String> cookies = new HashMap<>();
+        String cookieString = "";
+        try {
+            UserProperty userProperty = userPropertyService.getCurrentUserProperty();
+            cookieString = userProperty.getVkCookie();
+        } catch (Exception e) {
+            log.error("Can't load vk cookies", e);
+        }
 
-        String[] cookiesArray = configuration.getConnection().getVkCookie().split(";");
+        if (StringUtils.isBlank(cookieString)) {
+            cookieString = configuration.getConnection().getVkCookie();
+        }
+
+        String[] cookiesArray = cookieString.split(";");
         for (String cookie : cookiesArray) {
             String[] split = cookie.split("=");
             cookies.put(split[0].trim(), split[1].trim());
         }
 
-        setCookies(cookies);
-    }
-
-    @Override
-    public void addCookies(Map<String, String> cookies) {
-        this.cookies.putAll(cookies);
-    }
-
-    @Override
-    public void setCookies(Map<String, String> cookies) {
-        clearCookies();
-        addCookies(cookies);
-    }
-
-    @Override
-    public void clearCookies() {
-        this.cookies.clear();
+        return cookies;
     }
 
     @Override
@@ -131,7 +129,7 @@ public class VkClientImpl implements VkClient {
     }
 
     private Connection proxiedConnection(final String url, final Connection.Method method) {
-        final Connection connection = connect(url).userAgent(USER_AGENT).cookies(cookies).method(method);
+        final Connection connection = connect(url).userAgent(USER_AGENT).cookies(getCookies()).method(method);
 
         return (configuration != null && configuration.getProxy() != null) ?
                 connection.proxy(configuration.getProxy().getIp(), configuration.getProxy().getPort()) :

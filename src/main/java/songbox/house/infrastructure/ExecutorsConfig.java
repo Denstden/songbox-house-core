@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+import songbox.house.util.ThreadChange;
 
 import java.time.Clock;
 import java.util.concurrent.Executor;
@@ -36,7 +37,7 @@ public class ExecutorsConfig implements SchedulingConfigurer, AsyncConfigurer {
 
     @Override
     public Executor getAsyncExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        ThreadPoolTaskExecutor executor = new ThreadChange.ThreadChangeThreadPoolTaskExecutor();
         executor.setCorePoolSize(20);
         executor.setThreadNamePrefix("AsyncExecutor-");
         executor.initialize();

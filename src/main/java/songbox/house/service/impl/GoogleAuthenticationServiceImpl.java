@@ -13,9 +13,10 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.YouTube.Builder;
 import com.google.common.collect.Lists;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import songbox.house.domain.entity.user.GoogleApiToken;
 import songbox.house.domain.entity.user.UserInfo;
@@ -37,10 +38,8 @@ import static songbox.house.util.Constants.APP_NAME;
 
 @Service
 @Slf4j
-@AllArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationService {
-
     private static final String YOUTUBE_TOKEN_URL = "/api/google/token";
     private static final List<String> SCOPES = Lists.newArrayList("https://www.googleapis.com/auth/youtube",
             "https://www.googleapis.com/auth/drive");
@@ -50,6 +49,12 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
 
     private static final GoogleClientSecrets GOOGLE_CLIENT_SECRETS = loadClientSecrets();
     private static final GoogleAuthorizationCodeFlow GOOGLE_AUTHORIZATION_CODE_FLOW = initFlow();
+
+    @Autowired
+    public GoogleAuthenticationServiceImpl(GoogleApiTokenRepository googleApiTokenRepository, UserService userService) {
+        this.googleApiTokenRepository = googleApiTokenRepository;
+        this.userService = userService;
+    }
 
     private static GoogleClientSecrets loadClientSecrets() {
         try {
@@ -158,6 +163,9 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
 
     private void saveToken(GoogleTokenResponse googleTokenResponse, Long userId) {
         GoogleApiToken googleApiToken = createToken(googleTokenResponse, userId);
+
+        // Delete
+        ofNullable(googleApiTokenRepository.findByUserId(userId)).ifPresent(googleApiTokenRepository::delete);
 
         googleApiTokenRepository.save(googleApiToken);
     }
