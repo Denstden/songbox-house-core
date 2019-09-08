@@ -6,13 +6,27 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import songbox.house.domain.entity.YoutubePlaylist;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.DETACH;
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.REFRESH;
+import static javax.persistence.FetchType.LAZY;
 
 @Table
 @Entity
@@ -60,7 +74,7 @@ public class UserInfo {
     )
     private List<YoutubePlaylist> youtubePlaylists = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = LAZY, cascade = { PERSIST, MERGE, REFRESH, DETACH })
     private UserProperty userProperty;
 
     @Override

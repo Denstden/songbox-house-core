@@ -4,9 +4,19 @@ import lombok.Getter;
 import lombok.Setter;
 import songbox.house.domain.entity.MusicCollection;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.DETACH;
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.REFRESH;
+import static javax.persistence.FetchType.LAZY;
 
 @Table
 @Entity
@@ -24,6 +34,6 @@ public class UserProperty {
     @Column(length = 2048)
     private String vkCookie;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = LAZY, cascade = { PERSIST, MERGE, REFRESH, DETACH })
     private MusicCollection defaultCollection;
 }
