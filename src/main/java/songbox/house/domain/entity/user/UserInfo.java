@@ -26,6 +26,7 @@ import static javax.persistence.CascadeType.DETACH;
 import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.CascadeType.REFRESH;
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
 @Table
@@ -74,7 +75,7 @@ public class UserInfo {
     )
     private List<YoutubePlaylist> youtubePlaylists = new ArrayList<>();
 
-    @OneToOne(fetch = LAZY, cascade = { PERSIST, MERGE, REFRESH, DETACH })
+    @OneToOne(cascade = { PERSIST, MERGE, REFRESH, DETACH })
     private UserProperty userProperty;
 
     @Override

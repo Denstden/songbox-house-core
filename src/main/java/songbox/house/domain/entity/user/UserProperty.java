@@ -34,6 +34,6 @@ public class UserProperty {
     @Column(length = 2048)
     private String vkCookie;
 
-    @OneToOne(fetch = LAZY, cascade = { PERSIST, MERGE, REFRESH, DETACH })
+    @OneToOne(cascade = { PERSIST, MERGE, REFRESH, DETACH })
     private MusicCollection defaultCollection;
 }

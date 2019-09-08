@@ -22,7 +22,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'maven'
 
 group = 'com.github.Denstden'
-version = '1.0.31'
+version = '1.0.32'
 
 sourceCompatibility = 1.8
 
