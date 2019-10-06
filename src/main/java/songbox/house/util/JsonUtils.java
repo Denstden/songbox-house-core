@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,7 @@ import static java.util.regex.Pattern.compile;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.StreamSupport.stream;
 import static songbox.house.util.Constants.JSON_DELIMITER;
+import static songbox.house.util.Constants.JSON_DELIMITER_V2;
 
 @Component
 @Slf4j
@@ -81,6 +84,30 @@ public class JsonUtils implements ApplicationContextAware {
     }
 
     public static <T> T responseToObject(final String body, final Class<T> clazz) {
+        // Try #1
+        try {
+            JSONArray payload = new JSONObject(body.substring(body.indexOf(JSON_DELIMITER_V2) + JSON_DELIMITER_V2.length())).getJSONArray("payload");
+            for (int i = 0; i < payload.length(); i++) {
+                Object payloadObj = payload.get(i);
+                if (!(payloadObj instanceof JSONArray)) {
+                    continue;
+                }
+
+                JSONArray jsonArray = (JSONArray)payloadObj;
+                for (int j = 0; j < jsonArray.length(); j++) {
+                    try {
+                        return fromString(jsonArray.get(j).toString(), clazz); // it should be at first index, but you never know
+                    } catch (Exception e) {
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            log.error("Cannot load object by new api", e);
+        }
+
+        log.warn("Loading object by old api");
+        // Try Old api
         String json = body.substring(body.indexOf(JSON_DELIMITER) + JSON_DELIMITER.length());
         json = json.substring(0, json.indexOf("<!>"));
         return fromString(json, clazz);

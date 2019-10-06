@@ -18,6 +18,7 @@ import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 import static songbox.house.util.Constants.JSON_DELIMITER;
+import static songbox.house.util.Constants.JSON_DELIMITER_V2;
 import static songbox.house.util.RetryUtil.getOptionalWithRetries;
 
 @Slf4j
@@ -80,7 +81,7 @@ public class LoadVkAudioTask implements Callable<List<VkAudio>> {
     private Optional<String> reloadIdsResponse(String ids) {
         final Response response = vkClient.reload(ids);
 
-        if (!response.body().contains(JSON_DELIMITER)) {
+        if (!response.body().contains(JSON_DELIMITER_V2) && !response.body().contains(JSON_DELIMITER)) {
             return empty();
         }
 

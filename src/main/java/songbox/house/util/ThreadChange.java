@@ -118,6 +118,11 @@ public class ThreadChange {
         }
 
         @Override
+        public void execute(Runnable command) {
+            super.execute(applyContext(command));
+        }
+
+        @Override
         public Future<?> submit(Runnable task) {
             return super.submit(applyContext(task));
         }
