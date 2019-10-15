@@ -180,7 +180,7 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
 
     private String getRedirectUrl(String requestUrl) {
         GenericUrl url = new GenericUrl(requestUrl);
-        url.setRawPath(YOUTUBE_TOKEN_URL);
+        url.appendRawPath(YOUTUBE_TOKEN_URL);
         return url.build();
     }
 }
