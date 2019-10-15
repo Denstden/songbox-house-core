@@ -15,6 +15,7 @@ import songbox.house.domain.dto.response.vk.VkSearchResponseDto;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,7 +85,17 @@ public class JsonUtils implements ApplicationContextAware {
     }
 
     public static <T> T responseToObject(final String body, final Class<T> clazz) {
-        // Try #1
+        return parseV2(body, clazz).orElseGet(() -> parseV1(body, clazz));
+    }
+
+    @Deprecated
+    private static <T> T parseV1(final String body, final Class<T> clazz) {
+        String json = body.substring(body.indexOf(JSON_DELIMITER) + JSON_DELIMITER.length());
+        json = json.substring(0, json.indexOf("<!>"));
+        return fromString(json, clazz);
+    }
+
+    private static <T> Optional<T> parseV2(final String body, final Class<T> clazz) {
         try {
             JSONArray payload = new JSONObject(body.substring(body.indexOf(JSON_DELIMITER_V2) + JSON_DELIMITER_V2.length())).getJSONArray("payload");
             for (int i = 0; i < payload.length(); i++) {
@@ -93,24 +104,22 @@ public class JsonUtils implements ApplicationContextAware {
                     continue;
                 }
 
-                JSONArray jsonArray = (JSONArray)payloadObj;
+                JSONArray jsonArray = (JSONArray) payloadObj;
                 for (int j = 0; j < jsonArray.length(); j++) {
                     try {
-                        return fromString(jsonArray.get(j).toString(), clazz); // it should be at first index, but you never know
+                        T object = fromString(jsonArray.get(j).toString(), clazz);
+                        if (object != null) {
+                            return Optional.of(object);  // it should be at first index, but you never know
+                        }
                     } catch (Exception e) {
                     }
                 }
-
             }
         } catch (Exception e) {
             log.error("Cannot load object by new api", e);
         }
 
-        log.warn("Loading object by old api");
-        // Try Old api
-        String json = body.substring(body.indexOf(JSON_DELIMITER) + JSON_DELIMITER.length());
-        json = json.substring(0, json.indexOf("<!>"));
-        return fromString(json, clazz);
+        return Optional.empty();
     }
 
     private static <T> T readValue(JsonNode node, Class<T> clazz) {
