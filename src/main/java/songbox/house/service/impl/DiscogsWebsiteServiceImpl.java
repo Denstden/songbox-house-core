@@ -9,7 +9,7 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import songbox.house.client.DiscogsClient;
 import songbox.house.domain.dto.request.ArtistTitleDto;
-import songbox.house.domain.dto.response.SongDto;
+import songbox.house.domain.dto.response.TrackMetadataDto;
 import songbox.house.domain.dto.response.discogs.DiscogsReleaseDto;
 import songbox.house.service.DiscogsWebsiteService;
 
@@ -107,7 +107,7 @@ public class DiscogsWebsiteServiceImpl implements DiscogsWebsiteService {
         try {
             if (response != null) {
                 DiscogsReleaseDto discogsReleaseDto = new DiscogsReleaseDto();
-                Map<ArtistTitleDto, List<SongDto>> songDtos = new HashMap<>();
+                Map<ArtistTitleDto, List<TrackMetadataDto>> songDtos = new HashMap<>();
                 Document document = response.parse();
                 applyProfile(discogsReleaseDto, document);
 
@@ -127,12 +127,12 @@ public class DiscogsWebsiteServiceImpl implements DiscogsWebsiteService {
                         trackTitle = trackTitleElement.text().trim();
                     }
 
-                    SongDto songDto = new SongDto();
-                    songDto.setArtist(replaceUnicodeCharacters(artist).replaceAll("^-", ""));
-                    songDto.setTitle(trackTitle);
-                    songDto.setDuration(parseTrackDuration(trackElement));
-                    songDto.setTrackPos(trackElement.select(".tracklist_track_pos").text().trim());
-                    songDtos.put(new ArtistTitleDto(artist, trackTitle), Arrays.asList(songDto));
+                    TrackMetadataDto trackMetadataDto = new TrackMetadataDto();
+                    trackMetadataDto.setArtist(replaceUnicodeCharacters(artist).replaceAll("^-", ""));
+                    trackMetadataDto.setTitle(trackTitle);
+                    trackMetadataDto.setDuration(parseTrackDuration(trackElement));
+                    trackMetadataDto.setTrackPos(trackElement.select(".tracklist_track_pos").text().trim());
+                    songDtos.put(new ArtistTitleDto(artist, trackTitle), Arrays.asList(trackMetadataDto));
                 }
 
                 discogsReleaseDto.setSongs(songDtos);

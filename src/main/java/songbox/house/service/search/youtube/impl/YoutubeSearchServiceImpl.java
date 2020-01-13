@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection.Response;
 import org.springframework.stereotype.Service;
 import songbox.house.client.YoutubeClient;
-import songbox.house.domain.dto.response.SongDto;
-import songbox.house.service.search.SearchQuery;
+import songbox.house.domain.dto.response.TrackMetadataDto;
+import songbox.house.service.search.SearchQueryDto;
 import songbox.house.service.search.youtube.YoutubeSearchService;
 
 import java.net.URI;
@@ -18,6 +18,7 @@ import static java.lang.String.format;
 import static java.net.URI.create;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Base64.getEncoder;
+import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 import static songbox.house.util.Constants.EMPTY_URI;
 import static songbox.house.util.parser.YoutubeSearchParser.parseHtmlDocumentForSearch;
@@ -33,17 +34,22 @@ public class YoutubeSearchServiceImpl implements YoutubeSearchService {
     YoutubeClient client;
 
     @Override
-    public List<SongDto> search(SearchQuery query) throws Exception {
-        Response response = client.search(query.getQuery());
-        return parseHtmlDocumentForSearch(response.parse().toString())
-                .stream()
-                .map(youtubeSong -> new SongDto(youtubeSong.getArtist(),
-                        youtubeSong.getTitle(),
-                        youtubeSong.getDuration(),
-                        YOUTUBE_BITRATE,
-                        youtubeSong.getThumbnail(),
-                        getUri(youtubeSong.getVideoId()), resourceName()))
-                .collect(toList());
+    public List<TrackMetadataDto> search(SearchQueryDto query) {
+        try {
+            Response response = client.search(query.getQuery());
+            return parseHtmlDocumentForSearch(response.parse().toString())
+                    .stream()
+                    .map(youtubeSong -> new TrackMetadataDto(youtubeSong.getArtist(),
+                            youtubeSong.getTitle(),
+                            youtubeSong.getDuration(),
+                            YOUTUBE_BITRATE,
+                            youtubeSong.getThumbnail(),
+                            getUri(youtubeSong.getVideoId()), resourceName()))
+                    .collect(toList());
+        } catch (Exception e) {
+            log.error("Can't execute youtube search", e);
+            return emptyList();
+        }
     }
 
     private URI getUri(String videoId) {

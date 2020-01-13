@@ -6,22 +6,20 @@ import com.iheartradio.m3u8.data.TrackData;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import songbox.house.util.Configuration;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.List;
 import java.util.Optional;
 
 import static com.iheartradio.m3u8.Encoding.UTF_8;
 import static com.iheartradio.m3u8.Format.EXT_M3U;
+import static java.net.Proxy.Type.HTTP;
 import static java.util.Collections.emptyList;
-import static java.util.Optional.empty;
-import static java.util.Optional.of;
-import static org.apache.commons.io.IOUtils.toByteArray;
-import static songbox.house.util.RetryUtil.DEFAULT_RETRIES;
-import static songbox.house.util.RetryUtil.getOptionalWithRetries;
+import static songbox.house.util.DownloadUtil.downloadBytes;
 
 
 @Slf4j
@@ -29,10 +27,11 @@ import static songbox.house.util.RetryUtil.getOptionalWithRetries;
 @Component
 public class Downloader {
 
-    private final HTTPConnectionProvider connectionProvider;
+    private final Configuration configuration;
 
     public Optional<byte[]> downloadBytesVK(String url) {
-        return downloadBytes(url, true);
+        Proxy vkProxy = getProxy();
+        return downloadBytes(url, vkProxy);
     }
 
     public List<TrackData> getPartsMetadata(String indexUrl) {
@@ -50,25 +49,9 @@ public class Downloader {
         }
     }
 
-
-    public Optional<byte[]> downloadBytes(String url) {
-        return downloadBytes(url, false);
-    }
-
-    private Optional<byte[]> downloadBytes(String urlStr, boolean isProxied) {
-        return getOptionalWithRetries(this::download, urlStr, isProxied, DEFAULT_RETRIES, "download_bytes");
-    }
-
-    private Optional<byte[]> download(String urlStr, boolean isProxied) {
-        try {
-            final URL url = new URL(urlStr);
-            final HttpURLConnection connection = connectionProvider.getConnection(url, isProxied);
-            final InputStream inputStream = connection.getInputStream();
-            final byte[] bytes = toByteArray(inputStream);
-            return of(bytes);
-        } catch (Exception e) {
-            log.debug("Retryable exception", e);
-            return empty();
-        }
+    private Proxy getProxy() {
+        return configuration == null || configuration.getProxy() == null
+                ? null
+                : new Proxy(HTTP, new InetSocketAddress(configuration.getProxy().getIp(), configuration.getProxy().getPort()));
     }
 }

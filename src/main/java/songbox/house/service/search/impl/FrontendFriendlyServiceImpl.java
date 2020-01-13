@@ -6,14 +6,14 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import songbox.house.domain.dto.request.ArtistTitleDto;
-import songbox.house.domain.dto.response.SongDto;
+import songbox.house.domain.dto.response.TrackMetadataDto;
 import songbox.house.domain.dto.response.discogs.DiscogsReleaseDto;
 import songbox.house.domain.entity.DiscogsRelease;
 import songbox.house.domain.entity.Genre;
 import songbox.house.domain.entity.MusicCollection;
 import songbox.house.repository.DiscogsReleaseRepository;
 import songbox.house.service.*;
-import songbox.house.service.search.SearchQuery;
+import songbox.house.service.search.SearchQueryDto;
 import songbox.house.service.search.SearchServiceFacade;
 import songbox.house.util.Pair;
 import songbox.house.util.ProgressListener;
@@ -68,7 +68,7 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
 
     private DiscogsReleaseDto getDetailedInfo(DiscogsReleaseDto releaseInfo, ProgressListener progressListener) {
         // Apply search
-        Map<ArtistTitleDto, List<SongDto>> songs = releaseInfo.getSongs();
+        Map<ArtistTitleDto, List<TrackMetadataDto>> songs = releaseInfo.getSongs();
 
 
         AtomicReference<Float> curProgress = new AtomicReference<>((float) 0);
@@ -79,34 +79,34 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
             }
         };
 
-        for (Map.Entry<ArtistTitleDto, List<SongDto>> song : songs.entrySet()) {
+        for (Map.Entry<ArtistTitleDto, List<TrackMetadataDto>> song : songs.entrySet()) {
             ArtistTitleDto artistTitleDto = song.getKey();
-            SongDto expectedSongDto = song.getValue().get(0);
+            TrackMetadataDto expectedTrackMetadataDto = song.getValue().get(0);
 
-            SearchQuery searchQuery = new SearchQuery(String.format("%s %s - %s", releaseInfo.getAudioLabelReleaseName(), artistTitleDto.getArtist(), artistTitleDto.getTitle()));
-            searchQuery.setFetchArtwork(true);
-            searchQuery.setFilterByArtistTitle(false);
+            SearchQueryDto searchQueryDto = new SearchQueryDto(String.format("%s %s - %s", releaseInfo.getAudioLabelReleaseName(), artistTitleDto.getArtist(), artistTitleDto.getTitle()));
+            searchQueryDto.setFetchArtwork(true);
+            searchQueryDto.setFilterByArtistTitle(false);
 
-            SearchQuery searchQueryWithoutLabel = new SearchQuery(String.format("%s - %s", artistTitleDto.getArtist(), artistTitleDto.getTitle()));
-            searchQueryWithoutLabel.setFetchArtwork(false);
-            searchQueryWithoutLabel.setFilterByArtistTitle(false);
+            SearchQueryDto searchQueryDtoWithoutLabel = new SearchQueryDto(String.format("%s - %s", artistTitleDto.getArtist(), artistTitleDto.getTitle()));
+            searchQueryDtoWithoutLabel.setFetchArtwork(false);
+            searchQueryDtoWithoutLabel.setFilterByArtistTitle(false);
 
 
             // Apply song side
             Pair<String, String> expectedArtistTitle = Pair.of(artistTitleDto.getArtist(), artistTitleDto.getTitle());
-            if (!expectedSongDto.getTrackPos().isEmpty()) {
-                expectedArtistTitle = Pair.of(expectedArtistTitle.getLeft(), expectedSongDto.getTrackPos() + " " + expectedArtistTitle.getRight());
+            if (!expectedTrackMetadataDto.getTrackPos().isEmpty()) {
+                expectedArtistTitle = Pair.of(expectedArtistTitle.getLeft(), expectedTrackMetadataDto.getTrackPos() + " " + expectedArtistTitle.getRight());
             }
 
-            List<SongDto> songSearchResultList = searchServiceFacade.search(searchQuery);
+            List<TrackMetadataDto> songSearchResultList = searchServiceFacade.search(searchQueryDto);
             invokeProgressListener.run();
-            songSearchResultList.addAll(searchServiceFacade.search(searchQueryWithoutLabel));
+            songSearchResultList.addAll(searchServiceFacade.search(searchQueryDtoWithoutLabel));
             invokeProgressListener.run();
 
-            songSearchResultList.sort(new SmartDiscogsComparator(expectedSongDto, expectedArtistTitle));
+            songSearchResultList.sort(new SmartDiscogsComparator(expectedTrackMetadataDto, expectedArtistTitle));
 
             // Apply track Pos
-            songSearchResultList.forEach(e -> e.setTrackPos(expectedSongDto.getTrackPos()));
+            songSearchResultList.forEach(e -> e.setTrackPos(expectedTrackMetadataDto.getTrackPos()));
             songs.put(artistTitleDto, songSearchResultList.subList(0, Math.min(songSearchResultList.size(), DETAILED_INFO_MAX_SONG_SIZE)));
         }
         releaseInfo.setSongs(songs);

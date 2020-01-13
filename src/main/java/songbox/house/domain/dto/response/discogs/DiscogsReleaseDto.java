@@ -3,7 +3,7 @@ package songbox.house.domain.dto.response.discogs;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import songbox.house.domain.dto.request.ArtistTitleDto;
-import songbox.house.domain.dto.response.SongDto;
+import songbox.house.domain.dto.response.TrackMetadataDto;
 
 import java.util.List;
 import java.util.Map;
@@ -22,5 +22,5 @@ public class DiscogsReleaseDto {
     private Set<String> genres; /* Minimal */
     private String discogsLink; /* https://www.discogs.com/IulyB-Systematic-EP/release/13370327 */
 
-    private Map<ArtistTitleDto, List<SongDto>> songs;
+    private Map<ArtistTitleDto, List<TrackMetadataDto>> songs;
 }

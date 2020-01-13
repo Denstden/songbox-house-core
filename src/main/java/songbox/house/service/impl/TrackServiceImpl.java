@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import songbox.house.converter.TrackConverter;
 import songbox.house.domain.TrackSource;
 import songbox.house.domain.dto.request.SaveSongsDto;
-import songbox.house.domain.dto.response.SongDto;
+import songbox.house.domain.dto.response.TrackMetadataDto;
 import songbox.house.domain.dto.response.TracksDto;
 import songbox.house.domain.entity.Author;
 import songbox.house.domain.entity.Genre;
@@ -189,7 +189,7 @@ public class TrackServiceImpl implements TrackService {
         final List<Track> result = Lists.newArrayList();
         final Long collectionId = saveSongsDto.getCollectionId();
 
-        final Set<SongDto> songs = saveSongsDto.getSongs();
+        final Set<TrackMetadataDto> songs = saveSongsDto.getSongs();
 
         if (!isEmpty(songs)) {
             songs.forEach(songDto ->
@@ -201,13 +201,13 @@ public class TrackServiceImpl implements TrackService {
         return result;
     }
 
-    private Optional<Track> downloadOne(Long collectionId, SongDto songDto) {
-        final String uri = songDto.getUri();
+    private Optional<Track> downloadOne(Long collectionId, TrackMetadataDto trackMetadataDto) {
+        final String uri = trackMetadataDto.getUri();
         String[] resourceUrl = uri.split(":");
         final String resource = resourceUrl[0];
         switch (resource) {
             case "VK":
-                return downloadFromVk(collectionId, songDto, resourceUrl[1]);
+                return downloadFromVk(collectionId, trackMetadataDto, resourceUrl[1]);
             case "Youtube":
                 log.warn("Downloading from YouTube not implemented yet.");
                 break;
@@ -219,17 +219,17 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
-    public Track download(SongDto songDto, Long collectionId) {
-        return downloadOne(collectionId, songDto)
+    public Track download(TrackMetadataDto trackMetadataDto, Long collectionId) {
+        return downloadOne(collectionId, trackMetadataDto)
                 .orElseThrow(() -> new NotExistsException("Exception during track downloading"));
     }
 
-    private Optional<Track> downloadFromVk(Long collectionId, SongDto songDto, String encodedUrl) {
-        final VkAudio vkAudio = createVkAudio(songDto, encodedUrl);
+    private Optional<Track> downloadFromVk(Long collectionId, TrackMetadataDto trackMetadataDto, String encodedUrl) {
+        final VkAudio vkAudio = createVkAudio(trackMetadataDto, encodedUrl);
 
         vkAudioService.save(vkAudio);
 
-        return vkDownloadService.download(vkAudio, songDto.getGenres(), collectionId);
+        return vkDownloadService.download(vkAudio, trackMetadataDto.getGenres(), collectionId);
     }
 
     private void setContent(final byte[] content, final Track track) {
@@ -238,13 +238,13 @@ public class TrackServiceImpl implements TrackService {
         track.setContent(trackContent);
     }
 
-    private VkAudio createVkAudio(SongDto songDto, String encodedUrl) {
+    private VkAudio createVkAudio(TrackMetadataDto trackMetadataDto, String encodedUrl) {
         final VkAudio vkAudio = new VkAudio();
-        vkAudio.setArtist(songDto.getArtist());
-        vkAudio.setTitle(songDto.getTitle());
-        vkAudio.setArtworkSrc(songDto.getThumbnail());
-        vkAudio.setBitRate(songDto.getBitRate());
-        vkAudio.setDuration(songDto.getDuration());
+        vkAudio.setArtist(trackMetadataDto.getArtist());
+        vkAudio.setTitle(trackMetadataDto.getTitle());
+        vkAudio.setArtworkSrc(trackMetadataDto.getThumbnail());
+        vkAudio.setBitRate(trackMetadataDto.getBitRate());
+        vkAudio.setDuration(trackMetadataDto.getDuration());
         vkAudio.setUrl(new String(getDecoder().decode(encodedUrl.getBytes())));
         bitRateAndSizeService.calculateBitRatesAndSize(Collections.singletonList(vkAudio));
         return vkAudio;

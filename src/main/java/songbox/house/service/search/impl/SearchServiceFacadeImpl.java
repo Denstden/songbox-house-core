@@ -6,10 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import songbox.house.domain.dto.response.SongDto;
+import songbox.house.domain.dto.response.TrackMetadataDto;
 import songbox.house.domain.entity.SearchHistory;
 import songbox.house.service.search.SearchHistoryService;
-import songbox.house.service.search.SearchQuery;
+import songbox.house.service.search.SearchQueryDto;
 import songbox.house.service.search.SearchService;
 import songbox.house.service.search.SearchServiceFacade;
 import songbox.house.service.search.vk.VkSearchService;
@@ -47,11 +47,11 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
     }
 
     @Override
-    public List<SongDto> search(SearchQuery query) {
+    public List<TrackMetadataDto> search(SearchQueryDto query) {
         log.info("Starting search for {}", query);
         long searchStart = currentTimeMillis();
 
-        List<SongDto> songs = newArrayList();
+        List<TrackMetadataDto> songs = newArrayList();
 
         for (SearchService searchService : searchServices) {
             try {
@@ -73,7 +73,7 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
         return songs;
     }
 
-    private void saveSearchHistory(List<SongDto> songs, Pair<String, String> artistTitle) {
+    private void saveSearchHistory(List<TrackMetadataDto> songs, Pair<String, String> artistTitle) {
         SearchHistory searchHistory = createSearchHistory(artistTitle);
         if (!songs.isEmpty()) {
             String uriList = songs.stream().findFirst().get().getUri();
@@ -90,7 +90,7 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
         return searchHistory;
     }
 
-    private void sort(List<SongDto> songs, Pair<String, String> artistTitle) {
+    private void sort(List<TrackMetadataDto> songs, Pair<String, String> artistTitle) {
         final SearchResultComparator comparator = new SearchResultComparator(artistTitle.getRight(), artistTitle.getLeft());
         songs.sort(comparator);
     }

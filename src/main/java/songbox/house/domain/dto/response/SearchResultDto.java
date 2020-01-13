@@ -9,5 +9,5 @@ import java.util.List;
 @Data
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class SearchResultDto {
-    List<SongDto> songs;
+    List<TrackMetadataDto> songs;
 }

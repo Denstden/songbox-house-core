@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import songbox.house.domain.dto.request.vk.VkSearchAudioRequestDto;
-import songbox.house.domain.dto.response.SongDto;
+import songbox.house.domain.dto.response.TrackMetadataDto;
 import songbox.house.domain.dto.response.vk.VkSearchResponseDto;
 import songbox.house.domain.entity.SearchHistory;
 import songbox.house.domain.entity.VkAudio;
@@ -15,7 +15,7 @@ import songbox.house.service.BitRateAndSizeService;
 import songbox.house.service.DiscogsWebsiteService;
 import songbox.house.service.KafkaService;
 import songbox.house.service.search.SearchHistoryService;
-import songbox.house.service.search.SearchQuery;
+import songbox.house.service.search.SearchQueryDto;
 import songbox.house.service.search.vk.VkAudioLoader;
 import songbox.house.service.search.vk.VkSearchPerformer;
 import songbox.house.service.search.vk.VkSearchResultAnalyzer;
@@ -82,7 +82,7 @@ public class VKSearchServiceImpl implements VkSearchService {
     }
 
     @Override
-    public List<SongDto> search(SearchQuery query) throws Exception {
+    public List<TrackMetadataDto> search(SearchQueryDto query) {
         final long searchStarted = currentTimeMillis();
         final List<VkSearchResponseDto> searchResults = vkSearchPerformer.performSearch(query);
         if (searchResults.isEmpty()) {
@@ -93,8 +93,7 @@ public class VKSearchServiceImpl implements VkSearchService {
         }
     }
 
-
-    private List<SongDto> processSearchResult(List<VkSearchResponseDto> searchResults, SearchQuery query,
+    private List<TrackMetadataDto> processSearchResult(List<VkSearchResponseDto> searchResults, SearchQueryDto query,
             long searchStarted) {
         final VkSearchAudioRequestDto vkSearchAudioRequestDto = vkSearchResultProcessor.processSearchResults(searchResults);
 
@@ -117,7 +116,7 @@ public class VKSearchServiceImpl implements VkSearchService {
                     .stream()
                     .map(e -> {
                         String thumbnail = artworks.isEmpty() ? "" : artworks.get(0);
-                        return new SongDto(
+                        return new TrackMetadataDto(
                                 e.getArtist().trim(), e.getTitle().trim(),
                                 e.getDuration(),
                                 e.getBitRate(),
@@ -134,7 +133,7 @@ public class VKSearchServiceImpl implements VkSearchService {
             final SearchHistory searchHistory,
             final boolean only320) {
         final String searchQuery = authors + AUTHOR_TITLE_DELIMITER + title;
-        final List<VkSearchResponseDto> searchResults = vkSearchPerformer.performSearch(new SearchQuery(searchQuery));
+        final List<VkSearchResponseDto> searchResults = vkSearchPerformer.performSearch(new SearchQueryDto(searchQuery));
 
         final VkSearchAudioRequestDto vkSearchAudioRequestDto = vkSearchResultProcessor.processSearchResults(searchResults);
 

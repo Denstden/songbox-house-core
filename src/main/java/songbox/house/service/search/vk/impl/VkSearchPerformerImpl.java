@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import songbox.house.client.VkClient;
 import songbox.house.domain.dto.response.vk.VkSearchResponseDto;
-import songbox.house.service.search.SearchQuery;
+import songbox.house.service.search.SearchQueryDto;
 import songbox.house.service.search.vk.VkSearchPerformer;
 import songbox.house.service.search.vk.VkSearchResultAnalyzer;
 import songbox.house.util.Configuration;
@@ -56,21 +56,21 @@ public class VkSearchPerformerImpl implements VkSearchPerformer {
     }
 
     @Override
-    public List<VkSearchResponseDto> performSearch(SearchQuery searchQuery) {
-        return search(searchQuery).stream()
+    public List<VkSearchResponseDto> performSearch(SearchQueryDto searchQueryDto) {
+        return search(searchQueryDto).stream()
                 .filter(vkSearchResponseDto -> !isEmpty(vkSearchResponseDto.getList()))
                 .collect(toList());
     }
 
-    private List<VkSearchResponseDto> search(final SearchQuery searchQuery) {
-        final CompletionService<List<VkSearchResponseDto>> searchCompletionService = submitSearch(searchQuery);
+    private List<VkSearchResponseDto> search(final SearchQueryDto searchQueryDto) {
+        final CompletionService<List<VkSearchResponseDto>> searchCompletionService = submitSearch(searchQueryDto);
         return getSearchResult(searchCompletionService);
     }
 
-    private CompletionService<List<VkSearchResponseDto>> submitSearch(SearchQuery searchQuery) {
+    private CompletionService<List<VkSearchResponseDto>> submitSearch(SearchQueryDto searchQueryDto) {
         CompletionService<List<VkSearchResponseDto>> searchCompletionService = new ExecutorCompletionService<>(searchExecutorService);
-        searchCompletionService.submit(() -> getSearchResultFromMusic(searchQuery));
-        searchCompletionService.submit(() -> getSearchResultFromNewsFeed(searchQuery));
+        searchCompletionService.submit(() -> getSearchResultFromMusic(searchQueryDto));
+        searchCompletionService.submit(() -> getSearchResultFromNewsFeed(searchQueryDto));
         return searchCompletionService;
     }
 
@@ -99,22 +99,22 @@ public class VkSearchPerformerImpl implements VkSearchPerformer {
         return !isEmpty(searchResult) && searchResult.get(0) != null && !isEmpty(searchResult.get(0).getList());
     }
 
-    private List<VkSearchResponseDto> getSearchResultFromNewsFeed(final SearchQuery searchQuery) {
-        final Response response = vkClient.searchFromNewsFeed(searchQuery.getQuery());
+    private List<VkSearchResponseDto> getSearchResultFromNewsFeed(final SearchQueryDto searchQueryDto) {
+        final Response response = vkClient.searchFromNewsFeed(searchQueryDto.getQuery());
         final VkSearchResponseDto vkSearchResponseDto = searchFromNewsFeedResponseToObject(response.body());
-        if (searchQuery.isFilterByArtistTitle()) {
-            vkSearchResultAnalyzer.filterByArtistTitle(searchQuery.getQuery(), vkSearchResponseDto);
+        if (searchQueryDto.isFilterByArtistTitle()) {
+            vkSearchResultAnalyzer.filterByArtistTitle(searchQueryDto.getQuery(), vkSearchResponseDto);
         }
         vkSearchResponseDto.setFromNews(true);
         return singletonList(vkSearchResponseDto);
     }
 
-    private List<VkSearchResponseDto> getSearchResultFromMusic(final SearchQuery searchQuery) {
+    private List<VkSearchResponseDto> getSearchResultFromMusic(final SearchQueryDto searchQueryDto) {
         final List<VkSearchResponseDto> result = newArrayList();
         VkSearchResponseDto vkSearchResponseDto;
         String offset = "0";
         do {
-            vkSearchResponseDto = getOptionalWithRetries(this::searchFromMusic, searchQuery.getQuery(), offset, searchFromMusicRetries, "vk_search_from_music")
+            vkSearchResponseDto = getOptionalWithRetries(this::searchFromMusic, searchQueryDto.getQuery(), offset, searchFromMusicRetries, "vk_search_from_music")
                     .orElse(null);
 
             if (vkSearchResponseDto == null) {
