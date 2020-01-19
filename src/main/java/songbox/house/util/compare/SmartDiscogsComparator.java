@@ -9,9 +9,9 @@ import java.util.Comparator;
 import static songbox.house.util.compare.LevenshteinDistanceComparator.MAX_COMPARE_RESULT;
 
 public class SmartDiscogsComparator implements Comparator<TrackMetadataDto> {
-    final SongDto expectedSongDto;
-    final Pair<String, String> expectedArtistTitle;
-    final ArtistTitleComparator artistTitleComparator = new ArtistTitleComparator();
+    private final SongDto expectedSongDto;
+    private final Pair<String, String> expectedArtistTitle;
+    private final ArtistTitleComparator artistTitleComparator = new ArtistTitleComparator();
 
     private static final int DURATION_DIFF_MULTIPLIER = 3;
     private static final int BITRATE_DIFF_PENALTY = 60;
