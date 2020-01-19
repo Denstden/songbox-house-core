@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import songbox.house.domain.dto.ClientConfiguration;
 import songbox.house.domain.dto.request.SearchQueryDto;
+import songbox.house.domain.dto.response.SongDto;
 import songbox.house.domain.dto.response.TrackMetadataDto;
 import songbox.house.service.search.SearchService;
 import songbox.house.service.search.SearchServiceFacade;

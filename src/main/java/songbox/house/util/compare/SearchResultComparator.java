@@ -1,5 +1,6 @@
 package songbox.house.util.compare;
 
+import songbox.house.domain.dto.response.SongDto;
 import songbox.house.domain.dto.response.TrackMetadataDto;
 
 import java.util.Comparator;
@@ -18,7 +19,7 @@ public class SearchResultComparator implements Comparator<TrackMetadataDto> {
 
     @Override
     public int compare(TrackMetadataDto song1, TrackMetadataDto song2) {
-        int compareArtists = compareArtists(song1.getArtist(), song2.getArtist(), authors);
+        int compareArtists = compareArtists(song1.getArtists(), song2.getArtists(), authors);
         if (compareArtists != 0) {
             return compareArtists;
         } else {

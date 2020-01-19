@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class TrackMetadataDto implements BitRateDuration {
+public class SongDto implements BitRateDuration {
     private String artist;
     private String title;
     private Integer duration;
@@ -21,10 +21,10 @@ public class TrackMetadataDto implements BitRateDuration {
 
     private Set<String> genres;
 
-    public TrackMetadataDto() {
+    public SongDto() {
     }
 
-    public TrackMetadataDto(String artist, String title, Integer duration, Short bitRate, String thumbnail, URI uri,
+    public SongDto(String artist, String title, Integer duration, Short bitRate, String thumbnail, URI uri,
             String resource) {
         this.artist = artist;
         this.title = title;
@@ -35,7 +35,7 @@ public class TrackMetadataDto implements BitRateDuration {
         this.resource = resource;
     }
 
-    public TrackMetadataDto(String artist, String title, Integer duration, Short bitRate, String thumbnail, URI uri,
+    public SongDto(String artist, String title, Integer duration, Short bitRate, String thumbnail, URI uri,
             String resource, Set<String> genres) {
         this.artist = artist;
         this.title = title;

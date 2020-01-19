@@ -11,6 +11,7 @@ import songbox.house.domain.dto.ClientConfiguration;
 import songbox.house.domain.dto.request.SearchQueryDto;
 import songbox.house.domain.dto.response.SearchResultDto;
 import songbox.house.domain.dto.response.TrackMetadataDto;
+import songbox.house.domain.dto.response.youtube.YoutubeSongDto;
 import songbox.house.service.search.youtube.YoutubeSearchService;
 
 import java.net.URI;
@@ -45,17 +46,24 @@ public class YoutubeSearchServiceImpl implements YoutubeSearchService {
             Response response = client.search(query.getQuery());
             return parseHtmlDocumentForSearch(response.parse().toString())
                     .stream()
-                    .map(youtubeSong -> new TrackMetadataDto(youtubeSong.getArtist(),
-                            youtubeSong.getTitle(),
-                            youtubeSong.getDuration(),
-                            YOUTUBE_BITRATE,
-                            youtubeSong.getThumbnail(),
-                            getUri(youtubeSong.getVideoId()), resourceName()))
+                    .map(this::toTrackMetadata)
                     .collect(toList());
         } catch (Exception e) {
             log.error("Can't execute youtube search", e);
             return emptyList();
         }
+    }
+
+    private TrackMetadataDto toTrackMetadata(YoutubeSongDto youtubeSongDto) {
+        TrackMetadataDto trackMetadataDto = new TrackMetadataDto();
+        trackMetadataDto.setResource("Youtube");
+        trackMetadataDto.setUri(getUri(youtubeSongDto.getVideoId()).toASCIIString());
+        trackMetadataDto.setThumbnail(youtubeSongDto.getThumbnail());
+        trackMetadataDto.setBitRate(YOUTUBE_BITRATE);
+        trackMetadataDto.setDurationSec(youtubeSongDto.getDuration());
+        trackMetadataDto.setArtists(youtubeSongDto.getArtist());
+        trackMetadataDto.setTitle(youtubeSongDto.getTitle());
+        return trackMetadataDto;
     }
 
     private URI getUri(String videoId) {

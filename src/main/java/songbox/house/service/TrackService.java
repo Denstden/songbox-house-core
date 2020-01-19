@@ -1,14 +1,12 @@
 package songbox.house.service;
 
-import org.springframework.context.event.EventListener;
 import songbox.house.domain.TrackSource;
 import songbox.house.domain.dto.request.SaveSongsDto;
-import songbox.house.domain.dto.response.TrackMetadataDto;
+import songbox.house.domain.dto.response.SongDto;
 import songbox.house.domain.dto.response.TracksDto;
 import songbox.house.domain.entity.Author;
 import songbox.house.domain.entity.MusicCollection;
 import songbox.house.domain.entity.Track;
-import songbox.house.domain.event.vk.VkDownloadSuccessEvent;
 
 import java.util.Set;
 
@@ -31,10 +29,7 @@ public interface TrackService {
 
     void addToCollection(Track fromDb, Long collectionId);
 
-    @EventListener
-    void onDownloadSuccessEvent(VkDownloadSuccessEvent event);
-
     Iterable<Track> download(SaveSongsDto saveSongsDto);
 
-    Track download(TrackMetadataDto trackMetadataDto, Long collectionId);
+    Track download(SongDto songDto, Long collectionId);
 }

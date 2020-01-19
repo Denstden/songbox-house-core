@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,14 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import songbox.house.converter.TrackConverter;
 import songbox.house.domain.TrackSource;
 import songbox.house.domain.dto.request.SaveSongsDto;
-import songbox.house.domain.dto.response.TrackMetadataDto;
+import songbox.house.domain.dto.response.SongDto;
 import songbox.house.domain.dto.response.TracksDto;
 import songbox.house.domain.entity.Author;
 import songbox.house.domain.entity.Genre;
 import songbox.house.domain.entity.MusicCollection;
 import songbox.house.domain.entity.Track;
 import songbox.house.domain.entity.TrackContent;
-import songbox.house.domain.event.vk.VkDownloadSuccessEvent;
 import songbox.house.exception.AccessDeniedException;
 import songbox.house.exception.NotExistsException;
 import songbox.house.repository.GenreRepository;
@@ -53,18 +51,15 @@ public class TrackServiceImpl implements TrackService {
     MusicCollectionService collectionService;
     AuthorService authorService;
     TrackConverter trackConverter;
-    Boolean saveToBD;
 
     public TrackServiceImpl(TrackRepository trackRepository, GenreRepository genreRepository,
             MusicCollectionService collectionService, AuthorService authorService,
-            TrackConverter trackConverter,
-            @Value("${songbox.house.vk.download.save_to_db.enabled}") Boolean saveToBD) {
+            TrackConverter trackConverter) {
         this.trackRepository = trackRepository;
         this.genreRepository = genreRepository;
         this.collectionService = collectionService;
         this.authorService = authorService;
         this.trackConverter = trackConverter;
-        this.saveToBD = saveToBD;
     }
 
     @Override
@@ -158,24 +153,11 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
-    public void onDownloadSuccessEvent(final VkDownloadSuccessEvent event) {
-        if (saveToBD) {
-            final Track track = event.getTrack();
-            final Set<String> genres = event.getGenres();
-            final Long collectionId = event.getCollectionId();
-
-            save(track, genres, collectionId);
-        } else {
-            log.warn("Saving to BD is turned off");
-        }
-    }
-
-    @Override
     public Iterable<Track> download(SaveSongsDto saveSongsDto) {
         final List<Track> result = Lists.newArrayList();
         final Long collectionId = saveSongsDto.getCollectionId();
 
-        final Set<TrackMetadataDto> songs = saveSongsDto.getSongs();
+        final Set<SongDto> songs = saveSongsDto.getSongs();
 
         if (!isEmpty(songs)) {
             songs.forEach(songDto ->
@@ -187,8 +169,8 @@ public class TrackServiceImpl implements TrackService {
         return result;
     }
 
-    private Optional<Track> downloadOne(Long collectionId, TrackMetadataDto trackMetadataDto) {
-        final String uri = trackMetadataDto.getUri();
+    private Optional<Track> downloadOne(Long collectionId, SongDto songDto) {
+        final String uri = songDto.getUri();
         String[] resourceUrl = uri.split(":");
         final String resource = resourceUrl[0];
         switch (resource) {
@@ -206,8 +188,8 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
-    public Track download(TrackMetadataDto trackMetadataDto, Long collectionId) {
-        return downloadOne(collectionId, trackMetadataDto)
+    public Track download(SongDto songDto, Long collectionId) {
+        return downloadOne(collectionId, songDto)
                 .orElseThrow(() -> new NotExistsException("Exception during track downloading"));
     }
 
