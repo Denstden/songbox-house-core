@@ -7,8 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection.Response;
 import org.springframework.stereotype.Service;
 import songbox.house.client.YoutubeClient;
+import songbox.house.domain.dto.ClientConfiguration;
+import songbox.house.domain.dto.request.SearchQueryDto;
+import songbox.house.domain.dto.response.SearchResultDto;
 import songbox.house.domain.dto.response.TrackMetadataDto;
-import songbox.house.service.search.SearchQueryDto;
 import songbox.house.service.search.youtube.YoutubeSearchService;
 
 import java.net.URI;
@@ -34,7 +36,11 @@ public class YoutubeSearchServiceImpl implements YoutubeSearchService {
     YoutubeClient client;
 
     @Override
-    public List<TrackMetadataDto> search(SearchQueryDto query) {
+    public SearchResultDto search(SearchQueryDto query, ClientConfiguration clientConfiguration) {
+        return new SearchResultDto(getTrackMetadataList(query));
+    }
+
+    private List<TrackMetadataDto> getTrackMetadataList(SearchQueryDto query) {
         try {
             Response response = client.search(query.getQuery());
             return parseHtmlDocumentForSearch(response.parse().toString())

@@ -5,6 +5,10 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @org.springframework.context.annotation.Configuration
 @PropertySource("classpath:env.properties")
 @ConfigurationProperties(prefix = "configuration")
@@ -45,4 +49,12 @@ public class Configuration {
     private @Getter
     @Setter
     Connection connection;
+
+    public Map<String, String> parseCookies() {
+        final String[] split = connection.vkCookie.split(";");
+        return Stream.of(split)
+                .map(str -> str.split("="))
+                .map(keyValue -> Pair.of(keyValue[0].trim(), keyValue[1].trim()))
+                .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
+    }
 }

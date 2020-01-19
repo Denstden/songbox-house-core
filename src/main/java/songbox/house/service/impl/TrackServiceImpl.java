@@ -19,20 +19,15 @@ import songbox.house.domain.entity.Genre;
 import songbox.house.domain.entity.MusicCollection;
 import songbox.house.domain.entity.Track;
 import songbox.house.domain.entity.TrackContent;
-import songbox.house.domain.entity.VkAudio;
 import songbox.house.domain.event.vk.VkDownloadSuccessEvent;
 import songbox.house.exception.AccessDeniedException;
 import songbox.house.exception.NotExistsException;
 import songbox.house.repository.GenreRepository;
 import songbox.house.repository.TrackRepository;
 import songbox.house.service.AuthorService;
-import songbox.house.service.BitRateAndSizeService;
 import songbox.house.service.MusicCollectionService;
 import songbox.house.service.TrackService;
-import songbox.house.service.search.vk.VkAudioService;
-import songbox.house.service.search.vk.VkDownloadService;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +35,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.text.MessageFormat.format;
-import static java.util.Base64.getDecoder;
 import static java.util.Optional.empty;
 import static java.util.stream.StreamSupport.stream;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -59,25 +53,17 @@ public class TrackServiceImpl implements TrackService {
     MusicCollectionService collectionService;
     AuthorService authorService;
     TrackConverter trackConverter;
-
-    BitRateAndSizeService bitRateAndSizeService;
-    VkAudioService vkAudioService;
-    VkDownloadService vkDownloadService;
     Boolean saveToBD;
 
     public TrackServiceImpl(TrackRepository trackRepository, GenreRepository genreRepository,
             MusicCollectionService collectionService, AuthorService authorService,
-            TrackConverter trackConverter, BitRateAndSizeService bitRateAndSizeService,
-            VkAudioService vkAudioService, VkDownloadService vkDownloadService,
+            TrackConverter trackConverter,
             @Value("${songbox.house.vk.download.save_to_db.enabled}") Boolean saveToBD) {
         this.trackRepository = trackRepository;
         this.genreRepository = genreRepository;
         this.collectionService = collectionService;
         this.authorService = authorService;
         this.trackConverter = trackConverter;
-        this.bitRateAndSizeService = bitRateAndSizeService;
-        this.vkAudioService = vkAudioService;
-        this.vkDownloadService = vkDownloadService;
         this.saveToBD = saveToBD;
     }
 
@@ -207,7 +193,8 @@ public class TrackServiceImpl implements TrackService {
         final String resource = resourceUrl[0];
         switch (resource) {
             case "VK":
-                return downloadFromVk(collectionId, trackMetadataDto, resourceUrl[1]);
+                log.warn("Downloading from vk not implemented yet.");
+                break;
             case "Youtube":
                 log.warn("Downloading from YouTube not implemented yet.");
                 break;
@@ -224,30 +211,10 @@ public class TrackServiceImpl implements TrackService {
                 .orElseThrow(() -> new NotExistsException("Exception during track downloading"));
     }
 
-    private Optional<Track> downloadFromVk(Long collectionId, TrackMetadataDto trackMetadataDto, String encodedUrl) {
-        final VkAudio vkAudio = createVkAudio(trackMetadataDto, encodedUrl);
-
-        vkAudioService.save(vkAudio);
-
-        return vkDownloadService.download(vkAudio, trackMetadataDto.getGenres(), collectionId);
-    }
-
     private void setContent(final byte[] content, final Track track) {
         final TrackContent trackContent = new TrackContent();
         trackContent.setContent(content);
         track.setContent(trackContent);
-    }
-
-    private VkAudio createVkAudio(TrackMetadataDto trackMetadataDto, String encodedUrl) {
-        final VkAudio vkAudio = new VkAudio();
-        vkAudio.setArtist(trackMetadataDto.getArtist());
-        vkAudio.setTitle(trackMetadataDto.getTitle());
-        vkAudio.setArtworkSrc(trackMetadataDto.getThumbnail());
-        vkAudio.setBitRate(trackMetadataDto.getBitRate());
-        vkAudio.setDuration(trackMetadataDto.getDuration());
-        vkAudio.setUrl(new String(getDecoder().decode(encodedUrl.getBytes())));
-        bitRateAndSizeService.calculateBitRatesAndSize(Collections.singletonList(vkAudio));
-        return vkAudio;
     }
 
     private boolean existsInCollection(final Set<MusicCollection> collections, final Long collectionId) {
