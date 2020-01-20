@@ -6,16 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import songbox.house.domain.dto.request.SearchQueryDto;
 import songbox.house.domain.dto.response.TrackMetadataDto;
+import songbox.house.service.DiscogsWebsiteService;
 import songbox.house.service.search.SearchService;
 import songbox.house.service.search.SearchServiceFacade;
 import songbox.house.util.Pair;
 import songbox.house.util.compare.SearchResultComparator;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.reverse;
 import static java.lang.System.currentTimeMillis;
+import static java.util.Optional.ofNullable;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static lombok.AccessLevel.PRIVATE;
 import static songbox.house.util.ArtistTitleUtil.extractArtistTitle;
 import static songbox.house.util.Constants.PERFORMANCE_MARKER;
@@ -26,10 +30,12 @@ import static songbox.house.util.Constants.PERFORMANCE_MARKER;
 public class SearchServiceFacadeImpl implements SearchServiceFacade {
 
     List<SearchService> searchServices;
+    DiscogsWebsiteService discogsWebsiteService;
 
     @Autowired
-    public SearchServiceFacadeImpl(List<SearchService> searchServices) {
+    public SearchServiceFacadeImpl(List<SearchService> searchServices, DiscogsWebsiteService discogsWebsiteService) {
         this.searchServices = searchServices;
+        this.discogsWebsiteService = discogsWebsiteService;
     }
 
     @Override
@@ -37,7 +43,12 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
         log.info("Starting search for {}", query);
         long searchStart = currentTimeMillis();
 
-        List<TrackMetadataDto> songs = newArrayList();
+
+        final List<TrackMetadataDto> songs = newArrayList();
+        CompletableFuture<List<String>> artworksFuture = null;
+        if (query.isFetchArtwork()) {
+            artworksFuture = supplyAsync(() -> discogsWebsiteService.searchArtworks(query.getQuery()));
+        }
         for (SearchService searchService : searchServices) {
             try {
                 songs.addAll(searchService.search(query).getSongs());
@@ -46,15 +57,19 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
             }
         }
 
+        ofNullable(artworksFuture)
+                .map(CompletableFuture::join)
+                .filter(list -> !list.isEmpty())
+                .map(list -> list.get(0))
+                .ifPresent(artwork -> songs.forEach(song -> song.setThumbnail(artwork)));
+
         Pair<String, String> artistTitle = extractArtistTitle(query.getQuery());
         sort(songs, artistTitle);
 
-        //TODO change comparator to no need reverse
-        songs = reverse(songs);
-
         log.info(PERFORMANCE_MARKER, "Search VK+Youtube finished {}ms", currentTimeMillis() - searchStart);
 
-        return songs;
+        //TODO change comparator to no need reverse
+        return reverse(songs);
     }
 
 
