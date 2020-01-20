@@ -4,13 +4,10 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import songbox.house.domain.dto.ClientConfiguration;
 import songbox.house.domain.dto.request.SearchQueryDto;
-import songbox.house.domain.dto.response.SongDto;
 import songbox.house.domain.dto.response.TrackMetadataDto;
 import songbox.house.service.search.SearchService;
 import songbox.house.service.search.SearchServiceFacade;
-import songbox.house.util.Configuration;
 import songbox.house.util.Pair;
 import songbox.house.util.compare.SearchResultComparator;
 
@@ -29,12 +26,9 @@ import static songbox.house.util.Constants.PERFORMANCE_MARKER;
 public class SearchServiceFacadeImpl implements SearchServiceFacade {
 
     List<SearchService> searchServices;
-    Configuration configuration;
 
     @Autowired
-    public SearchServiceFacadeImpl(List<SearchService> searchServices,
-            Configuration configuration) {
-        this.configuration = configuration;
+    public SearchServiceFacadeImpl(List<SearchService> searchServices) {
         this.searchServices = searchServices;
     }
 
@@ -44,11 +38,9 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
         long searchStart = currentTimeMillis();
 
         List<TrackMetadataDto> songs = newArrayList();
-        ClientConfiguration.Proxy proxy = new ClientConfiguration.Proxy("52.58.60.80", 8534);
-        ClientConfiguration clientConfiguration = new ClientConfiguration(proxy, configuration.parseCookies());
         for (SearchService searchService : searchServices) {
             try {
-                songs.addAll(searchService.search(query, clientConfiguration).getSongs());
+                songs.addAll(searchService.search(query).getSongs());
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
             }
