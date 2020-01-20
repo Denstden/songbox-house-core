@@ -1,6 +1,5 @@
 package songbox.house.service.impl;
 
-import com.google.common.collect.Lists;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import songbox.house.converter.TrackConverter;
 import songbox.house.domain.TrackSource;
-import songbox.house.domain.dto.request.SaveSongsDto;
-import songbox.house.domain.dto.response.SongDto;
 import songbox.house.domain.dto.response.TracksDto;
 import songbox.house.domain.entity.Author;
 import songbox.house.domain.entity.Genre;
@@ -27,13 +24,10 @@ import songbox.house.service.MusicCollectionService;
 import songbox.house.service.TrackService;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.text.MessageFormat.format;
-import static java.util.Optional.empty;
 import static java.util.stream.StreamSupport.stream;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
@@ -150,47 +144,6 @@ public class TrackServiceImpl implements TrackService {
 
             trackRepository.save(fromDb);
         }
-    }
-
-    @Override
-    public Iterable<Track> download(SaveSongsDto saveSongsDto) {
-        final List<Track> result = Lists.newArrayList();
-        final Long collectionId = saveSongsDto.getCollectionId();
-
-        final Set<SongDto> songs = saveSongsDto.getSongs();
-
-        if (!isEmpty(songs)) {
-            songs.forEach(songDto ->
-                    downloadOne(collectionId, songDto)
-                            .ifPresent(result::add)
-            );
-        }
-
-        return result;
-    }
-
-    private Optional<Track> downloadOne(Long collectionId, SongDto songDto) {
-        final String uri = songDto.getUri();
-        String[] resourceUrl = uri.split(":");
-        final String resource = resourceUrl[0];
-        switch (resource) {
-            case "VK":
-                log.warn("Downloading from vk not implemented yet.");
-                break;
-            case "Youtube":
-                log.warn("Downloading from YouTube not implemented yet.");
-                break;
-            default:
-                log.warn("Unknown resource, skipped.");
-                break;
-        }
-        return empty();
-    }
-
-    @Override
-    public Track download(SongDto songDto, Long collectionId) {
-        return downloadOne(collectionId, songDto)
-                .orElseThrow(() -> new NotExistsException("Exception during track downloading"));
     }
 
     private void setContent(final byte[] content, final Track track) {

@@ -20,7 +20,7 @@ import songbox.house.service.MusicCollectionService;
 import songbox.house.service.UserService;
 import songbox.house.service.YoutubeApiService;
 import songbox.house.service.YoutubePlaylistService;
-import songbox.house.service.search.SearchDownloadServiceFacade;
+import songbox.house.service.search.TrackDownloadService;
 import songbox.house.util.ArtistTitleUtil;
 import songbox.house.util.Pair;
 
@@ -45,7 +45,7 @@ public class YoutubePlaylistServiceImpl implements YoutubePlaylistService {
     YoutubeApiService youtubeApiService;
     UserService userService;
     MusicCollectionService musicCollectionService;
-    SearchDownloadServiceFacade searchDownloadServiceFacade;
+    TrackDownloadService trackDownloadService;
 
     @Override
     public YoutubePlaylist getByYoutubeId(String youtubePlaylistId) {
@@ -78,7 +78,7 @@ public class YoutubePlaylistServiceImpl implements YoutubePlaylistService {
         items.stream()
                 .map(YoutubePlaylistItem::getTitle)
                 .map(youtubeTitle -> createSearchRequest(youtubeTitle, collectionName, only320))
-                .forEach(searchDownloadServiceFacade::searchAndDownloadAsync);
+                .forEach(trackDownloadService::searchAndDownloadAsync);
     }
 
     private SearchRequestDto createSearchRequest(String youtubeTitle, String collectionName, boolean only320) {

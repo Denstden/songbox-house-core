@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import songbox.house.domain.dto.request.SearchRequestDto;
 import songbox.house.domain.dto.response.DiscogsTrackListResponseDto;
 import songbox.house.domain.dto.response.SearchAndDownloadResponseDto;
+import songbox.house.domain.dto.response.TrackDto;
 import songbox.house.domain.dto.response.discogs.DiscogsArtistDto;
 import songbox.house.domain.dto.response.discogs.DiscogsReleaseDto;
 import songbox.house.domain.dto.response.discogs.DiscogsReleaseResponseDto;
@@ -18,12 +19,11 @@ import songbox.house.domain.dto.response.discogs.DiscogsUserWantListDto;
 import songbox.house.domain.dto.response.discogs.DiscogsUserWantListItemDto;
 import songbox.house.domain.dto.response.discogs.ReleasePageable;
 import songbox.house.domain.entity.MusicCollection;
-import songbox.house.domain.entity.Track;
 import songbox.house.exception.DiscogsException;
 import songbox.house.service.DiscogsFacade;
 import songbox.house.service.DiscogsService;
 import songbox.house.service.MusicCollectionService;
-import songbox.house.service.search.SearchDownloadServiceFacade;
+import songbox.house.service.search.TrackDownloadService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +49,7 @@ import static songbox.house.util.StringUtils.removeEndingNumberInBrackets;
 public class DiscogsServiceImpl implements DiscogsService {
     DiscogsFacade discogsFacade;
 
-    SearchDownloadServiceFacade searchService;
+    TrackDownloadService searchService;
     MusicCollectionService collectionService;
 
     @Override
@@ -167,7 +167,6 @@ public class DiscogsServiceImpl implements DiscogsService {
     }
 
 
-
     private void processReleasesAsync(final List<DiscogsReleaseDto> releases, final Long collectionId,
             final boolean only320) {
         for (final DiscogsReleaseDto releaseDto : releases) {
@@ -232,11 +231,11 @@ public class DiscogsServiceImpl implements DiscogsService {
         final String artists = concatArtists(release.getArtists());
         log.debug("Parsed artists: {}", artists);
 
-        final Map<String, Optional<Track>> tracks = processTrackList(release.getTracklist(), artists, genres, collectionId);
+        final Map<String, Optional<TrackDto>> tracks = processTrackList(release.getTracklist(), artists, genres, collectionId);
 
         return toDto(tracks, artists);
     }
-    
+
     private String concatArtists(final List<DiscogsArtistDto> artists) {
         if (!isEmpty(artists)) {
             return join(artists.stream()
@@ -248,16 +247,17 @@ public class DiscogsServiceImpl implements DiscogsService {
         }
     }
 
-    private Map<String, Optional<Track>> processTrackList(final List<DiscogsTrackDto> trackList, final String artists,
+    private Map<String, Optional<TrackDto>> processTrackList(final List<DiscogsTrackDto> trackList,
+            final String artists,
             final Set<String> genres, final Long collectionId) {
-        final Map<String, Optional<Track>> result = new HashMap<>();
+        final Map<String, Optional<TrackDto>> result = new HashMap<>();
         int countProcessed = 0;
 
         if (!isEmpty(trackList)) {
             for (final DiscogsTrackDto discogsTrackDto : trackList) {
                 final SearchRequestDto searchRequestDto = getSearchRequestDto(artists, genres, collectionId, discogsTrackDto, false);
 
-                final Optional<Track> track = searchService.searchAndDownload(searchRequestDto);
+                final Optional<TrackDto> track = searchService.searchAndDownload(searchRequestDto);
                 result.put(discogsTrackDto.getTitle(), track);
 
                 log.debug("Processed {} of {} tracks", ++countProcessed, trackList.size());
@@ -278,10 +278,10 @@ public class DiscogsServiceImpl implements DiscogsService {
         return searchRequestDto;
     }
 
-    private SearchAndDownloadResponseDto toDto(final Map<String, Optional<Track>> nameToTrackMap,
+    private SearchAndDownloadResponseDto toDto(final Map<String, Optional<TrackDto>> nameToTrackMap,
             final String artists) {
         final SearchAndDownloadResponseDto dto = new SearchAndDownloadResponseDto();
-        final List<Track> tracks = new ArrayList<>();
+        final List<TrackDto> tracks = new ArrayList<>();
         final List<String> notFound = new ArrayList<>();
 
         nameToTrackMap.forEach((title, trackOptional) -> {

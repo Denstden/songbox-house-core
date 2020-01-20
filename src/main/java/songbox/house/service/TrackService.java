@@ -1,8 +1,6 @@
 package songbox.house.service;
 
 import songbox.house.domain.TrackSource;
-import songbox.house.domain.dto.request.SaveSongsDto;
-import songbox.house.domain.dto.response.SongDto;
 import songbox.house.domain.dto.response.TracksDto;
 import songbox.house.domain.entity.Author;
 import songbox.house.domain.entity.MusicCollection;
@@ -28,8 +26,4 @@ public interface TrackService {
     Iterable<Track> getByIds(final Set<Long> trackIds);
 
     void addToCollection(Track fromDb, Long collectionId);
-
-    Iterable<Track> download(SaveSongsDto saveSongsDto);
-
-    Track download(SongDto songDto, Long collectionId);
 }
