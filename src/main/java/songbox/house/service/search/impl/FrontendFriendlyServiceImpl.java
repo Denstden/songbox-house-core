@@ -9,7 +9,7 @@ import songbox.house.domain.dto.request.ArtistTitleDto;
 import songbox.house.domain.dto.request.SearchQueryDto;
 import songbox.house.domain.dto.response.SongDto;
 import songbox.house.domain.dto.response.TrackMetadataDto;
-import songbox.house.domain.dto.response.discogs.DiscogsReleaseDto;
+import songbox.house.domain.dto.response.discogs.DiscogsReleaseDtoExt;
 import songbox.house.domain.entity.DiscogsRelease;
 import songbox.house.domain.entity.Genre;
 import songbox.house.domain.entity.MusicCollection;
@@ -56,10 +56,10 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
 
 
     @Override
-    public List<DiscogsReleaseDto> search(String query, boolean fetchResource) {
+    public List<DiscogsReleaseDtoExt> search(String query, boolean fetchResource) {
         log.info("searching for " + query);
 
-        List<DiscogsReleaseDto> search = discogsWebsiteService.search(query);
+        List<DiscogsReleaseDtoExt> search = discogsWebsiteService.search(query);
 
         log.info("found {} results", search.size());
 
@@ -67,13 +67,13 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
     }
 
     @Override
-    public DiscogsReleaseDto getDetailedInfo(String discogsLink, ProgressListener progressListener) {
+    public DiscogsReleaseDtoExt getDetailedInfo(String discogsLink, ProgressListener progressListener) {
         return discogsWebsiteService.getReleaseInfo(discogsLink)
                 .map(releaseDto -> getDetailedInfo(releaseDto, progressListener))
                 .orElse(null);
     }
 
-    private DiscogsReleaseDto getDetailedInfo(DiscogsReleaseDto releaseInfo, ProgressListener progressListener) {
+    private DiscogsReleaseDtoExt getDetailedInfo(DiscogsReleaseDtoExt releaseInfo, ProgressListener progressListener) {
         // Apply search
         Map<ArtistTitleDto, List<SongDto>> songs = releaseInfo.getSongs();
 
@@ -137,27 +137,27 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
         return songDto;
     }
 
-    private DiscogsReleaseDto saveToCollection(DiscogsReleaseDto releaseDto) {
+    private DiscogsReleaseDtoExt saveToCollection(DiscogsReleaseDtoExt releaseDto) {
         DiscogsRelease discogsRelease = fromDiscogsReleaseDto(releaseDto);
         return toDiscogsReleaseDto(discogsReleaseRepository.save(discogsRelease));
     }
 
     @Override
-    public DiscogsReleaseDto saveToCollection(String discogsLink) {
+    public DiscogsReleaseDtoExt saveToCollection(String discogsLink) {
         return discogsWebsiteService.getReleaseInfo(discogsLink)
                 .map(this::saveToCollection)
                 .orElse(null);
     }
 
     @Override
-    public List<DiscogsReleaseDto> getSavedReleases() {
+    public List<DiscogsReleaseDtoExt> getSavedReleases() {
         Iterable<DiscogsRelease> all = discogsReleaseRepository.findAll();
-        ArrayList<DiscogsReleaseDto> discogsReleaseDtos = new ArrayList<>();
+        ArrayList<DiscogsReleaseDtoExt> discogsReleaseDtoExts = new ArrayList<>();
 
         for (DiscogsRelease discogsRelease : all) {
-            discogsReleaseDtos.add(toDiscogsReleaseDto(discogsRelease));
+            discogsReleaseDtoExts.add(toDiscogsReleaseDto(discogsRelease));
         }
-        return discogsReleaseDtos;
+        return discogsReleaseDtoExts;
     }
 
     @Override
@@ -173,36 +173,36 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
         return musicCollectionService.getOrCreate("frontend-friendly-collection");
     }
 
-    private DiscogsRelease fromDiscogsReleaseDto(DiscogsReleaseDto discogsReleaseDto) {
+    private DiscogsRelease fromDiscogsReleaseDto(DiscogsReleaseDtoExt discogsReleaseDtoExt) {
         DiscogsRelease discogsRelease = new DiscogsRelease();
-        discogsRelease.setArtist(discogsReleaseDto.getArtistTitle().getArtist());
-        discogsRelease.setTitle(discogsReleaseDto.getArtistTitle().getTitle());
-        discogsRelease.setAudioLabel(discogsReleaseDto.getAudioLabel());
-        discogsRelease.setAudioLabelReleaseName(discogsReleaseDto.getAudioLabelReleaseName());
-        discogsRelease.setCountry(discogsReleaseDto.getCountry());
-        discogsRelease.setThumbnail(discogsReleaseDto.getThumbnail());
-        discogsRelease.setDiscogsLink(discogsReleaseDto.getDiscogsLink());
+        discogsRelease.setArtist(discogsReleaseDtoExt.getArtistTitle().getArtist());
+        discogsRelease.setTitle(discogsReleaseDtoExt.getArtistTitle().getTitle());
+        discogsRelease.setAudioLabel(discogsReleaseDtoExt.getAudioLabel());
+        discogsRelease.setAudioLabelReleaseName(discogsReleaseDtoExt.getAudioLabelReleaseName());
+        discogsRelease.setCountry(discogsReleaseDtoExt.getCountry());
+        discogsRelease.setThumbnail(discogsReleaseDtoExt.getThumbnail());
+        discogsRelease.setDiscogsLink(discogsReleaseDtoExt.getDiscogsLink());
         discogsRelease.setGenres(
-                discogsReleaseDto.getGenres().stream().map(genreService::getOrCreate).collect(toSet())
+                discogsReleaseDtoExt.getGenres().stream().map(genreService::getOrCreate).collect(toSet())
         );
         discogsRelease.setCollections(new HashSet<>(Collections.singletonList(getDefaultMusicCollection())));
 
         return discogsRelease;
     }
 
-    private DiscogsReleaseDto toDiscogsReleaseDto(DiscogsRelease discogsRelease) {
-        DiscogsReleaseDto discogsReleaseDto = new DiscogsReleaseDto();
+    private DiscogsReleaseDtoExt toDiscogsReleaseDto(DiscogsRelease discogsRelease) {
+        DiscogsReleaseDtoExt discogsReleaseDtoExt = new DiscogsReleaseDtoExt();
 
-        discogsReleaseDto.setArtistTitle(new ArtistTitleDto(discogsRelease.getArtist(), discogsRelease.getTitle()));
-        discogsReleaseDto.setAudioLabel(discogsRelease.getAudioLabel());
-        discogsReleaseDto.setAudioLabelReleaseName(discogsRelease.getAudioLabelReleaseName());
-        discogsReleaseDto.setCountry(discogsRelease.getCountry());
-        discogsReleaseDto.setThumbnail(discogsRelease.getThumbnail());
-        discogsReleaseDto.setDiscogsLink(discogsRelease.getDiscogsLink());
-        discogsReleaseDto.setGenres(
+        discogsReleaseDtoExt.setArtistTitle(new ArtistTitleDto(discogsRelease.getArtist(), discogsRelease.getTitle()));
+        discogsReleaseDtoExt.setAudioLabel(discogsRelease.getAudioLabel());
+        discogsReleaseDtoExt.setAudioLabelReleaseName(discogsRelease.getAudioLabelReleaseName());
+        discogsReleaseDtoExt.setCountry(discogsRelease.getCountry());
+        discogsReleaseDtoExt.setThumbnail(discogsRelease.getThumbnail());
+        discogsReleaseDtoExt.setDiscogsLink(discogsRelease.getDiscogsLink());
+        discogsReleaseDtoExt.setGenres(
                 discogsRelease.getGenres().stream().map(Genre::getName).collect(toSet())
         );
-        return discogsReleaseDto;
+        return discogsReleaseDtoExt;
     }
 
 }
