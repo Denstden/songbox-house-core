@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface SearchServiceFacade {
     List<TrackMetadataDto> search(SearchQueryDto query);
+
+    List<TrackMetadataDto> searchFast(SearchQueryDto query);
 }

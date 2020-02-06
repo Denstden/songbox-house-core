@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import songbox.house.domain.dto.request.SearchQueryDto;
+import songbox.house.domain.dto.response.SearchResultDto;
 import songbox.house.domain.dto.response.TrackMetadataDto;
 import songbox.house.service.DiscogsWebsiteService;
 import songbox.house.service.search.SearchService;
@@ -14,6 +15,7 @@ import songbox.house.util.compare.SearchResultComparator;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.reverse;
@@ -40,6 +42,10 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
 
     @Override
     public List<TrackMetadataDto> search(SearchQueryDto query) {
+        return doSearch(query, false);
+    }
+
+    private List<TrackMetadataDto> doSearch(SearchQueryDto query, boolean fast) {
         log.info("Starting search for {}", query);
         long searchStart = currentTimeMillis();
 
@@ -49,13 +55,7 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
         if (query.isFetchArtwork()) {
             artworksFuture = supplyAsync(() -> discogsWebsiteService.searchArtworks(query.getQuery()));
         }
-        for (SearchService searchService : searchServices) {
-            try {
-                songs.addAll(searchService.search(query).getSongs());
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
-            }
-        }
+        searchSongs(query, songs, fast);
 
         ofNullable(artworksFuture)
                 .map(CompletableFuture::join)
@@ -70,6 +70,24 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
 
         //TODO change comparator to no need reverse
         return reverse(songs);
+    }
+
+    private void searchSongs(SearchQueryDto query, List<TrackMetadataDto> songs, boolean fast) {
+        for (SearchService searchService : searchServices) {
+            try {
+                Function<SearchQueryDto, SearchResultDto> function = fast
+                        ? searchService::searchFast
+                        : searchService::search;
+                songs.addAll(function.apply(query).getSongs());
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+            }
+        }
+    }
+
+    @Override
+    public List<TrackMetadataDto> searchFast(SearchQueryDto query) {
+        return doSearch(query, true);
     }
 
 
