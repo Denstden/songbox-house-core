@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DiscogsMarketPlaceListingResponseDto {
-    private DiscogsReleaseDto release;
+    private DiscogsReleaseDtoExt release;
 }
