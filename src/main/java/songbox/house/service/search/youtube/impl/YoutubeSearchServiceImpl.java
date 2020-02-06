@@ -17,12 +17,14 @@ import java.net.URI;
 import java.util.List;
 
 import static java.lang.String.format;
+import static java.lang.System.currentTimeMillis;
 import static java.net.URI.create;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Base64.getEncoder;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 import static songbox.house.util.Constants.EMPTY_URI;
+import static songbox.house.util.Constants.PERFORMANCE_MARKER;
 import static songbox.house.util.parser.YoutubeSearchParser.parseHtmlDocumentForSearch;
 
 @Service
@@ -40,13 +42,21 @@ public class YoutubeSearchServiceImpl implements YoutubeSearchService {
         return new SearchResultDto(getTrackMetadataList(query));
     }
 
+    @Override
+    public SearchResultDto searchFast(SearchQueryDto searchQuery) {
+        return new SearchResultDto(getTrackMetadataList(searchQuery));
+    }
+
     private List<TrackMetadataDto> getTrackMetadataList(SearchQueryDto query) {
+        final long started = currentTimeMillis();
         try {
             Response response = client.search(query.getQuery());
-            return parseHtmlDocumentForSearch(response.parse().toString())
+            final List<TrackMetadataDto> result = parseHtmlDocumentForSearch(response.parse().toString())
                     .stream()
                     .map(this::toTrackMetadata)
                     .collect(toList());
+            log.info(PERFORMANCE_MARKER, "Youtube search finished {}ms", currentTimeMillis() - started);
+            return result;
         } catch (Exception e) {
             log.error("Can't execute youtube search", e);
             return emptyList();

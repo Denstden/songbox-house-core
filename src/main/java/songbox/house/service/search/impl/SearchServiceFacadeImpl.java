@@ -66,7 +66,7 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
         Pair<String, String> artistTitle = extractArtistTitle(query.getQuery());
         sort(songs, artistTitle);
 
-        log.info(PERFORMANCE_MARKER, "Search VK+Youtube finished {}ms", currentTimeMillis() - searchStart);
+        log.info(PERFORMANCE_MARKER, "Search finished {}ms", currentTimeMillis() - searchStart);
 
         //TODO change comparator to no need reverse
         return reverse(songs);
