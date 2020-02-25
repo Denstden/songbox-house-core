@@ -27,6 +27,8 @@ import songbox.house.service.UserService;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
@@ -178,9 +180,18 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
         return googleApiToken;
     }
 
+    // localhost:8080/superserver
+    // localhost:8080
     private String getRedirectUrl(String requestUrl) {
         GenericUrl url = new GenericUrl(requestUrl);
-        url.setRawPath(YOUTUBE_TOKEN_URL);
+        // Already contains YOUTUBE_TOKEN_URL
+        if (requestUrl.endsWith(YOUTUBE_TOKEN_URL)
+                || requestUrl.substring(0, requestUrl.length() - 1).endsWith(YOUTUBE_TOKEN_URL)) {
+            url.setRawPath(YOUTUBE_TOKEN_URL);
+        } else {
+            url.appendRawPath(YOUTUBE_TOKEN_URL);
+        }
+
         return url.build();
     }
 }

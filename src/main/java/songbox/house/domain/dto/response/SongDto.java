@@ -45,4 +45,8 @@ public class SongDto {
         this.resource = resource;
         this.genres = genres;
     }
+
+    public SongDto(TrackMetadataDto t) {
+        this(t.getArtists(), t.getTitle(), t.getDurationSec(), t.getBitRate(), t.getThumbnail(), URI.create(t.getUri()), t.getResource());
+    }
 }
