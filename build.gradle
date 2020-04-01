@@ -22,7 +22,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'maven'
 
 group = 'com.github.Denstden'
-version = '1.1.13'
+version = '1.1.14'
 
 sourceCompatibility = 1.8
 
@@ -48,7 +48,8 @@ dependencies {
     compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
 
     // Google
-    compile group: 'com.google.apis', name: 'google-api-services-youtube', version: 'v3-rev206-1.25.0'
+    compile ('com.google.apis:google-api-services-youtube:v3-rev20200312-1.30.9')
+    compile("com.google.guava:guava:25.0-jre")
     compile 'com.google.api-client:google-api-client:1.25.0'
     compile 'com.google.apis:google-api-services-drive:v3-rev110-1.23.0'
 
