@@ -21,7 +21,7 @@ public interface FrontendFriendlyService {
      * @param discogsLink raw discogs link obtained from DiscogsReleaseDtoExt::discogsLink
      * @return detailed release
      */
-    DiscogsReleaseDtoExt getDetailedInfo(String discogsLink, ProgressListener progressListener);
+    DiscogsReleaseDtoExt getDetailedInfo(String discogsLink, ProgressListener progressListener, boolean useFastSearch);
 
     DiscogsReleaseDtoExt saveToCollection(String discogsLink);
 

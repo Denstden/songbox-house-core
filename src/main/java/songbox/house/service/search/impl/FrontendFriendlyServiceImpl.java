@@ -67,13 +67,16 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
     }
 
     @Override
-    public DiscogsReleaseDtoExt getDetailedInfo(String discogsLink, ProgressListener progressListener) {
+    public DiscogsReleaseDtoExt getDetailedInfo(String discogsLink, ProgressListener progressListener,
+            boolean useFastSearch) {
+
         return discogsWebsiteService.getReleaseInfo(discogsLink)
-                .map(releaseDto -> getDetailedInfo(releaseDto, progressListener))
+                .map(releaseDto -> getDetailedInfo(releaseDto, progressListener, useFastSearch))
                 .orElse(null);
     }
 
-    private DiscogsReleaseDtoExt getDetailedInfo(DiscogsReleaseDtoExt releaseInfo, ProgressListener progressListener) {
+    private DiscogsReleaseDtoExt getDetailedInfo(DiscogsReleaseDtoExt releaseInfo, ProgressListener progressListener,
+            boolean useFastSearch) {
         // Apply search
         Map<ArtistTitleDto, List<SongDto>> songs = releaseInfo.getSongs();
 
@@ -105,9 +108,9 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
                 expectedArtistTitle = Pair.of(expectedArtistTitle.getLeft(), expectedSongDto.getTrackPos() + " " + expectedArtistTitle.getRight());
             }
 
-            List<TrackMetadataDto> songSearchResultList = searchServiceFacade.search(searchQueryDto);
+            List<TrackMetadataDto> songSearchResultList = searchServiceFacade.search(searchQueryDto, useFastSearch);
             invokeProgressListener.run();
-            songSearchResultList.addAll(searchServiceFacade.search(searchQueryDtoWithoutLabel));
+            songSearchResultList.addAll(searchServiceFacade.search(searchQueryDtoWithoutLabel, useFastSearch));
             invokeProgressListener.run();
 
             songSearchResultList.sort(new SmartDiscogsComparator(expectedSongDto, expectedArtistTitle));

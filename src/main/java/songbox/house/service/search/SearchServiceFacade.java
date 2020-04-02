@@ -10,4 +10,8 @@ public interface SearchServiceFacade {
     List<TrackMetadataDto> search(SearchQueryDto query);
 
     List<TrackMetadataDto> searchFast(SearchQueryDto query);
+
+    default List<TrackMetadataDto> search(SearchQueryDto query, boolean isFast) {
+        return isFast ? searchFast(query) : search(query);
+    }
 }
