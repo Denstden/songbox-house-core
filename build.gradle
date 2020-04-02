@@ -22,7 +22,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'maven'
 
 group = 'com.github.Denstden'
-version = '1.0.32'
+version = '1.1.15'
 
 sourceCompatibility = 1.8
 
@@ -35,36 +35,29 @@ repositories {
 ext.jacksonVersion = '2.9.8'
 
 dependencies {
+    implementation('com.github.Denstden:songbox-house-search-api:0.1.2')
+    implementation("com.github.Denstden:songbox-house-util:0.0.3") {
+        exclude group: 'org.springframework'
+    }
+    
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile 'org.springframework.kafka:spring-kafka:2.2.4.RELEASE'
-
-    // Jackson
-    compile("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
-    compile("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
-    compile("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
-
+    
     // Utils
-    compile('org.apache.commons:commons-lang3:3.6')
-    compile('org.apache.commons:commons-text:1.1')
-    compile group: 'commons-io', name: 'commons-io', version: '2.6'
-
-    compile('com.mpatric:mp3agic:0.9.0')
     compile('org.jsoup:jsoup:1.10.3')
-
     compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
 
     // Google
-    compile group: 'com.google.apis', name: 'google-api-services-youtube', version: 'v3-rev206-1.25.0'
+    compile ('com.google.apis:google-api-services-youtube:v3-rev20200312-1.30.9')
+    compile("com.google.guava:guava:25.0-jre")
     compile 'com.google.api-client:google-api-client:1.25.0'
     compile 'com.google.apis:google-api-services-drive:v3-rev110-1.23.0'
-
-    compile 'com.iheartradio.m3u8:open-m3u8:0.2.4'
-    compile group: 'ws.schild', name: 'jave-all-deps', version: '2.4.6'
 
     runtime('org.postgresql:postgresql')
 
     compileOnly 'org.projectlombok:lombok:1.18.4'
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

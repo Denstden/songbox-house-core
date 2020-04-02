@@ -12,12 +12,12 @@ import songbox.house.domain.dto.request.SearchRequestDto;
 import songbox.house.domain.dto.request.TrackListParsingResultDto;
 import songbox.house.domain.dto.request.TrackListSearchRequestDto;
 import songbox.house.domain.dto.response.SearchAndDownloadResponseDto;
+import songbox.house.domain.dto.response.TrackDto;
 import songbox.house.domain.entity.SearchHistory;
-import songbox.house.domain.entity.Track;
 import songbox.house.domain.entity.TrackListPattern;
 import songbox.house.exception.ParsingException;
 import songbox.house.repository.TrackListPatternRepository;
-import songbox.house.service.search.SearchDownloadServiceFacade;
+import songbox.house.service.search.TrackDownloadService;
 import songbox.house.service.search.SearchHistoryService;
 import songbox.house.service.search.TrackListSearchService;
 import songbox.house.util.parser.TrackListParser;
@@ -34,7 +34,7 @@ import java.util.Set;
 public class TrackListSearchServiceImpl implements TrackListSearchService {
 
     TrackListPatternRepository patternRepository;
-    SearchDownloadServiceFacade searchDownloadServiceFacade;
+    TrackDownloadService trackDownloadService;
     SearchHistoryService searchHistoryService;
 
     @Override
@@ -44,7 +44,7 @@ public class TrackListSearchServiceImpl implements TrackListSearchService {
         final TrackListParsingResultDto parsingResult =
                 TrackListParser.parseTrackList(requestDto.getTrackList(), pattern.getValue(), requestDto.getSeparator());
 
-        final List<Track> downloaded = new ArrayList<>();
+        final List<TrackDto> downloaded = new ArrayList<>();
 
         final List<String> notParsed = parsingResult.getNotParsed();
         notParsed.forEach(titleAuthor -> {
@@ -57,7 +57,7 @@ public class TrackListSearchServiceImpl implements TrackListSearchService {
         parsingResult.getArtistTitles().forEach(artistTitleDto -> {
             final SearchRequestDto searchRequestDto = createSearchRequestDto(artistTitleDto, requestDto.getGenres(), requestDto.getCollectionId());
 
-            searchDownloadServiceFacade.searchAndDownload(searchRequestDto)
+            trackDownloadService.searchAndDownload(searchRequestDto)
                     .map(downloaded::add)
                     .orElseGet(() -> notParsed.add(artistTitleDto.getArtist() + " - " + artistTitleDto.getTitle()));
         });
@@ -79,7 +79,7 @@ public class TrackListSearchServiceImpl implements TrackListSearchService {
 
         parsingResult.getArtistTitles().forEach(artistTitleDto -> {
             final SearchRequestDto searchRequestDto = createSearchRequestDto(artistTitleDto, requestDto.getGenres(), requestDto.getCollectionId());
-            searchDownloadServiceFacade.searchAndDownloadAsync(searchRequestDto);
+            trackDownloadService.searchAndDownloadAsync(searchRequestDto);
         });
     }
 
@@ -95,7 +95,8 @@ public class TrackListSearchServiceImpl implements TrackListSearchService {
         return searchRequestDto;
     }
 
-    private SearchAndDownloadResponseDto createResponseDto(final List<String> notParsed, final List<Track> downloaded) {
+    private SearchAndDownloadResponseDto createResponseDto(final List<String> notParsed,
+            final List<TrackDto> downloaded) {
         final SearchAndDownloadResponseDto result = new SearchAndDownloadResponseDto();
         result.setFound(downloaded);
         result.setNotFound(notParsed);

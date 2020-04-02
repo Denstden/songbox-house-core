@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import songbox.house.client.DiscogsClient;
 import songbox.house.domain.dto.response.discogs.DiscogsLabelReleasesDto;
 import songbox.house.domain.dto.response.discogs.DiscogsMarketPlaceListingResponseDto;
-import songbox.house.domain.dto.response.discogs.DiscogsReleaseDto;
+import songbox.house.domain.dto.response.discogs.DiscogsReleaseDtoExt;
 import songbox.house.domain.dto.response.discogs.DiscogsReleaseResponseDto;
 import songbox.house.domain.dto.response.discogs.DiscogsReleasesPageableDto;
 import songbox.house.domain.dto.response.discogs.DiscogsUserWantListDto;
@@ -99,7 +99,7 @@ public class DiscogsFacadeImpl implements DiscogsFacade {
 
         return ofNullable(responseDto)
                 .map(DiscogsMarketPlaceListingResponseDto::getRelease)
-                .map(DiscogsReleaseDto::getId)
+                .map(DiscogsReleaseDtoExt::getId)
                 .orElseThrow(() -> new DiscogsException(MessageFormat.format("Can't parse DiscogsMarketPlaceListingResponseDto from {0}", response.body())));
     }
 

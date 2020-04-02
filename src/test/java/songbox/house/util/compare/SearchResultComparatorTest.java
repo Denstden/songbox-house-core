@@ -1,10 +1,9 @@
 package songbox.house.util.compare;
 
 import org.junit.Test;
-import songbox.house.domain.dto.response.SongDto;
-import songbox.house.util.compare.SearchResultComparator;
+import songbox.house.domain.dto.response.TrackMetadataDto;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class SearchResultComparatorTest {
 
@@ -13,8 +12,8 @@ public class SearchResultComparatorTest {
     @Test
     public void shouldCompareCorrectly() {
         // Given
-        SongDto songDto1 = create("Electrix Podcast 003 mixed by Sync 24", null, 3151, (short) 128, "Youtube");
-        SongDto songDto2 = create("Foreign Fruit", "Sync 24 & Morphology", 396, (short) 320, "VK");
+        TrackMetadataDto songDto1 = create("Electrix Podcast 003 mixed by Sync 24", null, 3151, (short) 128, "Youtube");
+        TrackMetadataDto songDto2 = create("Foreign Fruit", "Sync 24 & Morphology", 396, (short) 320, "VK");
 
         // When
         int compare = comparator.compare(songDto1, songDto2);
@@ -26,8 +25,8 @@ public class SearchResultComparatorTest {
     @Test
     public void shouldCompareByBitRates() {
         // Given
-        SongDto songDto1 = create("Foreign Fruit", "Sync 24 & Morphology", 394, (short) 128, "Youtube");
-        SongDto songDto2 = create("Foreign Fruit", "Sync 24 & Morphology", 396, (short) 320, "VK");
+        TrackMetadataDto songDto1 = create("Foreign Fruit", "Sync 24 & Morphology", 394, (short) 128, "Youtube");
+        TrackMetadataDto songDto2 = create("Foreign Fruit", "Sync 24 & Morphology", 396, (short) 320, "VK");
 
         // When
         int compare = comparator.compare(songDto1, songDto2);
@@ -37,16 +36,15 @@ public class SearchResultComparatorTest {
     }
 
 
-    private SongDto create(String title, String authors, Integer duration, Short bitRate, String resource) {
-        SongDto songDto = new SongDto();
-        songDto.setArtist(authors);
+    private TrackMetadataDto create(String title, String authors, Integer duration, Short bitRate, String resource) {
+        TrackMetadataDto songDto = new TrackMetadataDto();
+        songDto.setArtists(authors);
         songDto.setTitle(title);
-        songDto.setDuration(duration);
+        songDto.setDurationSec(duration);
         songDto.setBitRate(bitRate);
         songDto.setResource(resource);
         return songDto;
     }
-
 
 
 }

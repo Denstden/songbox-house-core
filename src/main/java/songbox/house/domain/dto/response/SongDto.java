@@ -2,14 +2,13 @@ package songbox.house.domain.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
-import songbox.house.util.compare.BitRateDuration;
 
 import java.net.URI;
 import java.util.Set;
 
 @Getter
 @Setter
-public class SongDto implements BitRateDuration {
+public class SongDto {
     private String artist;
     private String title;
     private Integer duration;
@@ -45,5 +44,9 @@ public class SongDto implements BitRateDuration {
         this.uri = uri.toString();
         this.resource = resource;
         this.genres = genres;
+    }
+
+    public SongDto(TrackMetadataDto t) {
+        this(t.getArtists(), t.getTitle(), t.getDurationSec(), t.getBitRate(), t.getThumbnail(), URI.create(t.getUri()), t.getResource());
     }
 }

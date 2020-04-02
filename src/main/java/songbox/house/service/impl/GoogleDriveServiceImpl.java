@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.util.TextUtils;
 import org.springframework.stereotype.Service;
+import songbox.house.domain.dto.response.TrackDto;
 import songbox.house.domain.entity.MusicCollection;
 import songbox.house.domain.entity.Track;
 import songbox.house.service.*;
@@ -37,12 +38,12 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
 
 
     @Override
-    public void upload(Track track) {
+    public void upload(TrackDto track) {
         upload(track, null, null);
     }
 
     @Override
-    public void upload(Track track, String folder, String genreFolder) {
+    public void upload(TrackDto track, String folder, String genreFolder) {
         Drive drive = authenticationService.getDrive();
 
         try {
@@ -52,9 +53,9 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
             File initFolder;
 
             if (!TextUtils.isBlank(genreFolder)) {
-                initFolder = getFolderOrCreate(drive, genreFolder, getRootFolder(drive, track));
+                initFolder = getFolderOrCreate(drive, genreFolder, getRootFolder(drive));
             } else {
-                initFolder = getRootFolder(drive, track);
+                initFolder = getRootFolder(drive);
             }
 
             if (folder != null) {
@@ -116,34 +117,30 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
                 .execute();
     }
 
-    private File getRootFolder(Drive drive, Track track) throws IOException {
+    private File getRootFolder(Drive drive) throws IOException {
         String collectionFolder;
 
-        if (track.getCollections() != null && !track.getCollections().isEmpty()) {
-            collectionFolder = track.getCollections().iterator().next().getCollectionName();
+        MusicCollection defaultCollection = userPropertyService.getCurrentUserProperty().getDefaultCollection();
+        if (defaultCollection != null) {
+            collectionFolder = defaultCollection.getCollectionName();
         } else {
-            MusicCollection defaultCollection = userPropertyService.getCurrentUserProperty().getDefaultCollection();
-            if (defaultCollection != null) {
-                collectionFolder = defaultCollection.getCollectionName();
-            } else {
-                collectionFolder = DEFAULT_COLLECTION_FOLDER;
-            }
+            collectionFolder = DEFAULT_COLLECTION_FOLDER;
         }
 
         return getFolderOrCreate(drive, collectionFolder, getFolderOrCreate(drive, FOLDER_NAME, null));
     }
 
-    private File createMetadata(Track track) {
+    private File createMetadata(TrackDto track) {
         final File fileMetadata = new File();
         fileMetadata.setName(track.getFileName());
         fileMetadata.setMimeType(MIME_TYPE);
         return fileMetadata;
     }
 
-    private FileContent createContent(Track track) throws IOException {
+    private FileContent createContent(TrackDto track) throws IOException {
         //TODO implement without files (with input streams)
         java.io.File file = createTempFile("" + new Random().nextInt(), ".mp3");
-        writeByteArrayToFile(file, track.getContent().getContent());
+        writeByteArrayToFile(file, track.getContent());
         return new FileContent(MIME_TYPE, file);
     }
 }

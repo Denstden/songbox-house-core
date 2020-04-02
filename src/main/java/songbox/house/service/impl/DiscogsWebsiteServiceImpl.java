@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import songbox.house.client.DiscogsClient;
 import songbox.house.domain.dto.request.ArtistTitleDto;
 import songbox.house.domain.dto.response.SongDto;
-import songbox.house.domain.dto.response.discogs.DiscogsReleaseDto;
+import songbox.house.domain.dto.response.discogs.DiscogsReleaseDtoExt;
 import songbox.house.service.DiscogsWebsiteService;
 
 import javax.annotation.Nullable;
@@ -56,10 +56,10 @@ public class DiscogsWebsiteServiceImpl implements DiscogsWebsiteService {
     }
 
     @Override
-    public List<DiscogsReleaseDto> search(String query) {
+    public List<DiscogsReleaseDtoExt> search(String query) {
         Connection.Response response = discogsClient.search(query);
 
-        ArrayList<DiscogsReleaseDto> result = new ArrayList<>();
+        ArrayList<DiscogsReleaseDtoExt> result = new ArrayList<>();
 
         try {
             if (response != null) {
@@ -81,12 +81,12 @@ public class DiscogsWebsiteServiceImpl implements DiscogsWebsiteService {
                                 .findFirst().orElse("");
                         String releaseLink = searchResultElement.attr("href");
 
-                        DiscogsReleaseDto discogsReleaseDto = new DiscogsReleaseDto();
+                        DiscogsReleaseDtoExt discogsReleaseDtoExt = new DiscogsReleaseDtoExt();
 
-                        discogsReleaseDto.setThumbnail(artwork);
-                        discogsReleaseDto.setArtistTitle(new ArtistTitleDto(artist, album));
-                        discogsReleaseDto.setDiscogsLink(releaseLink);
-                        result.add(discogsReleaseDto);
+                        discogsReleaseDtoExt.setThumbnail(artwork);
+                        discogsReleaseDtoExt.setArtistTitle(new ArtistTitleDto(artist, album));
+                        discogsReleaseDtoExt.setDiscogsLink(releaseLink);
+                        result.add(discogsReleaseDtoExt);
                     } catch (Exception e) {
                         log.error("", e);
                     }
@@ -101,15 +101,15 @@ public class DiscogsWebsiteServiceImpl implements DiscogsWebsiteService {
 
     @Override
     @Nullable
-    public Optional<DiscogsReleaseDto> getReleaseInfo(String discogsLink) {
+    public Optional<DiscogsReleaseDtoExt> getReleaseInfo(String discogsLink) {
         Connection.Response response = discogsClient.getReleaseByLink(discogsLink);
 
         try {
             if (response != null) {
-                DiscogsReleaseDto discogsReleaseDto = new DiscogsReleaseDto();
+                DiscogsReleaseDtoExt discogsReleaseDtoExt = new DiscogsReleaseDtoExt();
                 Map<ArtistTitleDto, List<SongDto>> songDtos = new HashMap<>();
                 Document document = response.parse();
-                applyProfile(discogsReleaseDto, document);
+                applyProfile(discogsReleaseDtoExt, document);
 
                 Elements trackList = document.select(".tracklist_track");
                 for (int i = 0; i < trackList.size(); i++) {
@@ -117,7 +117,7 @@ public class DiscogsWebsiteServiceImpl implements DiscogsWebsiteService {
 
                     String artist = trackElement.select(".tracklist_track_artists").text().trim();
                     if (artist.isEmpty()) {
-                        artist = discogsReleaseDto.getArtistTitle().getArtist();
+                        artist = discogsReleaseDtoExt.getArtistTitle().getArtist();
                     }
                     artist = removeInfoCounter(artist);
 
@@ -135,10 +135,10 @@ public class DiscogsWebsiteServiceImpl implements DiscogsWebsiteService {
                     songDtos.put(new ArtistTitleDto(artist, trackTitle), Arrays.asList(songDto));
                 }
 
-                discogsReleaseDto.setSongs(songDtos);
-                discogsReleaseDto.setDiscogsLink(discogsLink);
-                discogsReleaseDto.setThumbnail(document.select(".body img").attr("src"));
-                return Optional.of(discogsReleaseDto);
+                discogsReleaseDtoExt.setSongs(songDtos);
+                discogsReleaseDtoExt.setDiscogsLink(discogsLink);
+                discogsReleaseDtoExt.setThumbnail(document.select(".body img").attr("src"));
+                return Optional.of(discogsReleaseDtoExt);
             }
         } catch (Exception e) {
             log.error("", e);
@@ -172,7 +172,7 @@ public class DiscogsWebsiteServiceImpl implements DiscogsWebsiteService {
         return 0;
     }
 
-    private void applyProfile(DiscogsReleaseDto discogsReleaseDto, Document document) {
+    private void applyProfile(DiscogsReleaseDtoExt discogsReleaseDtoExt, Document document) {
         // Apply artist title
         String artistTitleString = replaceUnicodeCharacters(document.select("#profile_title").text());
         String[] artistTitle = artistTitleString.split("-");
@@ -181,7 +181,7 @@ public class DiscogsWebsiteServiceImpl implements DiscogsWebsiteService {
         String title = artistTitle.length > 1 ? artistTitle[1].trim() : "";
 
         ArtistTitleDto artistTitleDto = new ArtistTitleDto(artist, title);
-        discogsReleaseDto.setArtistTitle(artistTitleDto);
+        discogsReleaseDtoExt.setArtistTitle(artistTitleDto);
 
         // Apply label, county, style
         Elements profileSection = document.select(".profile div");
@@ -191,22 +191,22 @@ public class DiscogsWebsiteServiceImpl implements DiscogsWebsiteService {
                 String text = profileSection.get(++i).text();
                 String[] labelAndLabelRelease = replaceUnicodeCharacters(text).split("-");
                 if (labelAndLabelRelease.length > 0) {
-                    discogsReleaseDto.setAudioLabel(replaceUnicodeCharacters(labelAndLabelRelease[0]).trim());
+                    discogsReleaseDtoExt.setAudioLabel(replaceUnicodeCharacters(labelAndLabelRelease[0]).trim());
                 } else {
-                    discogsReleaseDto.setAudioLabelReleaseName("");
+                    discogsReleaseDtoExt.setAudioLabelReleaseName("");
                 }
 
                 if (labelAndLabelRelease.length > 1) {
-                    discogsReleaseDto.setAudioLabelReleaseName(replaceUnicodeCharacters(labelAndLabelRelease[1]).trim());
+                    discogsReleaseDtoExt.setAudioLabelReleaseName(replaceUnicodeCharacters(labelAndLabelRelease[1]).trim());
                 } else {
-                    discogsReleaseDto.setAudioLabelReleaseName("");
+                    discogsReleaseDtoExt.setAudioLabelReleaseName("");
                 }
-                discogsReleaseDto.setAudioLabel(removeInfoCounter(discogsReleaseDto.getAudioLabel()));
+                discogsReleaseDtoExt.setAudioLabel(removeInfoCounter(discogsReleaseDtoExt.getAudioLabel()));
             } else if (element.text().startsWith("Country") && i + 1 < profileSection.size()) {
-                discogsReleaseDto.setCountry(profileSection.get(++i).text().trim());
+                discogsReleaseDtoExt.setCountry(profileSection.get(++i).text().trim());
             } else if (element.text().startsWith("Style") && i + 1 < profileSection.size()) {
                 String[] styles = profileSection.get(++i).text().split(",");
-                discogsReleaseDto.setGenres(Arrays.asList(styles).stream().map(String::trim).collect(Collectors.toSet()));
+                discogsReleaseDtoExt.setGenres(Arrays.asList(styles).stream().map(String::trim).collect(Collectors.toSet()));
             }
         }
     }
