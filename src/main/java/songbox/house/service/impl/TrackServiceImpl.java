@@ -3,6 +3,7 @@ package songbox.house.service.impl;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -45,15 +46,18 @@ public class TrackServiceImpl implements TrackService {
     MusicCollectionService collectionService;
     AuthorService authorService;
     TrackConverter trackConverter;
+    boolean saveToDBEnabled;
 
     public TrackServiceImpl(TrackRepository trackRepository, GenreRepository genreRepository,
             MusicCollectionService collectionService, AuthorService authorService,
-            TrackConverter trackConverter) {
+            TrackConverter trackConverter,
+            @Value("${songbox.house.vk.download.save_to_db.enabled:true}") boolean saveToDBEnabled) {
         this.trackRepository = trackRepository;
         this.genreRepository = genreRepository;
         this.collectionService = collectionService;
         this.authorService = authorService;
         this.trackConverter = trackConverter;
+        this.saveToDBEnabled = saveToDBEnabled;
     }
 
     @Override
@@ -84,16 +88,19 @@ public class TrackServiceImpl implements TrackService {
     @Override
     @Transactional(propagation = REQUIRES_NEW)
     public Track save(final Track track, final Set<String> genres, final Long collectionId) {
+        if (saveToDBEnabled) {
+            if (isNotEmpty(track.getAuthorsStr()) && (isEmpty(track.getAuthors()))) {
+                setAuthors(track.getAuthorsStr(), track);
+            }
 
-        if (isNotEmpty(track.getAuthorsStr()) && (isEmpty(track.getAuthors()))) {
-            setAuthors(track.getAuthorsStr(), track);
+            track.setGenres(getGenres(genres));
+
+            setCollections(track, collectionId);
+
+            return trackRepository.save(track);
+        } else {
+            return track;
         }
-
-        track.setGenres(getGenres(genres));
-
-        setCollections(track, collectionId);
-
-        return trackRepository.save(track);
     }
 
     @Override
