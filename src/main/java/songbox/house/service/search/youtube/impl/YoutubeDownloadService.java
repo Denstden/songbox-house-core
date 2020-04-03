@@ -12,6 +12,11 @@ import java.util.Optional;
 public class YoutubeDownloadService implements DownloadService {
     @Override
     public Optional<TrackDto> download(SearchQueryDto searchQuery) {
+        return download(searchQuery, null);
+    }
+
+    @Override
+    public Optional<TrackDto> download(SearchQueryDto searchQuery, String artworkUrl) {
         return Optional.empty();
     }
 
