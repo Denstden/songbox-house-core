@@ -14,6 +14,7 @@ import songbox.house.util.Pair;
 import songbox.house.util.compare.SearchResultComparator;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -51,16 +52,14 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
 
 
         final List<TrackMetadataDto> songs = newArrayList();
-        CompletableFuture<List<String>> artworksFuture = null;
+        CompletableFuture<Optional<String>> artworkFuture = null;
         if (query.isFetchArtwork()) {
-            artworksFuture = supplyAsync(() -> discogsWebsiteService.searchArtworks(query.getQuery()));
+            artworkFuture = supplyAsync(() -> discogsWebsiteService.searchArtwork(query.getQuery()));
         }
         searchSongs(query, songs, fast);
 
-        ofNullable(artworksFuture)
-                .map(CompletableFuture::join)
-                .filter(list -> !list.isEmpty())
-                .map(list -> list.get(0))
+        ofNullable(artworkFuture)
+                .flatMap(CompletableFuture::join)
                 .ifPresent(artwork -> songs.forEach(song -> song.setThumbnail(artwork)));
 
         Pair<String, String> artistTitle = extractArtistTitle(query.getQuery());

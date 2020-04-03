@@ -18,6 +18,7 @@ import java.util.concurrent.CompletableFuture;
 import static java.util.Optional.ofNullable;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static lombok.AccessLevel.PRIVATE;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Service
 @FieldDefaults(makeFinal = true, level = PRIVATE)
@@ -36,8 +37,8 @@ public class DownloadServiceFacadeImpl implements DownloadServiceFacade {
 
     @Override
     public Optional<TrackDto> download(SearchQueryDto searchQuery) {
-        final CompletableFuture<List<String>> artworksFuture = searchQuery.isFetchArtwork()
-                ? supplyAsync(() -> discogsWebsiteService.searchArtworks(searchQuery.getQuery()))
+        final CompletableFuture<Optional<String>> artworksFuture = searchQuery.isFetchArtwork()
+                ? supplyAsync(() -> discogsWebsiteService.searchArtwork(searchQuery.getQuery()))
                 : null;
 
         final Optional<TrackDto> track = downloadServices.stream()
@@ -45,24 +46,32 @@ public class DownloadServiceFacadeImpl implements DownloadServiceFacade {
                 .findFirst()
                 .flatMap(downloadService -> downloadService.download(searchQuery));
 
-        track.ifPresent(trackDto -> ofNullable(artworksFuture)
-                .map(CompletableFuture::join)
-                .filter(list -> !list.isEmpty())
-                .map(list -> list.get(0))
-                .ifPresent(trackDto::setArtworkUrl));
+        track.ifPresent(trackDto -> getArtworkUrl(artworksFuture).ifPresent(trackDto::setArtworkUrl));
 
         return track;
     }
 
     @Override
     public Optional<TrackDto> download(TrackMetadataDto trackMetadataDto) {
-        Optional<TrackDto> trackDto = downloadServices.stream()
+        searchArtworkIfNeed(trackMetadataDto);
+
+        return downloadServices.stream()
                 .filter(DownloadService::isDownloadEnabled)
                 .findFirst()
                 .flatMap(downloadService -> downloadService.download(trackMetadataDto));
+    }
 
-        trackDto.ifPresent(track -> track.setArtworkUrl(trackMetadataDto.getThumbnail()));
-        return trackDto;
+    private void searchArtworkIfNeed(TrackMetadataDto trackMetadataDto) {
+        if (isNotBlank(trackMetadataDto.getThumbnail())) {
+            final String searchQuery = trackMetadataDto.getArtists() + trackMetadataDto.getTitle();
+            final CompletableFuture<Optional<String>> artworksFuture = supplyAsync(() ->
+                    discogsWebsiteService.searchArtwork(searchQuery));
+            getArtworkUrl(artworksFuture).ifPresent(trackMetadataDto::setThumbnail);
+        }
+    }
+
+    private Optional<String> getArtworkUrl(CompletableFuture<Optional<String>> artworksFuture) {
+        return ofNullable(artworksFuture).flatMap(CompletableFuture::join);
     }
 
 }

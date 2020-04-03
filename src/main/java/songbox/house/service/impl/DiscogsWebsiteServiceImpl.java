@@ -2,7 +2,7 @@ package songbox.house.service.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.Connection;
+import org.jsoup.Connection.Response;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -22,8 +22,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
-
 @Slf4j
 @AllArgsConstructor
 @Service
@@ -32,32 +30,29 @@ public class DiscogsWebsiteServiceImpl implements DiscogsWebsiteService {
     private DiscogsClient discogsClient;
 
     @Override
-    public List<String> searchArtworks(String searchQuery) {
+    public Optional<String> searchArtwork(String searchQuery) {
         log.trace("Looking for an artwork for query = {}", searchQuery);
 
-        Connection.Response response = discogsClient.searchArtwork(searchQuery);
-        List<String> result = new ArrayList<>();
-
+        Response response = discogsClient.searchArtwork(searchQuery);
         try {
             if (response != null) {
                 Document document = response.parse();
                 Elements elements = document.select("#search_results " + IMAGE_SELECTOR);
-                result = elements.stream()
+                return elements.stream()
                         .map(e -> e.attr("data-src"))
                         .filter(e -> !e.isEmpty())
-                        .collect(toList());
+                        .findFirst();
             }
         } catch (Exception e) {
-            log.error("", e);
-        }
+            log.error("Error downloading artworks", e);
 
-        log.trace("Found {} artworks", result.size());
-        return result;
+        }
+        return Optional.empty();
     }
 
     @Override
     public List<DiscogsReleaseDtoExt> search(String query) {
-        Connection.Response response = discogsClient.search(query);
+        Response response = discogsClient.search(query);
 
         ArrayList<DiscogsReleaseDtoExt> result = new ArrayList<>();
 
@@ -102,7 +97,7 @@ public class DiscogsWebsiteServiceImpl implements DiscogsWebsiteService {
     @Override
     @Nullable
     public Optional<DiscogsReleaseDtoExt> getReleaseInfo(String discogsLink) {
-        Connection.Response response = discogsClient.getReleaseByLink(discogsLink);
+        Response response = discogsClient.getReleaseByLink(discogsLink);
 
         try {
             if (response != null) {

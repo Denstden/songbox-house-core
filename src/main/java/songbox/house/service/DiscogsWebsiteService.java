@@ -9,5 +9,6 @@ public interface DiscogsWebsiteService {
     List<DiscogsReleaseDtoExt> search(String query);
 
     Optional<DiscogsReleaseDtoExt> getReleaseInfo(String discogsLink);
-    List<String> searchArtworks(String searchQuery);
+
+    Optional<String> searchArtwork(String searchQuery);
 }
