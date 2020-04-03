@@ -13,10 +13,7 @@ import songbox.house.service.search.DownloadServiceFacade;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
-import static java.util.Optional.ofNullable;
-import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
@@ -37,18 +34,12 @@ public class DownloadServiceFacadeImpl implements DownloadServiceFacade {
 
     @Override
     public Optional<TrackDto> download(SearchQueryDto searchQuery) {
-        final CompletableFuture<Optional<String>> artworksFuture = searchQuery.isFetchArtwork()
-                ? supplyAsync(() -> discogsWebsiteService.searchArtwork(searchQuery.getQuery()))
-                : null;
+        final String artworkUrl = discogsWebsiteService.searchArtwork(searchQuery.getQuery()).orElse(null);
 
-        final Optional<TrackDto> track = downloadServices.stream()
+        return downloadServices.stream()
                 .filter(DownloadService::isDownloadEnabled)
                 .findFirst()
-                .flatMap(downloadService -> downloadService.download(searchQuery));
-
-        track.ifPresent(trackDto -> getArtworkUrl(artworksFuture).ifPresent(trackDto::setArtworkUrl));
-
-        return track;
+                .flatMap(downloadService -> downloadService.download(searchQuery, artworkUrl));
     }
 
     @Override
@@ -64,14 +55,7 @@ public class DownloadServiceFacadeImpl implements DownloadServiceFacade {
     private void searchArtworkIfNeed(TrackMetadataDto trackMetadataDto) {
         if (isNotBlank(trackMetadataDto.getThumbnail())) {
             final String searchQuery = trackMetadataDto.getArtists() + trackMetadataDto.getTitle();
-            final CompletableFuture<Optional<String>> artworksFuture = supplyAsync(() ->
-                    discogsWebsiteService.searchArtwork(searchQuery));
-            getArtworkUrl(artworksFuture).ifPresent(trackMetadataDto::setThumbnail);
+            discogsWebsiteService.searchArtwork(searchQuery).ifPresent(trackMetadataDto::setThumbnail);
         }
     }
-
-    private Optional<String> getArtworkUrl(CompletableFuture<Optional<String>> artworksFuture) {
-        return ofNullable(artworksFuture).flatMap(CompletableFuture::join);
-    }
-
 }
