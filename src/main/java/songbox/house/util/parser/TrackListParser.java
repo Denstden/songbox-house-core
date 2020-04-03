@@ -1,7 +1,7 @@
 package songbox.house.util.parser;
 
-import songbox.house.domain.dto.request.ArtistTitleDto;
 import songbox.house.domain.dto.request.TrackListParsingResultDto;
+import songbox.house.util.ArtistsTitle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public final class TrackListParser {
             final String separator) {
         final TrackListParsingResultDto result = new TrackListParsingResultDto();
 
-        final List<ArtistTitleDto> artistTitles = new ArrayList<>();
+        final List<ArtistsTitle> artistTitles = new ArrayList<>();
         final List<String> notFound = new ArrayList<>();
 
         final String[] split = trackList.split(separator);
@@ -27,7 +27,7 @@ public final class TrackListParser {
         for (final String trackInfo : split) {
             final Matcher matcher = pattern.matcher(trackInfo);
             if (matcher.find()) {
-                final ArtistTitleDto artistTitleDto = new ArtistTitleDto(matcher.group(ARTISTS_LABEL), matcher.group(TITLE_LABEL));
+                final ArtistsTitle artistTitleDto = ArtistsTitle.of(matcher.group(ARTISTS_LABEL), matcher.group(TITLE_LABEL));
                 artistTitles.add(artistTitleDto);
             } else {
                 notFound.add(trackInfo);

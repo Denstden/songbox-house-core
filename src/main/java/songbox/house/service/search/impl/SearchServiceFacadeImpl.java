@@ -10,7 +10,7 @@ import songbox.house.domain.dto.response.TrackMetadataDto;
 import songbox.house.service.DiscogsWebsiteService;
 import songbox.house.service.search.SearchService;
 import songbox.house.service.search.SearchServiceFacade;
-import songbox.house.util.Pair;
+import songbox.house.util.ArtistsTitle;
 import songbox.house.util.compare.SearchResultComparator;
 
 import java.util.List;
@@ -24,7 +24,6 @@ import static java.lang.System.currentTimeMillis;
 import static java.util.Optional.ofNullable;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static lombok.AccessLevel.PRIVATE;
-import static songbox.house.util.ArtistTitleUtil.extractArtistTitle;
 import static songbox.house.util.Constants.PERFORMANCE_MARKER;
 
 @Service
@@ -62,7 +61,7 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
                 .flatMap(CompletableFuture::join)
                 .ifPresent(artwork -> songs.forEach(song -> song.setThumbnail(artwork)));
 
-        Pair<String, String> artistTitle = extractArtistTitle(query.getQuery());
+        ArtistsTitle artistTitle = ArtistsTitle.parse(query.getQuery());
         sort(songs, artistTitle);
 
         log.info(PERFORMANCE_MARKER, "Search finished {}ms", currentTimeMillis() - searchStart);
@@ -90,8 +89,8 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
     }
 
 
-    private void sort(List<TrackMetadataDto> songs, Pair<String, String> artistTitle) {
-        final SearchResultComparator comparator = new SearchResultComparator(artistTitle.getRight(), artistTitle.getLeft());
+    private void sort(List<TrackMetadataDto> songs, ArtistsTitle artistTitle) {
+        final SearchResultComparator comparator = new SearchResultComparator(artistTitle);
         songs.sort(comparator);
     }
 

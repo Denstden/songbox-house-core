@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import songbox.house.converter.TrackDtoConverter;
-import songbox.house.domain.dto.request.ArtistTitleDto;
 import songbox.house.domain.dto.request.SaveSongsDto;
 import songbox.house.domain.dto.request.SearchQueryDto;
 import songbox.house.domain.dto.request.SearchRequestDto;
@@ -23,8 +22,7 @@ import songbox.house.service.TrackService;
 import songbox.house.service.search.DownloadServiceFacade;
 import songbox.house.service.search.SearchHistoryService;
 import songbox.house.service.search.TrackDownloadService;
-import songbox.house.util.ArtistTitleUtil;
-import songbox.house.util.Pair;
+import songbox.house.util.ArtistsTitle;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,8 +47,8 @@ public class TrackDownloadServiceImpl implements TrackDownloadService {
 
     @Override
     public Optional<TrackDto> searchAndDownload(final SearchRequestDto searchRequest) {
-        final ArtistTitleDto artistsTitle = getArtistsTitle(searchRequest);
-        final String authors = artistsTitle.getArtist().trim();
+        final ArtistsTitle artistsTitle = getArtistsTitle(searchRequest);
+        final String authors = artistsTitle.getArtists().trim();
         final String title = artistsTitle.getTitle().trim();
 
         final SearchHistory searchHistory = createSearchHistory(authors, title);
@@ -67,8 +65,8 @@ public class TrackDownloadServiceImpl implements TrackDownloadService {
     @Override
     @Async
     public void searchAndDownloadAsync(final SearchRequestDto searchRequest) {
-        final ArtistTitleDto artistsTitle = getArtistsTitle(searchRequest);
-        final String authors = artistsTitle.getArtist().trim();
+        final ArtistsTitle artistsTitle = getArtistsTitle(searchRequest);
+        final String authors = artistsTitle.getArtists().trim();
         final String title = artistsTitle.getTitle().trim();
 
         final SearchHistory searchHistory = createSearchHistory(authors, title);
@@ -141,15 +139,13 @@ public class TrackDownloadServiceImpl implements TrackDownloadService {
         return searchHistory;
     }
 
-    private ArtistTitleDto getArtistsTitle(final SearchRequestDto searchRequestDto) {
+    private ArtistsTitle getArtistsTitle(final SearchRequestDto searchRequestDto) {
         if (isBlank(searchRequestDto.getArtists())) {
-            final Pair<String, String> artistTitle = ArtistTitleUtil.extractArtistTitle(searchRequestDto.getTitle());
-            return new ArtistTitleDto(artistTitle.getLeft(), artistTitle.getRight());
+            return ArtistsTitle.parse(searchRequestDto.getTitle());
         } else if (isBlank(searchRequestDto.getTitle())) {
-            final Pair<String, String> artistTitle = ArtistTitleUtil.extractArtistTitle(searchRequestDto.getArtists());
-            return new ArtistTitleDto(artistTitle.getLeft(), artistTitle.getRight());
+            return ArtistsTitle.parse(searchRequestDto.getArtists());
         } else {
-            return new ArtistTitleDto(searchRequestDto.getArtists(), searchRequestDto.getTitle());
+            return ArtistsTitle.of(searchRequestDto.getArtists(), searchRequestDto.getTitle());
         }
     }
 }

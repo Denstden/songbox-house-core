@@ -5,7 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import songbox.house.domain.dto.response.youtube.YoutubeSongDto;
-import songbox.house.util.Pair;
+import songbox.house.util.ArtistsTitle;
 
 import java.util.List;
 
@@ -14,7 +14,6 @@ import static java.lang.Integer.valueOf;
 import static java.lang.Math.min;
 import static org.jsoup.Jsoup.parse;
 import static org.jsoup.helper.StringUtil.isBlank;
-import static songbox.house.util.ArtistTitleUtil.extractArtistTitle;
 
 @Slf4j
 public class YoutubeSearchParser {
@@ -56,9 +55,9 @@ public class YoutubeSearchParser {
                 String videoId = lookupContentWithThumbnail.select(".yt-uix-sessionlink").attr("href");
 
                 Element lookupContent = lookupContents.get(i);
-                Pair<String, String> titleArtist = extractArtistTitle(lookupContent.select(".yt-uix-tile-link").attr("title"));
+                ArtistsTitle artistsTitle = ArtistsTitle.parse(lookupContent.select(".yt-uix-tile-link").attr("title"));
 
-                result.add(new YoutubeSongDto(titleArtist.getLeft(), titleArtist.getRight(), duration, thumbnailUrl, videoId));
+                result.add(new YoutubeSongDto(artistsTitle, duration, thumbnailUrl, videoId));
             } catch (Exception e) {
                 log.debug("Ignored exception {}", e.getMessage());
             }

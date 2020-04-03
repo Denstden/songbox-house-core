@@ -21,8 +21,7 @@ import songbox.house.service.UserService;
 import songbox.house.service.YoutubeApiService;
 import songbox.house.service.YoutubePlaylistService;
 import songbox.house.service.search.TrackDownloadService;
-import songbox.house.util.ArtistTitleUtil;
-import songbox.house.util.Pair;
+import songbox.house.util.ArtistsTitle;
 
 import java.util.List;
 import java.util.Set;
@@ -84,12 +83,12 @@ public class YoutubePlaylistServiceImpl implements YoutubePlaylistService {
     private SearchRequestDto createSearchRequest(String youtubeTitle, String collectionName, boolean only320) {
         MusicCollection musicCollection = musicCollectionService.getOrCreate(collectionName);
 
-        Pair<String, String> artistsTitle = ArtistTitleUtil.extractArtistTitle(youtubeTitle);
+        ArtistsTitle artistsTitle = ArtistsTitle.parse(youtubeTitle);
 
         SearchRequestDto searchRequest = new SearchRequestDto();
         searchRequest.setOnly320(only320);
-        searchRequest.setArtists(artistsTitle.getLeft());
-        searchRequest.setTitle(artistsTitle.getRight());
+        searchRequest.setArtists(artistsTitle.getArtists());
+        searchRequest.setTitle(artistsTitle.getTitle());
         searchRequest.setCollectionId(musicCollection.getCollectionId());
         return searchRequest;
     }

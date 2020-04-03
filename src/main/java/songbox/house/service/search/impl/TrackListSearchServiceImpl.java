@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import songbox.house.domain.SearchStatus;
-import songbox.house.domain.dto.request.ArtistTitleDto;
 import songbox.house.domain.dto.request.SearchRequestDto;
 import songbox.house.domain.dto.request.TrackListParsingResultDto;
 import songbox.house.domain.dto.request.TrackListSearchRequestDto;
@@ -17,9 +16,10 @@ import songbox.house.domain.entity.SearchHistory;
 import songbox.house.domain.entity.TrackListPattern;
 import songbox.house.exception.ParsingException;
 import songbox.house.repository.TrackListPatternRepository;
-import songbox.house.service.search.TrackDownloadService;
 import songbox.house.service.search.SearchHistoryService;
+import songbox.house.service.search.TrackDownloadService;
 import songbox.house.service.search.TrackListSearchService;
+import songbox.house.util.ArtistsTitle;
 import songbox.house.util.parser.TrackListParser;
 
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class TrackListSearchServiceImpl implements TrackListSearchService {
 
             trackDownloadService.searchAndDownload(searchRequestDto)
                     .map(downloaded::add)
-                    .orElseGet(() -> notParsed.add(artistTitleDto.getArtist() + " - " + artistTitleDto.getTitle()));
+                    .orElseGet(() -> notParsed.add(artistTitleDto.getArtists() + " - " + artistTitleDto.getTitle()));
         });
 
         return createResponseDto(notParsed, downloaded);
@@ -83,12 +83,12 @@ public class TrackListSearchServiceImpl implements TrackListSearchService {
         });
     }
 
-    private SearchRequestDto createSearchRequestDto(final ArtistTitleDto artistTitleDto, final Set<String> genres,
+    private SearchRequestDto createSearchRequestDto(final ArtistsTitle artistTitle, final Set<String> genres,
             final Long collectionId) {
         final SearchRequestDto searchRequestDto = new SearchRequestDto();
 
-        searchRequestDto.setTitle(artistTitleDto.getTitle());
-        searchRequestDto.setArtists(artistTitleDto.getArtist());
+        searchRequestDto.setTitle(artistTitle.getTitle());
+        searchRequestDto.setArtists(artistTitle.getArtists());
         searchRequestDto.setGenres(genres);
         searchRequestDto.setCollectionId(collectionId);
 

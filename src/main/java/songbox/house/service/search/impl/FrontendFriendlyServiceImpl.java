@@ -21,7 +21,7 @@ import songbox.house.service.GenreService;
 import songbox.house.service.MusicCollectionService;
 import songbox.house.service.UserPropertyService;
 import songbox.house.service.search.SearchServiceFacade;
-import songbox.house.util.Pair;
+import songbox.house.util.ArtistsTitle;
 import songbox.house.util.ProgressListener;
 import songbox.house.util.compare.ArtistTitleComparator;
 import songbox.house.util.compare.SmartDiscogsComparator;
@@ -103,9 +103,9 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
 
 
             // Apply song side
-            Pair<String, String> expectedArtistTitle = Pair.of(artistTitleDto.getArtist(), artistTitleDto.getTitle());
+            ArtistsTitle expectedArtistTitle = ArtistsTitle.of(artistTitleDto.getArtist(), artistTitleDto.getTitle());
             if (!expectedSongDto.getTrackPos().isEmpty()) {
-                expectedArtistTitle = Pair.of(expectedArtistTitle.getLeft(), expectedSongDto.getTrackPos() + " " + expectedArtistTitle.getRight());
+                expectedArtistTitle = ArtistsTitle.of(expectedArtistTitle.getArtists(), expectedSongDto.getTrackPos() + " " + expectedArtistTitle.getTitle());
             }
 
             List<TrackMetadataDto> songSearchResultList = searchServiceFacade.search(searchQueryDto, useFastSearch);
@@ -133,7 +133,7 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
         songDto.setBitRate(trackMetadataDto.getBitRate());
         songDto.setDuration(trackMetadataDto.getDurationSec());
         songDto.setResource(trackMetadataDto.getResource());
-        //TODO thumbnail is null
+        //TODO thumbnail is null ??
         songDto.setThumbnail(trackMetadataDto.getThumbnail());
         songDto.setUri(trackMetadataDto.getUri());
         songDto.setTrackPos(trackPos);

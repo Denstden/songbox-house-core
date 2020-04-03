@@ -1,29 +1,28 @@
 package songbox.house.util.compare;
 
-import songbox.house.domain.dto.response.SongDto;
 import songbox.house.domain.dto.response.TrackMetadataDto;
+import songbox.house.util.ArtistsTitle;
 
 import java.util.Comparator;
 
+// TODO Maybe compare ArtistsTitle
 public class SearchResultComparator implements Comparator<TrackMetadataDto> {
 
-    private final String title;
-    private final String authors;
+    private final ArtistsTitle artistsTitle;
     private final BitRateDurationComparator bitRateDurationComparator = new BitRateDurationComparator();
     private final LevenshteinDistanceComparator defaultStringComparator = new LevenshteinDistanceComparator();
 
-    public SearchResultComparator(String title, String authors) {
-        this.title = title;
-        this.authors = authors;
+    public SearchResultComparator(ArtistsTitle artistsTitle) {
+        this.artistsTitle = artistsTitle;
     }
 
     @Override
     public int compare(TrackMetadataDto song1, TrackMetadataDto song2) {
-        int compareArtists = compareArtists(song1.getArtists(), song2.getArtists(), authors);
+        int compareArtists = compareArtists(song1.getArtists(), song2.getArtists(), artistsTitle.getArtists());
         if (compareArtists != 0) {
             return compareArtists;
         } else {
-            int compareTitle = compareTitle(song1.getTitle(), song2.getTitle(), title);
+            int compareTitle = compareTitle(song1.getTitle(), song2.getTitle(), artistsTitle.getTitle());
             if (compareTitle != 0) {
                 return compareTitle;
             } else {
