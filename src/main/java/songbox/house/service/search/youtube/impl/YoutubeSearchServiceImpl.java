@@ -1,10 +1,10 @@
 package songbox.house.service.search.youtube.impl;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection.Response;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import songbox.house.client.YoutubeClient;
 import songbox.house.domain.dto.request.SearchQueryDto;
@@ -29,13 +29,19 @@ import static songbox.house.util.parser.YoutubeSearchParser.parseHtmlDocumentFor
 
 @Service
 @Slf4j
-@AllArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class YoutubeSearchServiceImpl implements YoutubeSearchService {
 
     private static final Short YOUTUBE_BITRATE = 128;
 
     YoutubeClient client;
+    Boolean enabled;
+
+    public YoutubeSearchServiceImpl(YoutubeClient client,
+            @Value("${songbox.house.youtube.search.enabled:false}") Boolean enabled) {
+        this.client = client;
+        this.enabled = enabled;
+    }
 
     @Override
     public SearchResultDto search(SearchQueryDto query) {
@@ -48,19 +54,21 @@ public class YoutubeSearchServiceImpl implements YoutubeSearchService {
     }
 
     private List<TrackMetadataDto> getTrackMetadataList(SearchQueryDto query) {
-        final long started = currentTimeMillis();
-        try {
-            Response response = client.search(query.getQuery());
-            final List<TrackMetadataDto> result = parseHtmlDocumentForSearch(response.parse().toString())
-                    .stream()
-                    .map(this::toTrackMetadata)
-                    .collect(toList());
-            log.info(PERFORMANCE_MARKER, "Youtube search finished {}ms", currentTimeMillis() - started);
-            return result;
-        } catch (Exception e) {
-            log.error("Can't execute youtube search", e);
-            return emptyList();
+        if (enabled) {
+            final long started = currentTimeMillis();
+            try {
+                Response response = client.search(query.getQuery());
+                final List<TrackMetadataDto> result = parseHtmlDocumentForSearch(response.parse().toString())
+                        .stream()
+                        .map(this::toTrackMetadata)
+                        .collect(toList());
+                log.info(PERFORMANCE_MARKER, "Youtube search finished {}ms", currentTimeMillis() - started);
+                return result;
+            } catch (Exception e) {
+                log.error("Can't execute youtube search", e);
+            }
         }
+        return emptyList();
     }
 
     private TrackMetadataDto toTrackMetadata(YoutubeSongDto youtubeSongDto) {
