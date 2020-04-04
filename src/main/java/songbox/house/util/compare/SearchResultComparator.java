@@ -9,7 +9,7 @@ import java.util.Comparator;
 public class SearchResultComparator implements Comparator<TrackMetadataDto> {
 
     private final ArtistsTitle artistsTitle;
-    private final BitRateDurationComparator bitRateDurationComparator = new BitRateDurationComparator();
+    private final TrackMetadataComparator trackMetadataComparator = new TrackMetadataComparator();
     private final LevenshteinDistanceComparator defaultStringComparator = new LevenshteinDistanceComparator();
 
     public SearchResultComparator(ArtistsTitle artistsTitle) {
@@ -26,7 +26,7 @@ public class SearchResultComparator implements Comparator<TrackMetadataDto> {
             if (compareTitle != 0) {
                 return compareTitle;
             } else {
-                return bitRateDurationComparator.compare(song1, song2);
+                return trackMetadataComparator.compare(song1, song2);
             }
         }
     }
