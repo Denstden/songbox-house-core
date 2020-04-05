@@ -128,8 +128,8 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
 
     private SongDto toSongDto(TrackMetadataDto trackMetadataDto, String trackPos) {
         SongDto songDto = new SongDto();
-        songDto.setArtist(trackMetadataDto.getArtists());
-        songDto.setTitle(trackMetadataDto.getTitle());
+        songDto.setArtist(trackMetadataDto.getArtistsTitle().getArtists());
+        songDto.setTitle(trackMetadataDto.getArtistsTitle().getTitle());
         songDto.setBitRate(trackMetadataDto.getBitRate());
         songDto.setDuration(trackMetadataDto.getDurationSec());
         songDto.setResource(trackMetadataDto.getResource());
@@ -137,6 +137,7 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
         songDto.setThumbnail(trackMetadataDto.getThumbnail());
         songDto.setUri(trackMetadataDto.getUri());
         songDto.setTrackPos(trackPos);
+        songDto.setSizeMb(trackMetadataDto.getSizeMb());
         return songDto;
     }
 

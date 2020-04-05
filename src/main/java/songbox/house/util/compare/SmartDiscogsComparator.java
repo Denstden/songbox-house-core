@@ -23,8 +23,8 @@ public class SmartDiscogsComparator implements Comparator<TrackMetadataDto> {
 
     @Override
     public int compare(TrackMetadataDto songDto1, TrackMetadataDto songDto2) {
-        int r1 = MAX_COMPARE_RESULT - artistTitleComparator.compare(expectedArtistTitle, ArtistsTitle.of(songDto1.getArtists(), songDto1.getTitle()));
-        int r2 = MAX_COMPARE_RESULT - artistTitleComparator.compare(expectedArtistTitle, ArtistsTitle.of(songDto2.getArtists(), songDto2.getTitle()));
+        int r1 = MAX_COMPARE_RESULT - artistTitleComparator.compare(expectedArtistTitle, songDto1.getArtistsTitle());
+        int r2 = MAX_COMPARE_RESULT - artistTitleComparator.compare(expectedArtistTitle, songDto2.getArtistsTitle());
 
         Integer expectedDuration = expectedSongDto.getDuration();
         if (expectedDuration > 60 /*min amount of time for applying penalty on duration difference*/) {

@@ -54,7 +54,7 @@ public class DownloadServiceFacadeImpl implements DownloadServiceFacade {
 
     private void searchArtworkIfNeed(TrackMetadataDto trackMetadataDto) {
         if (isNotBlank(trackMetadataDto.getThumbnail())) {
-            final String searchQuery = trackMetadataDto.getArtists() + trackMetadataDto.getTitle();
+            final String searchQuery = trackMetadataDto.getArtistsTitle().toString();
             discogsWebsiteService.searchArtwork(searchQuery).ifPresent(trackMetadataDto::setThumbnail);
         }
     }

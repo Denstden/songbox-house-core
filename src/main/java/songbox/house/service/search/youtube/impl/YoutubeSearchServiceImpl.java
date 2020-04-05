@@ -78,8 +78,7 @@ public class YoutubeSearchServiceImpl implements YoutubeSearchService {
         trackMetadataDto.setThumbnail(youtubeSongDto.getThumbnail());
         trackMetadataDto.setBitRate(YOUTUBE_BITRATE);
         trackMetadataDto.setDurationSec(youtubeSongDto.getDuration());
-        trackMetadataDto.setArtists(youtubeSongDto.getArtistsTitle().getArtists());
-        trackMetadataDto.setTitle(youtubeSongDto.getArtistsTitle().getTitle());
+        trackMetadataDto.setArtistsTitle(youtubeSongDto.getArtistsTitle());
         return trackMetadataDto;
     }
 

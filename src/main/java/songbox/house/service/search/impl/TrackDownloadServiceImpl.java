@@ -122,8 +122,7 @@ public class TrackDownloadServiceImpl implements TrackDownloadService {
 
     private TrackMetadataDto fromSongDto(SongDto songDto) {
         TrackMetadataDto trackMetadataDto = new TrackMetadataDto();
-        trackMetadataDto.setArtists(songDto.getArtist());
-        trackMetadataDto.setTitle(songDto.getTitle());
+        trackMetadataDto.setArtistsTitle(ArtistsTitle.of(songDto.getArtist(), songDto.getTitle()));
         trackMetadataDto.setDurationSec(songDto.getDuration());
         trackMetadataDto.setBitRate(songDto.getBitRate());
         trackMetadataDto.setThumbnail(songDto.getThumbnail());

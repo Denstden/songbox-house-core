@@ -11,7 +11,7 @@ import songbox.house.service.DiscogsWebsiteService;
 import songbox.house.service.search.SearchService;
 import songbox.house.service.search.SearchServiceFacade;
 import songbox.house.util.ArtistsTitle;
-import songbox.house.util.compare.SearchResultComparator;
+import songbox.house.util.compare.TrackMetadataComparator;
 
 import java.util.List;
 import java.util.Optional;
@@ -90,7 +90,7 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
 
 
     private void sort(List<TrackMetadataDto> songs, ArtistsTitle artistTitle) {
-        final SearchResultComparator comparator = new SearchResultComparator(artistTitle);
+        final TrackMetadataComparator comparator = new TrackMetadataComparator(artistTitle, 70);
         songs.sort(comparator);
     }
 
