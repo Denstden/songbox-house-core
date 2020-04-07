@@ -8,15 +8,22 @@ import songbox.house.domain.dto.response.youtube.YoutubeSongDto;
 import songbox.house.util.ArtistsTitle;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.Double.parseDouble;
 import static java.lang.Integer.valueOf;
 import static java.lang.Math.min;
+import static java.util.Optional.empty;
 import static org.jsoup.Jsoup.parse;
 import static org.jsoup.helper.StringUtil.isBlank;
 
 @Slf4j
 public class YoutubeSearchParser {
+
+    private static final Pattern SIZE_PATTERN = Pattern.compile("(Size: )(.*)( MB)");
 
     public static List<YoutubeSongDto> parseHtmlDocumentForSearch(String html) {
         try {
@@ -77,6 +84,21 @@ public class YoutubeSearchParser {
         }
 
         return 60 * valueOf(minutesSeconds[0]) + valueOf(minutesSeconds[1]);
+    }
+
+    public static Optional<Double> parseSizeMb(String html) {
+        try {
+            Document document = parse(html);
+            final Element element = document.select(".col-md-9").get(0);
+            final String sizeElementText = element.select("p").select("p:contains(Size)").get(0).text();
+            final Matcher matcher = SIZE_PATTERN.matcher(sizeElementText);
+            if (matcher.matches()) {
+                return Optional.of(parseDouble(matcher.group(2)));
+            }
+        } catch (Exception e) {
+            log.info("Exception parsing size from 320youtube, html {}", html, e);
+        }
+        return empty();
     }
 
 }

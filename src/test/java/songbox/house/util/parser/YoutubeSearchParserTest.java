@@ -21,4 +21,13 @@ public class YoutubeSearchParserTest {
         assertEquals(16, youtubeSongDtos.size());
     }
 
+    @Test
+    public void shouldParseSize() throws IOException, URISyntaxException {
+        String html = ResourceLoader.loadResource("youtube/320youtube.html");
+
+        double size = YoutubeSearchParser.parseSizeMb(html).get();
+
+        assertEquals(12.17d, size, 0.0001);
+    }
+
 }

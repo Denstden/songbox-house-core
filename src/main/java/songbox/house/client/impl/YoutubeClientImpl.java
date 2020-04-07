@@ -20,4 +20,11 @@ public class YoutubeClientImpl implements YoutubeClient {
                 .method(Connection.Method.GET)
                 .execute();
     }
+
+    @Override
+    public Connection.Response getTrackMetadata(String videoId) throws IOException {
+        return Jsoup.connect("https://www.320youtube.com" + videoId)
+                .method(Connection.Method.GET)
+                .execute();
+    }
 }
