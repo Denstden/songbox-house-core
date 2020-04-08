@@ -60,7 +60,7 @@ public class YoutubeSearchServiceImpl implements YoutubeSearchService {
     }
 
     private List<TrackMetadataDto> getTrackMetadataList(SearchQueryDto query) {
-        if (enabled) {
+        if (enabled && query.isLowQuality()) {
             final long started = currentTimeMillis();
             try {
                 Response response = client.search(query.getQuery());
