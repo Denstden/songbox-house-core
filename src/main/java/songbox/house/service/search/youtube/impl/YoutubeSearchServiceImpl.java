@@ -13,6 +13,8 @@ import songbox.house.domain.dto.response.SearchResultDto;
 import songbox.house.domain.dto.response.TrackMetadataDto;
 import songbox.house.domain.dto.response.youtube.YoutubeSongDto;
 import songbox.house.service.search.youtube.YoutubeSearchService;
+import songbox.house.util.ArtistsTitle;
+import songbox.house.util.compare.TrackMetadataComparator;
 
 import java.net.URI;
 import java.util.List;
@@ -65,6 +67,7 @@ public class YoutubeSearchServiceImpl implements YoutubeSearchService {
                 final List<TrackMetadataDto> result = parseHtmlDocumentForSearch(response.parse().toString())
                         .parallelStream()
                         .map(this::toTrackMetadata)
+                        .sorted(new TrackMetadataComparator(ArtistsTitle.parse(query.getQuery()), 70))
                         .collect(toList());
                 log.info(PERFORMANCE_MARKER, "Youtube search finished {}ms", currentTimeMillis() - started);
                 return result;

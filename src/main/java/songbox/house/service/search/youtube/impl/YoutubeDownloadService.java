@@ -65,7 +65,10 @@ public class YoutubeDownloadService implements DownloadService {
     public Optional<TrackDto> download(TrackMetadataDto trackMetadataDto) {
         try {
             String url = new String(Base64.getDecoder().decode(trackMetadataDto.getUri().split(":")[1]), UTF_8);
-            return download(url, trackMetadataDto);
+            LOGGER.info("Downloading mp3 from Youtube {}, metadata {}", url, trackMetadataDto);
+            final Optional<TrackDto> download = download(url, trackMetadataDto);
+            LOGGER.info("Downloading from Youtube finished");
+            return download;
         } catch (IOException e) {
             LOGGER.error("Can't download from youtube {}", trackMetadataDto, e);
             return empty();
