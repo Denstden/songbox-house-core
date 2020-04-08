@@ -17,6 +17,7 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.valueOf;
 import static java.lang.Math.min;
 import static java.util.Optional.empty;
+import static java.util.Optional.ofNullable;
 import static org.jsoup.Jsoup.parse;
 import static org.jsoup.helper.StringUtil.isBlank;
 
@@ -95,6 +96,17 @@ public class YoutubeSearchParser {
             if (matcher.matches()) {
                 return Optional.of(parseDouble(matcher.group(2)));
             }
+        } catch (Exception e) {
+            log.info("Exception parsing size from 320youtube, html {}", html, e);
+        }
+        return empty();
+    }
+
+    public static Optional<String> parseMp3Url(String html) {
+        try {
+            Document document = parse(html);
+            final Element element = document.select("#download").get(0);
+            return ofNullable(element.select("a").attr("href"));
         } catch (Exception e) {
             log.info("Exception parsing size from 320youtube, html {}", html, e);
         }

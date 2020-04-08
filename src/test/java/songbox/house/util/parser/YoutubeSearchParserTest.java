@@ -30,4 +30,13 @@ public class YoutubeSearchParserTest {
         assertEquals(12.17d, size, 0.0001);
     }
 
+    @Test
+    public void shouldParseUrl() throws IOException, URISyntaxException {
+        String html = ResourceLoader.loadResource("youtube/320youtube.html");
+
+        String url = YoutubeSearchParser.parseMp3Url(html).get();
+
+        assertEquals("https://s02.ytapivmp3.com/@download/251-5e8c80dc9e9bf-12760000-319-320-webm-5691624/mp3/QsE0STLkskk/Sync24%2B-%2BThis%2BLife.mp3", url);
+    }
+
 }

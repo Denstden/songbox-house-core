@@ -14,6 +14,7 @@ import songbox.house.service.search.DownloadServiceFacade;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Comparator.comparingInt;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
@@ -37,18 +38,18 @@ public class DownloadServiceFacadeImpl implements DownloadServiceFacade {
         final String artworkUrl = discogsWebsiteService.searchArtwork(searchQuery.getQuery()).orElse(null);
 
         return downloadServices.stream()
-                .filter(DownloadService::isDownloadEnabled)
-                .findFirst()
+                .max(comparingInt(DownloadService::getDownloadPriority))
                 .flatMap(downloadService -> downloadService.download(searchQuery, artworkUrl));
     }
 
     @Override
     public Optional<TrackDto> download(TrackMetadataDto trackMetadataDto) {
         searchArtworkIfNeed(trackMetadataDto);
+        String serviceName = trackMetadataDto.getUri().split(":")[0];
 
         return downloadServices.stream()
-                .filter(DownloadService::isDownloadEnabled)
-                .findFirst()
+                .filter(service -> service.canDownload(serviceName))
+                .max(comparingInt(DownloadService::getDownloadPriority))
                 .flatMap(downloadService -> downloadService.download(trackMetadataDto));
     }
 
