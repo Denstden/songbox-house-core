@@ -27,6 +27,7 @@ import static com.google.common.collect.Lists.reverse;
 import static java.lang.System.currentTimeMillis;
 import static java.util.Optional.ofNullable;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static lombok.AccessLevel.PRIVATE;
 import static songbox.house.util.Constants.PERFORMANCE_MARKER;
 
@@ -38,13 +39,16 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
     List<SearchService> searchServices;
     DiscogsWebsiteService discogsWebsiteService;
     ExecutorService searchExecutorService;
+    Integer searchServiceTimeoutMs;
 
     @Autowired
     public SearchServiceFacadeImpl(List<SearchService> searchServices, DiscogsWebsiteService discogsWebsiteService,
-            @Value("${songbox.house.search.threads:2}") Integer searchThreads) {
+            @Value("${songbox.house.search.threads:2}") Integer searchThreads,
+            @Value("${songbox.house.search.service.timeout.ms:10000}") Integer searchServiceTimeoutMs) {
         this.searchServices = searchServices;
         this.discogsWebsiteService = discogsWebsiteService;
         this.searchExecutorService = ExecutorUtil.createExecutorService(searchThreads);
+        this.searchServiceTimeoutMs = searchServiceTimeoutMs;
     }
 
     @Override
@@ -83,7 +87,7 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
         List<TrackMetadataDto> songs = newArrayList();
         for (int i = 0; i < searchServices.size(); i++) {
             try {
-                songs.addAll(completionService.take().get().getSongs());
+                songs.addAll(completionService.take().get(searchServiceTimeoutMs, MILLISECONDS).getSongs());
             } catch (Exception e) {
                 log.error("Can't take the search service result", e);
             }
