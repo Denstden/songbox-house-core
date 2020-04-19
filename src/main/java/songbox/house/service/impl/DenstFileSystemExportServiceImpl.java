@@ -67,7 +67,7 @@ public class DenstFileSystemExportServiceImpl implements FileSystemExportService
             log.info("Export of {} page of {} finished", i, totalPages);
         }
 
-        log.info("Export of {} files finished", countExported);
+        log.info("Export of {} files finished. Folder {}", countExported, collectionFolder);
 
         return countExported;
     }

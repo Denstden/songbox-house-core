@@ -48,8 +48,8 @@ public class TrackDownloadServiceImpl implements TrackDownloadService {
     @Override
     public Optional<TrackDto> searchAndDownload(final SearchRequestDto searchRequest) {
         final ArtistsTitle artistsTitle = getArtistsTitle(searchRequest);
-        final String authors = artistsTitle.getArtists().trim();
-        final String title = artistsTitle.getTitle().trim();
+        final String authors = artistsTitle.getArtists();
+        final String title = artistsTitle.getTitle();
 
         final SearchHistory searchHistory = createSearchHistory(authors, title);
 
