@@ -31,6 +31,9 @@ public class UserProperty {
     @Column
     private Boolean telegramBotUseGoogleDrive;
 
+    @Column(name = "search_audio_preview_enabled", columnDefinition = "boolean default false", nullable = false)
+    private Boolean searchPreviewEnabled = false;
+
     @Column(length = 2048)
     private String vkCookie;
 
