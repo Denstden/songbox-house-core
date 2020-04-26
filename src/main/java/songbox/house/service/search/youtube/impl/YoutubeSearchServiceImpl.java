@@ -14,6 +14,7 @@ import songbox.house.domain.dto.response.TrackMetadataDto;
 import songbox.house.domain.dto.response.youtube.YoutubeSongDto;
 import songbox.house.service.search.youtube.YoutubeSearchService;
 import songbox.house.util.ArtistsTitle;
+import songbox.house.util.Measurable;
 import songbox.house.util.compare.TrackMetadataComparator;
 
 import java.net.URI;
@@ -21,7 +22,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.lang.String.format;
-import static java.lang.System.currentTimeMillis;
 import static java.net.URI.create;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Base64.getEncoder;
@@ -29,7 +29,6 @@ import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 import static songbox.house.util.BitRateCalculator.calculateBitRate;
 import static songbox.house.util.Constants.EMPTY_URI;
-import static songbox.house.util.Constants.PERFORMANCE_MARKER;
 import static songbox.house.util.parser.YoutubeSearchParser.parseHtmlDocumentForSearch;
 import static songbox.house.util.parser.YoutubeSearchParser.parseSizeMb;
 
@@ -50,27 +49,26 @@ public class YoutubeSearchServiceImpl implements YoutubeSearchService {
     }
 
     @Override
+    @Measurable
     public SearchResultDto search(SearchQueryDto query) {
         return new SearchResultDto(getTrackMetadataList(query));
     }
 
     @Override
+    @Measurable
     public SearchResultDto searchFast(SearchQueryDto searchQuery) {
         return new SearchResultDto(getTrackMetadataList(searchQuery));
     }
 
     private List<TrackMetadataDto> getTrackMetadataList(SearchQueryDto query) {
         if (enabled && query.isLowQuality()) {
-            final long started = currentTimeMillis();
             try {
                 Response response = client.search(query.getQuery());
-                final List<TrackMetadataDto> result = parseHtmlDocumentForSearch(response.parse().toString())
+                return parseHtmlDocumentForSearch(response.parse().toString())
                         .parallelStream()
                         .map(this::toTrackMetadata)
                         .sorted(new TrackMetadataComparator(ArtistsTitle.parse(query.getQuery()), 70))
                         .collect(toList());
-                log.info(PERFORMANCE_MARKER, "Youtube search finished {}ms", currentTimeMillis() - started);
-                return result;
             } catch (Exception e) {
                 log.error("Can't execute youtube search", e);
             }
