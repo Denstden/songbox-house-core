@@ -22,33 +22,33 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'maven'
 
 group = 'com.github.Denstden'
-version = '1.1.37'
+version = '1.1.39'
 
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
 
-    maven { url 'https://jitpack.io' }
+   // maven { url 'https://jitpack.io' }
 }
 
 ext.jacksonVersion = '2.9.8'
 
 dependencies {
-    implementation('com.github.Denstden:songbox-house-search-api:0.1.13')
-    implementation('com.github.Denstden:songbox-house-util:0.0.12') {
-        exclude group: 'org.springframework'
-    }
-    
+   // implementation('com.github.Denstden:songbox-house-search-api:0.1.14')
+   // implementation('com.github.Denstden:songbox-house-util:0.0.17')
+    implementation(project(":songbox-house-search-api"))
+    implementation(project(":songbox-house-util"))
+
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile 'org.springframework.kafka:spring-kafka:2.2.4.RELEASE'
-    
+
     // Utils
     compile('org.jsoup:jsoup:1.10.3')
     compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
 
     // Google
-    compile ('com.google.apis:google-api-services-youtube:v3-rev20200312-1.30.9')
+    compile('com.google.apis:google-api-services-youtube:v3-rev20200312-1.30.9')
     compile("com.google.guava:guava:25.0-jre")
     compile 'com.google.api-client:google-api-client:1.25.0'
     compile 'com.google.apis:google-api-services-drive:v3-rev110-1.23.0'
@@ -67,5 +67,9 @@ jar {
     doFirst {
         from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     }
-    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+}
+
+bootJar {
+    enabled = false
 }

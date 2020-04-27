@@ -29,7 +29,6 @@ import static java.util.Optional.ofNullable;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static lombok.AccessLevel.PRIVATE;
-import static songbox.house.util.Constants.PERFORMANCE_MARKER;
 
 @Service
 @FieldDefaults(makeFinal = true, level = PRIVATE)
@@ -73,7 +72,7 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
         ArtistsTitle artistTitle = ArtistsTitle.parse(query.getQuery());
         sort(songs, artistTitle);
 
-        log.info(PERFORMANCE_MARKER, "Search finished {}ms, found {} items", currentTimeMillis() - searchStart, songs.size());
+        log.info("Search finished {}ms, found {} items", currentTimeMillis() - searchStart, songs.size());
 
         //TODO change comparator to no need reverse
         return reverse(songs);
