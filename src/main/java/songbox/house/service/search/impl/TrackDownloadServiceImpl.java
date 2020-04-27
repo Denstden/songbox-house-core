@@ -23,6 +23,7 @@ import songbox.house.service.search.DownloadServiceFacade;
 import songbox.house.service.search.SearchHistoryService;
 import songbox.house.service.search.TrackDownloadService;
 import songbox.house.util.ArtistsTitle;
+import songbox.house.util.Measurable;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,10 +47,11 @@ public class TrackDownloadServiceImpl implements TrackDownloadService {
     TrackDtoConverter trackDtoConverter;
 
     @Override
+    @Measurable
     public Optional<TrackDto> searchAndDownload(final SearchRequestDto searchRequest) {
         final ArtistsTitle artistsTitle = getArtistsTitle(searchRequest);
-        final String authors = artistsTitle.getArtists().trim();
-        final String title = artistsTitle.getTitle().trim();
+        final String authors = artistsTitle.getArtists();
+        final String title = artistsTitle.getTitle();
 
         final SearchHistory searchHistory = createSearchHistory(authors, title);
 
@@ -82,6 +84,7 @@ public class TrackDownloadServiceImpl implements TrackDownloadService {
 
 
     @Override
+    @Measurable
     public Iterable<TrackDto> download(SaveSongsDto saveSongsDto) {
         final List<TrackDto> result = Lists.newArrayList();
         final Long collectionId = saveSongsDto.getCollectionId();
@@ -99,6 +102,7 @@ public class TrackDownloadServiceImpl implements TrackDownloadService {
     }
 
     @Override
+    @Measurable
     public TrackDto download(SongDto songDto, Long collectionId) {
         return downloadOne(collectionId, songDto)
                 .orElseThrow(() -> new NotExistsException("Exception during track downloading"));

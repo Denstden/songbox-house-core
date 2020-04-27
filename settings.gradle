@@ -1,2 +1,3 @@
-rootProject.name = 'core'
-
+include ':songbox-house-search-api', ':songbox-house-util'
+project(":songbox-house-search-api").projectDir = file("./../songbox-house-search-api")
+project(":songbox-house-util").projectDir = file("./../songbox-house-util")

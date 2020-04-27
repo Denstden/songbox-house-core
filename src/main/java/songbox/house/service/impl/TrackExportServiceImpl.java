@@ -37,6 +37,8 @@ public class TrackExportServiceImpl implements TrackExportService {
                     createFileInRootFolder(track, collectionFolder);
                 }
             }
+        } else {
+            createFileIfNotExists(track, collectionFolder);
         }
     }
 
