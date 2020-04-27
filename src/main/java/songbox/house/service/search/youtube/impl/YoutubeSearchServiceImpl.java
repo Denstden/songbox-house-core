@@ -3,6 +3,7 @@ package songbox.house.service.search.youtube.impl;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection.Response;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,6 +58,11 @@ public class YoutubeSearchServiceImpl implements YoutubeSearchService {
     @Override
     public SearchResultDto searchFast(SearchQueryDto searchQuery) {
         return new SearchResultDto(getTrackMetadataList(searchQuery));
+    }
+
+    @Override
+    public Optional<TrackMetadataDto> searchForPreview(SearchQueryDto query) {
+        throw new NotImplementedException("not implemented yet");
     }
 
     private List<TrackMetadataDto> getTrackMetadataList(SearchQueryDto query) {
