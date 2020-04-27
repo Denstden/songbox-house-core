@@ -38,12 +38,12 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
 
 
     @Override
-    public void upload(TrackDto track) {
-        upload(track, null, null);
+    public boolean upload(TrackDto track) {
+        return upload(track, null, null);
     }
 
     @Override
-    public void upload(TrackDto track, String folder, String genreFolder) {
+    public boolean upload(TrackDto track, String folder, String genreFolder) {
         Drive drive = authenticationService.getDrive();
 
         try {
@@ -67,8 +67,12 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
                     .setFields("id, parents")
                     .execute();
             log.info("Uploaded file with id {}", uploadedFile.getId());
+            // TODO maybe need to check that files was uploaded. I faced with issue, when I have no free space on my
+            // google drive and this flow not throws error
+            return true;
         } catch (Exception e) {
             log.error("Can't upload file to the google drive", e);
+            return false;
         }
     }
 

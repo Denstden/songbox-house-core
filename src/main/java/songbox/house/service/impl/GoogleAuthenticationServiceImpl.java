@@ -27,8 +27,6 @@ import songbox.house.service.UserService;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,8 +50,22 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
     private static final GoogleClientSecrets GOOGLE_CLIENT_SECRETS = loadClientSecrets();
     private static final GoogleAuthorizationCodeFlow GOOGLE_AUTHORIZATION_CODE_FLOW = initFlow();
 
+    private final Boolean googleAuthenticationAppendRawPathEnabled;
+    private final Boolean googleAuthenticationUseConfigRedirectUrl;
+    private final String googleAuthenticationRedirectHost;
+    private final Integer googleAuthenticationRedirectPort;
+
     @Autowired
-    public GoogleAuthenticationServiceImpl(GoogleApiTokenRepository googleApiTokenRepository, UserService userService) {
+    public GoogleAuthenticationServiceImpl(
+            @Value("${songbox.house.google.auth.raw.path.append.enabled:false}") Boolean googleAuthenticationAppendRawPathEnabled,
+            @Value("${songbox.house.google.auth.use.config.redirect:true}") Boolean googleAuthenticationUseConfigRedirectUrl,
+            @Value("${songbox.house.google.auth.redirect.host:172.31.36.208}") String googleAuthenticationRedirectHost,
+            @Value("${songbox.house.google.auth.redirect.port:8080}") Integer googleAuthenticationRedirectPort,
+            GoogleApiTokenRepository googleApiTokenRepository, UserService userService) {
+        this.googleAuthenticationAppendRawPathEnabled = googleAuthenticationAppendRawPathEnabled;
+        this.googleAuthenticationUseConfigRedirectUrl = googleAuthenticationUseConfigRedirectUrl;
+        this.googleAuthenticationRedirectHost = googleAuthenticationRedirectHost;
+        this.googleAuthenticationRedirectPort = googleAuthenticationRedirectPort;
         this.googleApiTokenRepository = googleApiTokenRepository;
         this.userService = userService;
     }
@@ -184,14 +196,27 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
     // localhost:8080
     private String getRedirectUrl(String requestUrl) {
         GenericUrl url = new GenericUrl(requestUrl);
-        // Already contains YOUTUBE_TOKEN_URL
-        if (requestUrl.endsWith(YOUTUBE_TOKEN_URL)
-                || requestUrl.substring(0, requestUrl.length() - 1).endsWith(YOUTUBE_TOKEN_URL)) {
-            url.setRawPath(YOUTUBE_TOKEN_URL);
+        log.info("Request url {}, generic url {}, host {}", requestUrl, url, url.getHost());
+
+        if (googleAuthenticationAppendRawPathEnabled) {
+            if (requestUrl.endsWith(YOUTUBE_TOKEN_URL)
+                    || requestUrl.substring(0, requestUrl.length() - 1).endsWith(YOUTUBE_TOKEN_URL)) {
+                url.setRawPath(YOUTUBE_TOKEN_URL);
+            } else {
+                url.appendRawPath(YOUTUBE_TOKEN_URL);
+            }
         } else {
-            url.appendRawPath(YOUTUBE_TOKEN_URL);
+            if (googleAuthenticationUseConfigRedirectUrl) {
+                url.setHost(googleAuthenticationRedirectHost);
+                url.setPort(googleAuthenticationRedirectPort);
+                url.setRawPath("/songbox-house" + YOUTUBE_TOKEN_URL);
+            } else {
+                url.setRawPath(YOUTUBE_TOKEN_URL);
+            }
         }
 
-        return url.build();
+        final String redirectUrl = url.build();
+        log.info("Redirect url {}", redirectUrl);
+        return redirectUrl;
     }
 }
