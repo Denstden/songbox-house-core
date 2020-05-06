@@ -60,6 +60,11 @@ public class YoutubeSearchServiceImpl implements YoutubeSearchService {
         return new SearchResultDto(getTrackMetadataList(searchQuery));
     }
 
+    @Override
+    public Optional<TrackMetadataDto> searchForPreview(SearchQueryDto query) {
+        return search(query).getSongs().stream().findFirst();
+    }
+
     private List<TrackMetadataDto> getTrackMetadataList(SearchQueryDto query) {
         if (enabled && query.isLowQuality()) {
             try {
