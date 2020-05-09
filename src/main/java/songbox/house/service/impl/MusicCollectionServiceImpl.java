@@ -48,14 +48,6 @@ public class MusicCollectionServiceImpl implements MusicCollectionService {
         return repository.save(collection);
     }
 
-    private MusicCollection createCollectionWithName(final String name) {
-        final MusicCollection collection = new MusicCollection(name);
-        final String currentUserName = userService.getCurrentUserName();
-        final UserInfo owner = userService.findByUserName(currentUserName);
-        collection.setOwner(owner);
-        return collection;
-    }
-
     @Override
     public MusicCollection findByName(final String name) {
         checkOwner(name);
@@ -67,7 +59,18 @@ public class MusicCollectionServiceImpl implements MusicCollectionService {
     public MusicCollection findById(final Long collectionId) {
         checkOwner(collectionId);
 
-        return repository.findById(collectionId).orElse(null);
+        return repository.findById(collectionId)
+                .orElseGet(this::getOrCreateDefault);
+    }
+
+    @Override
+    public MusicCollection findById(Long collectionId, Long ownerId) {
+        final String ownerUserName = userService.findById(ownerId).getUserName();
+        checkOwner(collectionId, ownerUserName);
+
+        return ofNullable(collectionId)
+                .flatMap(repository::findById)
+                .orElseGet(this::getOrCreateDefault);
     }
 
     @Override
@@ -106,6 +109,21 @@ public class MusicCollectionServiceImpl implements MusicCollectionService {
                 .anyMatch(userService.getCurrentUserName()::equalsIgnoreCase);
     }
 
+    @Override
+    public MusicCollection getOrCreateDefault() {
+        return getOrCreate("Default Collection " + userService.getCurrentUserName().hashCode());
+    }
+
+    @Override
+    public void checkOwner(final Long collectionId) {
+        final MusicCollection collection = ofNullable(collectionId)
+                .flatMap(repository::findById)
+                .orElseGet(this::getOrCreateDefault);
+
+        checkOwner(collection);
+    }
+
+
     private void checkOwner(final String collectionName) {
         final MusicCollection collection = repository.findByCollectionNameIgnoreCase(collectionName);
 
@@ -116,23 +134,35 @@ public class MusicCollectionServiceImpl implements MusicCollectionService {
         checkOwner(collection);
     }
 
-    @Override
-    public void checkOwner(final Long collectionId) {
-        final MusicCollection collection = repository.findById(collectionId)
-                .orElseThrow(() -> new NotExistsException(format("Collection with id {0} not exists", collectionId)));
+    private void checkOwner(final Long collectionId, String ownerUserName) {
+        final MusicCollection collection = ofNullable(collectionId)
+                .flatMap(repository::findById)
+                .orElseGet(this::getOrCreateDefault);
 
-        checkOwner(collection);
+        checkOwner(collection, ownerUserName);
     }
 
     private void checkOwner(final MusicCollection collection) {
         final String currentUserName = userService.getCurrentUserName();
-        log.trace("Current user \"{}\"", currentUserName);
+        checkOwner(collection, currentUserName);
+    }
+
+    private void checkOwner(final MusicCollection collection, String userName) {
+        log.trace("User \"{}\"", userName);
         final UserInfo owner = collection.getOwner();
         log.trace("Collection owner \"{}\"", owner.getUserName());
 
-        if (!currentUserName.equals(owner.getUserName()) && !ADMIN.equals(owner.getRole().getName())) {
+        if (!userName.equals(owner.getUserName()) && !ADMIN.equals(owner.getRole().getName())) {
             throw new AccessDeniedException(format("User {0} hasn't access to collection with name {1}",
-                    currentUserName, collection.getCollectionName()));
+                    userName, collection.getCollectionName()));
         }
+    }
+
+    private MusicCollection createCollectionWithName(final String name) {
+        final MusicCollection collection = new MusicCollection(name);
+        final String currentUserName = userService.getCurrentUserName();
+        final UserInfo owner = userService.findByUserName(currentUserName);
+        collection.setOwner(owner);
+        return collection;
     }
 }

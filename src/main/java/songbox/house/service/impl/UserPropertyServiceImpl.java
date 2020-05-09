@@ -49,7 +49,7 @@ public class UserPropertyServiceImpl implements UserPropertyService {
     public long getCurrentMusicCollectionId() {
         return ofNullable(getCurrentUserProperty().getDefaultCollection())
                 .map(MusicCollection::getCollectionId)
-                .orElseGet(() -> musicCollectionService.getOrCreate("Default Collection " + userService.getCurrentUserName().hashCode()).getCollectionId());
+                .orElseGet(() -> musicCollectionService.getOrCreateDefault().getCollectionId());
     }
 
 }

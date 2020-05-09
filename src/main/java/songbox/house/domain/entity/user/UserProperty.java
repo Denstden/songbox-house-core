@@ -34,9 +34,15 @@ public class UserProperty {
     @Column(name = "search_audio_preview_enabled", columnDefinition = "boolean default false", nullable = false)
     private Boolean searchPreviewEnabled = false;
 
+    //TODO remove
     @Column(length = 2048)
     private String vkCookie;
 
     @OneToOne(cascade = { PERSIST, MERGE, REFRESH, DETACH })
     private MusicCollection defaultCollection;
+
+
+    //autoSearchReprocessEnabled
+    //autoSearchReprocessDownloadEnabled
+    //private Long mask;
 }

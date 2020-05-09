@@ -25,10 +25,13 @@ import songbox.house.service.search.TrackDownloadService;
 import songbox.house.util.ArtistsTitle;
 import songbox.house.util.Measurable;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 
+import static java.util.Objects.isNull;
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -52,6 +55,24 @@ public class TrackDownloadServiceImpl implements TrackDownloadService {
         final ArtistsTitle artistsTitle = getArtistsTitle(searchRequest);
         final String authors = artistsTitle.getArtists();
         final String title = artistsTitle.getTitle();
+        return searchAndDownload(new SearchQueryDto(authors + " - " + title), downloadServiceFacade::download,
+                searchRequest.getCollectionId(), null, searchRequest.getGenres(), artistsTitle);
+    }
+
+    @Override
+    public Optional<TrackDto> download(TrackMetadataDto trackMetadataDto, Long collectionId,
+            Long ownerId, Set<String> genres) {
+
+        final ArtistsTitle artistsTitle = trackMetadataDto.getArtistsTitle();
+        return searchAndDownload(trackMetadataDto, downloadServiceFacade::download, collectionId, ownerId, genres,
+                artistsTitle);
+    }
+
+    private <T> Optional<TrackDto> searchAndDownload(T metadata, Function<T, Optional<TrackDto>> downloadFunction,
+            Long collectionId, Long ownerId, Set<String> genres, ArtistsTitle artistsTitle) {
+
+        final String authors = artistsTitle.getArtists();
+        final String title = artistsTitle.getTitle();
 
         final SearchHistory searchHistory = createSearchHistory(authors, title);
 
@@ -61,7 +82,8 @@ public class TrackDownloadServiceImpl implements TrackDownloadService {
                     searchHistoryService.saveSuccess(searchHistory, fromDB, true);
                     return of(trackDtoConverter.toDto(fromDB));
                 })
-                .orElseGet(() -> downloadAndSaveTrack(searchRequest, authors, title));
+                .orElseGet(() -> downloadFunction.apply(metadata)
+                        .map(track -> saveTrack(track, collectionId, ownerId, genres)));
     }
 
     @Override
@@ -116,6 +138,17 @@ public class TrackDownloadServiceImpl implements TrackDownloadService {
         return trackDto;
     }
 
+    private TrackDto saveTrack(TrackDto trackDto, Long collectionId, @Nullable Long ownerId, Set<String> genres) {
+        final Track track = trackDtoConverter.toEntity(trackDto);
+        if (isNull(ownerId)) {
+            trackService.save(track, genres, collectionId);
+        } else {
+            trackService.save(track, genres, collectionId, ownerId);
+        }
+        return trackDto;
+    }
+
+    //TODO refactor
     private Optional<TrackDto> downloadAndSaveTrack(final SearchRequestDto searchRequest, String authors,
             String title) {
         final Optional<TrackDto> trackDto = downloadServiceFacade.download(new SearchQueryDto(authors + " - " + title));
