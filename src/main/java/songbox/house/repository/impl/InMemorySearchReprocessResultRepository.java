@@ -1,5 +1,6 @@
 package songbox.house.repository.impl;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 import songbox.house.domain.dto.SearchReprocessResultDto;
 import songbox.house.repository.SearchReprocessResultRepository;
@@ -14,6 +15,7 @@ import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toMap;
 
 @Repository
+@ConditionalOnProperty(name = "songbox.house.search.reprocess.redis", havingValue = "false")
 public class InMemorySearchReprocessResultRepository implements SearchReprocessResultRepository {
 
     private static final Map<Long, Map<Long, SearchReprocessResultDto>> CACHE = new ConcurrentHashMap<>();
