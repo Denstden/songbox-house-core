@@ -15,9 +15,11 @@ import songbox.house.domain.dto.SearchReprocessResultDto;
 import songbox.house.domain.dto.request.SearchQueryDto;
 import songbox.house.domain.dto.response.TrackMetadataDto;
 import songbox.house.domain.entity.SearchReprocess;
+import songbox.house.domain.entity.user.UserInfo;
 import songbox.house.event.SearchReprocessFoundEvent;
 import songbox.house.repository.SearchReprocessRepository;
 import songbox.house.repository.SearchReprocessResultRepository;
+import songbox.house.service.UserService;
 import songbox.house.service.search.SearchReprocessService;
 import songbox.house.service.search.SearchServiceFacade;
 import songbox.house.service.search.TrackDownloadService;
@@ -39,6 +41,7 @@ import static java.lang.String.join;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
+import static java.util.stream.StreamSupport.stream;
 import static lombok.AccessLevel.PRIVATE;
 import static songbox.house.domain.entity.SearchReprocessStatus.DOWNLOADED;
 import static songbox.house.domain.entity.SearchReprocessStatus.FOUND;
@@ -54,6 +57,7 @@ public class SearchReprocessServiceImpl implements SearchReprocessService {
     SearchReprocessResultRepository reprocessResultRepository;
     SearchServiceFacade searchServiceFacade;
     TrackDownloadService downloadService;
+    UserService userService;
     ApplicationEventPublisher applicationEventPublisher;
 
     @Override
@@ -112,7 +116,9 @@ public class SearchReprocessServiceImpl implements SearchReprocessService {
     @Scheduled(cron = "${songbox.house.reprocess.cron:0 0 0 * * *}")
     public void reprocessAllUsers() {
         log.info("Starting reprocessing search requests for all users");
-        repository.findAllUsersForReprocess(NOT_FOUND).forEach(this::reprocess);
+        stream(repository.findAllUsersForReprocess(NOT_FOUND).spliterator(), false)
+                .filter(userId -> userService.findById(userId).getUserProperty().isSearchReprocessEnabled())
+                .forEach(this::reprocess);
         log.info("Finished reprocessing search requests for all users");
     }
 
@@ -139,7 +145,10 @@ public class SearchReprocessServiceImpl implements SearchReprocessService {
             reprocessResultRepository.save(userId, reprocessResult);
             repository.setFound(new Date(), new ArrayList<>(reprocessResult.keySet()));
             applicationEventPublisher.publishEvent(new SearchReprocessFoundEvent(this, userId, reprocessResult));
-            //TODO check user property -> if auto download after reprocessing -> downloadAll(userId)
+            final UserInfo user = userService.findById(userId);
+            if (user.getUserProperty().isAutoDownloadSearchReprocessEnabled()) {
+                downloadAll(userId);
+            }
         }
         log.info("Finished reprocessing search requests for user {}, found {}", userId, reprocessResult.size());
     }

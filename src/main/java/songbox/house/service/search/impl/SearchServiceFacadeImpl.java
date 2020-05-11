@@ -4,11 +4,15 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import songbox.house.domain.dto.request.SearchQueryDto;
 import songbox.house.domain.dto.response.SearchResultDto;
 import songbox.house.domain.dto.response.TrackMetadataDto;
+import songbox.house.domain.entity.user.UserInfo;
 import songbox.house.service.DiscogsWebsiteService;
+import songbox.house.service.UserService;
+import songbox.house.service.search.SearchReprocessService;
 import songbox.house.service.search.SearchService;
 import songbox.house.service.search.SearchServiceFacade;
 import songbox.house.util.ArtistsTitle;
@@ -25,6 +29,7 @@ import java.util.concurrent.ExecutorService;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.reverse;
 import static java.lang.System.currentTimeMillis;
+import static java.util.Collections.emptySet;
 import static java.util.Optional.ofNullable;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -37,15 +42,22 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
 
     List<SearchService> searchServices;
     DiscogsWebsiteService discogsWebsiteService;
+    SearchReprocessService searchReprocessService;
+    UserService userService;
     ExecutorService searchExecutorService;
     Integer searchServiceTimeoutMs;
 
     @Autowired
     public SearchServiceFacadeImpl(List<SearchService> searchServices, DiscogsWebsiteService discogsWebsiteService,
+            //TODO remove circular dependency
+            @Lazy SearchReprocessService searchReprocessService,
+            UserService userService,
             @Value("${songbox.house.search.threads:2}") Integer searchThreads,
             @Value("${songbox.house.search.service.timeout.ms:10000}") Integer searchServiceTimeoutMs) {
         this.searchServices = searchServices;
         this.discogsWebsiteService = discogsWebsiteService;
+        this.searchReprocessService = searchReprocessService;
+        this.userService = userService;
         this.searchExecutorService = ExecutorUtil.createExecutorService(searchThreads);
         this.searchServiceTimeoutMs = searchServiceTimeoutMs;
     }
@@ -73,12 +85,29 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
         sort(songs, artistTitle);
 
         log.info("Search finished {}ms, found {} items", currentTimeMillis() - searchStart, songs.size());
-
+        if (songs.isEmpty()) {
+            final UserInfo currentUser = userService.getCurrentUser();
+            if (currentUser.getUserProperty().isAutoSearchReprocessAfterFailEnabled()) {
+                log.info("Nothing found by query {}, sending to reprocessing", query);
+                searchReprocessService.createIfNotExists(query.getQuery(), null, emptySet(), currentUser.getUserId());
+            }
+        }
         //TODO change comparator to no need reverse
         return reverse(songs);
     }
 
     private List<TrackMetadataDto> searchSongs(SearchQueryDto query, boolean fast) {
+        List<TrackMetadataDto> songs = getSearchResult(query, fast);
+
+        if (fast && songs.isEmpty() && userService.getCurrentUser().getUserProperty().isUseFullSearchIfFastFailsEnabled()) {
+            log.info("Using full search, because fast search has not results");
+            songs = getSearchResult(query, false);
+        }
+
+        return songs;
+    }
+
+    private List<TrackMetadataDto> getSearchResult(SearchQueryDto query, boolean fast) {
         CompletionService<SearchResultDto> completionService = new ExecutorCompletionService<>(searchExecutorService);
         searchServices.forEach(service -> completionService.submit(() -> ((fast)
                 ? service.searchFast(query)

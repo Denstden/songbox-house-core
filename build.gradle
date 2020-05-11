@@ -36,7 +36,7 @@ ext.jacksonVersion = '2.9.8'
 
 dependencies {
     implementation('com.github.Denstden:songbox-house-search-api:0.1.22')
-    implementation('com.github.Denstden:songbox-house-util:0.0.21')
+    implementation('com.github.Denstden:songbox-house-util:0.0.22')
 //    implementation(project(":songbox-house-search-api"))
 //    implementation(project(":songbox-house-util"))
 

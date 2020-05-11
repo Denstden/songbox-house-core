@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import songbox.house.domain.dto.request.UserDto;
 import songbox.house.domain.entity.user.UserInfo;
+import songbox.house.domain.entity.user.UserProperty;
 import songbox.house.domain.entity.user.UserRole;
 import songbox.house.exception.NotExistsException;
 import songbox.house.repository.UserInfoRepository;
@@ -17,6 +18,7 @@ import songbox.house.service.UserService;
 import java.util.Optional;
 
 import static java.text.MessageFormat.format;
+import static java.util.Objects.isNull;
 import static songbox.house.domain.entity.user.UserRole.RoleName.ADMIN;
 import static songbox.house.domain.entity.user.UserRole.RoleName.USER;
 
@@ -71,13 +73,21 @@ public class UserServiceImpl implements UserService {
         userInfo.setName(userDto.getName());
         userInfo.setSurname(userDto.getSurname());
         userInfo.setRole(userRoleService.findByName(USER));
+        userInfo.setUserProperty(new UserProperty());
 
         return userInfoRepository.save(userInfo);
     }
 
     @Override
     public UserInfo getCurrentUser() {
-        return findByUserName(getCurrentUserName());
+        final UserInfo currentUser = findByUserName(getCurrentUserName());
+
+        //TODO remove after clearing DB
+        if (isNull(currentUser.getUserProperty())) {
+            currentUser.setUserProperty(new UserProperty());
+            userInfoRepository.save(currentUser);
+        }
+        return currentUser;
     }
 
     @Override
@@ -121,6 +131,10 @@ public class UserServiceImpl implements UserService {
 
         final UserRole adminRole = userRoleService.createRoleIfNotExists(ADMIN);
         admin.setRole(adminRole);
+
+        if (isNull(admin.getUserProperty())) {
+            admin.setUserProperty(new UserProperty());
+        }
     }
 
     private UserInfo createAdmin() {
