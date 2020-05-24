@@ -74,6 +74,11 @@ public class SearchReprocessServiceImpl implements SearchReprocessService {
     }
 
     @Override
+    public Page<SearchReprocess> allForCurrentUser(Pageable pageable) {
+        return repository.findByUserId(userService.getCurrentUser().getUserId(), pageable);
+    }
+
+    @Override
     public Page<SearchReprocess> availableForSearch(Long userId, Pageable pageable) {
         return findNotFound(userId, pageable);
     }
