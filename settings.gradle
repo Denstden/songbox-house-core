@@ -1,3 +1,4 @@
-include ':songbox-house-search-api', ':songbox-house-util'
+include ':songbox-house-search-api', ':songbox-house-util', ':songbox-house-redis-dao'
 project(":songbox-house-search-api").projectDir = file("./../songbox-house-search-api")
 project(":songbox-house-util").projectDir = file("./../songbox-house-util")
+project(":songbox-house-redis-dao").projectDir = file("./../songbox-house-redis-dao")

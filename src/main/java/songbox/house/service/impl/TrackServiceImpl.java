@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.text.MessageFormat.format;
+import static java.util.Objects.isNull;
 import static java.util.stream.StreamSupport.stream;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
@@ -88,6 +89,12 @@ public class TrackServiceImpl implements TrackService {
     @Override
     @Transactional(propagation = REQUIRES_NEW)
     public Track save(final Track track, final Set<String> genres, final Long collectionId) {
+        return save(track, genres, collectionId, null);
+    }
+
+    @Override
+    @Transactional(propagation = REQUIRES_NEW)
+    public Track save(Track track, Set<String> genres, Long collectionId, Long ownerId) {
         if (saveToDBEnabled) {
             if (isNotEmpty(track.getAuthorsStr()) && (isEmpty(track.getAuthors()))) {
                 setAuthors(track.getAuthorsStr(), track);
@@ -95,7 +102,7 @@ public class TrackServiceImpl implements TrackService {
 
             track.setGenres(getGenres(genres));
 
-            setCollections(track, collectionId);
+            setCollections(track, collectionId, ownerId);
 
             return trackRepository.save(track);
         } else {
@@ -191,8 +198,10 @@ public class TrackServiceImpl implements TrackService {
         return genre;
     }
 
-    private void setCollections(final Track track, final Long collectionId) {
-        final MusicCollection collection = collectionService.findById(collectionId);
+    private void setCollections(final Track track, final Long collectionId, final Long ownerId) {
+        final MusicCollection collection = isNull(ownerId)
+                ? collectionService.findById(collectionId)
+                : collectionService.findById(collectionId, ownerId);
         if (collection != null) {
             final Set<MusicCollection> collections = new HashSet<>();
             collections.add(collection);

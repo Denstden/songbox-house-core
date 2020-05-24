@@ -13,6 +13,8 @@ public interface MusicCollectionService {
 
     MusicCollection findById(Long collectionId);
 
+    MusicCollection findById(Long collectionId, Long ownerId);
+
     void delete(Long collectionId);
 
     void checkOwner(Long collectionId);
@@ -24,4 +26,6 @@ public interface MusicCollectionService {
     MusicCollection getOrCreate(String name);
 
     boolean checkCanGet(final Set<MusicCollection> collections);
+
+    MusicCollection getOrCreateDefault();
 }

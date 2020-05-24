@@ -9,6 +9,8 @@ public interface UserService {
 
     UserInfo findByUserName(String userName);
 
+    UserInfo findById(Long id);
+
     UserInfo createAdminIfNotExists();
 
     UserInfo createUser(final UserDto userDto);

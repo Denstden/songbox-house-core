@@ -15,6 +15,8 @@ public interface TrackService {
 
     Track save(final Track track, final Set<String> genres, final Long collectionId);
 
+    Track save(final Track track, final Set<String> genres, final Long collectionId, final Long ownerId);
+
     Track findByArtistAndTitle(final String artist, final String title);
 
     Integer deleteAllTracks(final Long collectionId);
