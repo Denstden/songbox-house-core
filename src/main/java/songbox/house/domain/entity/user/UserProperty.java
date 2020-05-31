@@ -52,22 +52,22 @@ public class UserProperty {
     private Long mask = 0L;
 
     public boolean isSearchReprocessEnabled() {
-        return hasMask(mask, SEARCH_REPROCESS_ENABLED);
+        return hasMask(mask != null ? mask : 0L, SEARCH_REPROCESS_ENABLED);
     }
 
     public boolean isAutoSearchReprocessAfterFailEnabled() {
-        return isSearchReprocessEnabled() && hasMask(mask, AUTO_SEARCH_REPROCESS_AFTER_FAIL_ENABLED);
+        return isSearchReprocessEnabled() && hasMask(mask != null ? mask : 0L, AUTO_SEARCH_REPROCESS_AFTER_FAIL_ENABLED);
     }
 
     public boolean isAutoDownloadSearchReprocessEnabled() {
-        return isSearchReprocessEnabled() && hasMask(mask, AUTO_DOWNLOAD_SEARCH_REPROCESS_ENABLED);
+        return isSearchReprocessEnabled() && hasMask(mask != null ? mask : 0L, AUTO_DOWNLOAD_SEARCH_REPROCESS_ENABLED);
     }
 
     public boolean isUseFullSearchIfFastFailsEnabled() {
-        return hasMask(mask, AUTO_USE_FULL_SEARCH_IF_FAST_NOT_SUCCESS);
+        return hasMask(mask != null ? mask : 0L, AUTO_USE_FULL_SEARCH_IF_FAST_NOT_SUCCESS);
     }
 
     public boolean isUseAlwaysFullSearch() {
-        return hasMask(mask, USE_ALWAYS_FULL_SEARCH);
+        return hasMask(mask != null ? mask : 0L, USE_ALWAYS_FULL_SEARCH);
     }
 }

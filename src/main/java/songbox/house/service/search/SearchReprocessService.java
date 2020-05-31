@@ -12,6 +12,8 @@ import static java.util.concurrent.CompletableFuture.runAsync;
 public interface SearchReprocessService {
     SearchReprocess createIfNotExists(String searchQuery, Long collectionId, Set<String> genres, Long userId);
 
+    Page<SearchReprocess> allForCurrentUser(Pageable pageable);
+
     Page<SearchReprocess> availableForSearch(Long userId, Pageable pageable);
 
     Page<SearchReprocess> availableForDownloading(Long userId, Pageable pageable);
