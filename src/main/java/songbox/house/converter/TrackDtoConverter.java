@@ -27,6 +27,7 @@ public class TrackDtoConverter implements Converter<Track, TrackDto> {
     public TrackDto toDto(Track entity) {
         TrackDto dto = new TrackDto();
         //TODO maybe need parse authors
+        dto.setTrackId(entity.getTrackId());
         dto.setArtists(entity.getAuthorsStr());
         dto.setTitle(entity.getTitle());
         dto.setBitRate(entity.getBitRate());

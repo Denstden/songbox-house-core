@@ -1,6 +1,7 @@
 package songbox.house.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -24,6 +25,7 @@ import java.util.Set;
 @Table
 @RequiredArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = { "id" })
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

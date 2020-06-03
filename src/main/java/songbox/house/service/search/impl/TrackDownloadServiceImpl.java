@@ -78,7 +78,7 @@ public class TrackDownloadServiceImpl implements TrackDownloadService {
 
         return ofNullable(trackService.findByArtistAndTitle(authors, title))
                 .map(fromDB -> {
-                    log.debug("Found track in db, not perform searching.");
+                    log.debug("Found track {} in db, not perform searching.", artistsTitle);
                     searchHistoryService.saveSuccess(searchHistory, fromDB, true);
                     return of(trackDtoConverter.toDto(fromDB));
                 })

@@ -105,7 +105,7 @@ public class MusicCollectionServiceImpl implements MusicCollectionService {
 
         return collections.stream()
                 .map(MusicCollection::getOwner)
-                .map(UserInfo::getName)
+                .map(UserInfo::getUserName)
                 .anyMatch(userService.getCurrentUserName()::equalsIgnoreCase);
     }
 
