@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import static java.util.Objects.isNull;
 import static javax.persistence.CascadeType.DETACH;
 import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.PERSIST;
@@ -51,23 +52,56 @@ public class UserProperty {
     @Column
     private Long mask = 0L;
 
+    private long getMask() {
+        return mask;
+    }
+
+    private void setMask(Long mask) {
+        this.mask = mask;
+    }
+
+    public long getDomainMask() {
+        return fromDomainData(mask);
+    }
+
+    public void setDomainMask(Long mask) {
+        this.mask = toDomainData(mask);
+    }
+
     public boolean isSearchReprocessEnabled() {
-        return hasMask(mask != null ? mask : 0L, SEARCH_REPROCESS_ENABLED);
+        return hasMask(getDomainMask(), SEARCH_REPROCESS_ENABLED);
     }
 
     public boolean isAutoSearchReprocessAfterFailEnabled() {
-        return isSearchReprocessEnabled() && hasMask(mask != null ? mask : 0L, AUTO_SEARCH_REPROCESS_AFTER_FAIL_ENABLED);
+        return isSearchReprocessEnabled() && hasMask(getDomainMask(), AUTO_SEARCH_REPROCESS_AFTER_FAIL_ENABLED);
     }
 
     public boolean isAutoDownloadSearchReprocessEnabled() {
-        return isSearchReprocessEnabled() && hasMask(mask != null ? mask : 0L, AUTO_DOWNLOAD_SEARCH_REPROCESS_ENABLED);
+        return isSearchReprocessEnabled() && hasMask(getDomainMask(), AUTO_DOWNLOAD_SEARCH_REPROCESS_ENABLED);
     }
 
     public boolean isUseFullSearchIfFastFailsEnabled() {
-        return hasMask(mask != null ? mask : 0L, AUTO_USE_FULL_SEARCH_IF_FAST_NOT_SUCCESS);
+        return hasMask(getDomainMask(), AUTO_USE_FULL_SEARCH_IF_FAST_NOT_SUCCESS);
     }
 
     public boolean isUseAlwaysFullSearch() {
-        return hasMask(mask != null ? mask : 0L, USE_ALWAYS_FULL_SEARCH);
+        return hasMask(getDomainMask(), USE_ALWAYS_FULL_SEARCH);
     }
+
+    private long toDomainData(Long mask) {
+        if (isNull(mask)) {
+            return 0L;
+        }
+        return mask ^ INVERSION_MASK;
+    }
+
+    private long fromDomainData(Long mask) {
+        if (mask == null) {
+            return INVERSION_MASK;
+        } else {
+            return mask ^ INVERSION_MASK;
+        }
+    }
+
+    private static final long INVERSION_MASK = 0b01000;
 }

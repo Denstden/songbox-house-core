@@ -13,6 +13,7 @@ import songbox.house.service.UserPropertyService;
 import songbox.house.service.UserService;
 
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicLong;
 
 import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang3.BooleanUtils.isTrue;
@@ -60,15 +61,23 @@ public class UserPropertyServiceImpl implements UserPropertyService {
 
     @Override
     public void setMasks(UserProperty userProperty, Collection<UserPropertyMask> masks) {
-        Long currentMask = userProperty.getMask();
-        masks.forEach(userPropertyMask -> setMask(currentMask, userPropertyMask));
+        AtomicLong currentMask = new AtomicLong(userProperty.getDomainMask());
+        masks.forEach(userPropertyMask -> {
+            long newValue = setMask(currentMask.get(), userPropertyMask);
+            currentMask.set(newValue);
+        });
+        userProperty.setDomainMask(currentMask.get());
         saveUserProperty(userProperty);
     }
 
     @Override
     public void removeMasks(UserProperty userProperty, Collection<UserPropertyMask> masks) {
-        Long currentMask = userProperty.getMask();
-        masks.forEach(userPropertyMask -> removeMask(currentMask, userPropertyMask));
+        AtomicLong currentMask = new AtomicLong(userProperty.getDomainMask());
+        masks.forEach(userPropertyMask -> {
+            long newValue = removeMask(currentMask.get(), userPropertyMask);
+            currentMask.set(newValue);
+        });
+        userProperty.setDomainMask(currentMask.get());
         saveUserProperty(userProperty);
     }
 
