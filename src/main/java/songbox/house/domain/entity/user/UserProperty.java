@@ -103,5 +103,5 @@ public class UserProperty {
         }
     }
 
-    private static final long INVERSION_MASK = 0b01000;
+    private static final long INVERSION_MASK = 0b01011;
 }
