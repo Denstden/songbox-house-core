@@ -14,7 +14,6 @@ import songbox.house.domain.entity.DiscogsRelease;
 import songbox.house.domain.entity.Genre;
 import songbox.house.domain.entity.MusicCollection;
 import songbox.house.repository.DiscogsReleaseRepository;
-import songbox.house.service.DiscogsFacade;
 import songbox.house.service.DiscogsWebsiteService;
 import songbox.house.service.FrontendFriendlyService;
 import songbox.house.service.GenreService;
@@ -23,7 +22,6 @@ import songbox.house.service.UserPropertyService;
 import songbox.house.service.search.SearchServiceFacade;
 import songbox.house.util.ArtistsTitle;
 import songbox.house.util.ProgressListener;
-import songbox.house.util.compare.ArtistTitleComparator;
 import songbox.house.util.compare.SmartDiscogsComparator;
 
 import java.util.ArrayList;
@@ -31,9 +29,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Map.Entry;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import static java.util.concurrent.CompletableFuture.allOf;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static java.util.stream.Collectors.toSet;
 
 @Service
@@ -42,18 +43,13 @@ import static java.util.stream.Collectors.toSet;
 @Slf4j
 public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
     private static final int DETAILED_INFO_MAX_SONG_SIZE = 2;
-    DiscogsFacade discogsFacade;
+
     DiscogsWebsiteService discogsWebsiteService;
     SearchServiceFacade searchServiceFacade;
     MusicCollectionService musicCollectionService;
     UserPropertyService userPropertyService;
-
-
     GenreService genreService;
     DiscogsReleaseRepository discogsReleaseRepository;
-
-    ArtistTitleComparator artistTitleComparator = new ArtistTitleComparator();
-
 
     @Override
     public List<DiscogsReleaseDtoExt> search(String query, boolean fetchResource) {
@@ -71,79 +67,8 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
             boolean useFastSearch) {
 
         return discogsWebsiteService.getReleaseInfo(discogsLink)
-                .map(releaseDto -> getDetailedInfo(releaseDto, progressListener, useFastSearch))
+                .map(releaseDto -> getDetailedInfo(releaseDto, useFastSearch))
                 .orElse(null);
-    }
-
-    private DiscogsReleaseDtoExt getDetailedInfo(DiscogsReleaseDtoExt releaseInfo, ProgressListener progressListener,
-            boolean useFastSearch) {
-        // Apply search
-        Map<ArtistTitleDto, List<SongDto>> songs = releaseInfo.getSongs();
-
-
-        AtomicReference<Float> curProgress = new AtomicReference<>((float) 0);
-        float progressStep = 1 / (float) (songs.entrySet().size() * 2); // 2 requests
-        Runnable invokeProgressListener = () -> {
-            if (progressListener != null) {
-                progressListener.onProgressChanged(curProgress.updateAndGet(v -> v + progressStep));
-            }
-        };
-
-        for (Map.Entry<ArtistTitleDto, List<SongDto>> song : songs.entrySet()) {
-            ArtistTitleDto artistTitleDto = song.getKey();
-            SongDto expectedSongDto = song.getValue().get(0);
-
-            SearchQueryDto searchQueryDto = new SearchQueryDto(String.format("%s %s - %s", releaseInfo.getAudioLabelReleaseName(), artistTitleDto.getArtist(), artistTitleDto.getTitle()));
-            searchQueryDto.setFetchArtwork(true);
-            searchQueryDto.setFilterByArtistTitle(false);
-
-            SearchQueryDto searchQueryDtoWithoutLabel = new SearchQueryDto(String.format("%s - %s", artistTitleDto.getArtist(), artistTitleDto.getTitle()));
-            searchQueryDtoWithoutLabel.setFetchArtwork(false);
-            searchQueryDtoWithoutLabel.setFilterByArtistTitle(false);
-
-
-            // Apply song side
-            ArtistsTitle expectedArtistTitle = ArtistsTitle.of(artistTitleDto.getArtist(), artistTitleDto.getTitle());
-            if (!expectedSongDto.getTrackPos().isEmpty()) {
-                expectedArtistTitle = ArtistsTitle.of(expectedArtistTitle.getArtists(), expectedSongDto.getTrackPos() + " " + expectedArtistTitle.getTitle());
-            }
-
-            List<TrackMetadataDto> songSearchResultList = searchServiceFacade.search(searchQueryDto, useFastSearch);
-            invokeProgressListener.run();
-            songSearchResultList.addAll(searchServiceFacade.search(searchQueryDtoWithoutLabel, useFastSearch));
-            invokeProgressListener.run();
-
-            songSearchResultList.sort(new SmartDiscogsComparator(expectedSongDto, expectedArtistTitle));
-
-            // Apply track Pos
-            List<SongDto> songDTOs = songSearchResultList.stream()
-                    .map(trackMetadataDto -> toSongDto(trackMetadataDto, expectedSongDto.getTrackPos()))
-                    .collect(Collectors.toList());
-            songs.put(artistTitleDto, songDTOs.subList(0, Math.min(songDTOs.size(), DETAILED_INFO_MAX_SONG_SIZE)));
-        }
-        releaseInfo.setSongs(songs);
-
-        return releaseInfo;
-    }
-
-    private SongDto toSongDto(TrackMetadataDto trackMetadataDto, String trackPos) {
-        SongDto songDto = new SongDto();
-        songDto.setArtist(trackMetadataDto.getArtistsTitle().getArtists());
-        songDto.setTitle(trackMetadataDto.getArtistsTitle().getTitle());
-        songDto.setBitRate(trackMetadataDto.getBitRate());
-        songDto.setDuration(trackMetadataDto.getDurationSec());
-        songDto.setResource(trackMetadataDto.getResource());
-        //TODO thumbnail is null ??
-        songDto.setThumbnail(trackMetadataDto.getThumbnail());
-        songDto.setUri(trackMetadataDto.getUri());
-        songDto.setTrackPos(trackPos);
-        songDto.setSizeMb(trackMetadataDto.getSizeMb());
-        return songDto;
-    }
-
-    private DiscogsReleaseDtoExt saveToCollection(DiscogsReleaseDtoExt releaseDto) {
-        DiscogsRelease discogsRelease = fromDiscogsReleaseDto(releaseDto);
-        return toDiscogsReleaseDto(discogsReleaseRepository.save(discogsRelease));
     }
 
     @Override
@@ -167,6 +92,89 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
     @Override
     public void deleteFromCollection(Long id) {
         discogsReleaseRepository.deleteById(id);
+    }
+
+    private DiscogsReleaseDtoExt getDetailedInfo(DiscogsReleaseDtoExt releaseInfo, boolean useFastSearch) {
+        Map<ArtistTitleDto, List<SongDto>> songs = releaseInfo.getSongs();
+
+        songs.entrySet().parallelStream()
+                .forEach(song -> processOneSong(releaseInfo, useFastSearch, songs, song));
+        releaseInfo.setSongs(songs);
+
+        return releaseInfo;
+    }
+
+    private void processOneSong(DiscogsReleaseDtoExt releaseInfo, boolean useFastSearch,
+            Map<ArtistTitleDto, List<SongDto>> songs, Entry<ArtistTitleDto, List<SongDto>> song) {
+
+        ArtistTitleDto artistTitleDto = song.getKey();
+        SongDto expectedSongDto = song.getValue().get(0);
+
+        SearchQueryDto searchQuery = new SearchQueryDto(String.format("%s %s - %s",
+                releaseInfo.getAudioLabelReleaseName(), artistTitleDto.getArtist(), artistTitleDto.getTitle()));
+        searchQuery.setFetchArtwork(true);
+        searchQuery.setFilterByArtistTitle(false);
+
+        SearchQueryDto searchQueryWithoutLabel = new SearchQueryDto(String.format("%s - %s",
+                artistTitleDto.getArtist(), artistTitleDto.getTitle()));
+        searchQueryWithoutLabel.setFetchArtwork(false);
+        searchQueryWithoutLabel.setFilterByArtistTitle(false);
+
+        // Apply song side
+        ArtistsTitle expectedArtistTitle = ArtistsTitle.of(artistTitleDto.getArtist(), artistTitleDto.getTitle());
+        if (!expectedSongDto.getTrackPos().isEmpty()) {
+            expectedArtistTitle = ArtistsTitle.of(expectedArtistTitle.getArtists(), expectedSongDto.getTrackPos() +
+                    " " + expectedArtistTitle.getTitle());
+        }
+
+        List<TrackMetadataDto> songSearchResultList = getMetadata(useFastSearch, searchQuery, searchQueryWithoutLabel);
+
+        songSearchResultList.sort(new SmartDiscogsComparator(expectedSongDto, expectedArtistTitle));
+
+        // Apply track Pos
+        List<SongDto> songDTOs = songSearchResultList.stream()
+                .map(trackMetadataDto -> toSongDto(trackMetadataDto, expectedSongDto.getTrackPos()))
+                .collect(Collectors.toList());
+        songs.put(artistTitleDto, songDTOs.subList(0, Math.min(songDTOs.size(), DETAILED_INFO_MAX_SONG_SIZE)));
+    }
+
+    private List<TrackMetadataDto> getMetadata(boolean useFastSearch, SearchQueryDto searchQueryDto,
+            SearchQueryDto searchQueryDtoWithoutLabel) {
+
+        List<TrackMetadataDto> songSearchResultList = new ArrayList<>();
+        try {
+            CompletableFuture<List<TrackMetadataDto>> songFuture =
+                    supplyAsync(() -> searchServiceFacade.search(searchQueryDto, useFastSearch));
+            CompletableFuture<List<TrackMetadataDto>> songWithoutLabelFuture =
+                    supplyAsync(() -> searchServiceFacade.search(searchQueryDtoWithoutLabel, useFastSearch));
+            allOf(songFuture, songWithoutLabelFuture).get();
+
+            songSearchResultList.addAll(songFuture.get());
+            songSearchResultList.addAll(songWithoutLabelFuture.get());
+        } catch (Exception e) {
+            log.warn("Can't search by {}", searchQueryDto, e);
+        }
+        return songSearchResultList;
+    }
+
+    private SongDto toSongDto(TrackMetadataDto trackMetadataDto, String trackPos) {
+        SongDto songDto = new SongDto();
+        songDto.setArtist(trackMetadataDto.getArtistsTitle().getArtists());
+        songDto.setTitle(trackMetadataDto.getArtistsTitle().getTitle());
+        songDto.setBitRate(trackMetadataDto.getBitRate());
+        songDto.setDuration(trackMetadataDto.getDurationSec());
+        songDto.setResource(trackMetadataDto.getResource());
+        //TODO thumbnail is null ??
+        songDto.setThumbnail(trackMetadataDto.getThumbnail());
+        songDto.setUri(trackMetadataDto.getUri());
+        songDto.setTrackPos(trackPos);
+        songDto.setSizeMb(trackMetadataDto.getSizeMb());
+        return songDto;
+    }
+
+    private DiscogsReleaseDtoExt saveToCollection(DiscogsReleaseDtoExt releaseDto) {
+        DiscogsRelease discogsRelease = fromDiscogsReleaseDto(releaseDto);
+        return toDiscogsReleaseDto(discogsReleaseRepository.save(discogsRelease));
     }
 
     private MusicCollection getDefaultMusicCollection() {

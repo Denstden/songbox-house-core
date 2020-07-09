@@ -6,12 +6,10 @@ import java.text.MessageFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static songbox.house.service.DiscogsFacade.*;
-import static songbox.house.service.DiscogsFacade.ARTIST_DETERMINER;
-import static songbox.house.service.DiscogsFacade.DATABASE_DETERMINER;
-import static songbox.house.service.DiscogsFacade.LABEL_DETERMINER;
-import static songbox.house.service.DiscogsFacade.MARKETPLACE_DETERMINER;
-
+import static songbox.house.service.impl.DiscogsServiceImpl.ARTIST_DETERMINER;
+import static songbox.house.service.impl.DiscogsServiceImpl.DATABASE_DETERMINER;
+import static songbox.house.service.impl.DiscogsServiceImpl.LABEL_DETERMINER;
+import static songbox.house.service.impl.DiscogsServiceImpl.MARKETPLACE_DETERMINER;
 
 public class DiscogsLinkParser {
 
