@@ -22,6 +22,7 @@ import songbox.house.service.UserPropertyService;
 import songbox.house.service.search.SearchServiceFacade;
 import songbox.house.util.ArtistsTitle;
 import songbox.house.util.ProgressListener;
+import songbox.house.util.StepProgress;
 import songbox.house.util.compare.SmartDiscogsComparator;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
             boolean useFastSearch) {
 
         return discogsWebsiteService.getReleaseInfo(discogsLink)
-                .map(releaseDto -> getDetailedInfo(releaseDto, useFastSearch))
+                .map(releaseDto -> getDetailedInfo(releaseDto, useFastSearch, progressListener))
                 .orElse(null);
     }
 
@@ -94,18 +95,24 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
         discogsReleaseRepository.deleteById(id);
     }
 
-    private DiscogsReleaseDtoExt getDetailedInfo(DiscogsReleaseDtoExt releaseInfo, boolean useFastSearch) {
+    private DiscogsReleaseDtoExt getDetailedInfo(DiscogsReleaseDtoExt releaseInfo, boolean useFastSearch,
+            ProgressListener progressListener) {
+
         Map<ArtistTitleDto, List<SongDto>> songs = releaseInfo.getSongs();
 
+        float progressStep = 1 / (float) (songs.entrySet().size() * 2); // 2 requests
+        StepProgress stepProgress = new StepProgress(progressListener, progressStep);
+
         songs.entrySet().parallelStream()
-                .forEach(song -> processOneSong(releaseInfo, useFastSearch, songs, song));
+                .forEach(song -> processOneSong(releaseInfo, useFastSearch, songs, song, stepProgress));
         releaseInfo.setSongs(songs);
 
         return releaseInfo;
     }
 
     private void processOneSong(DiscogsReleaseDtoExt releaseInfo, boolean useFastSearch,
-            Map<ArtistTitleDto, List<SongDto>> songs, Entry<ArtistTitleDto, List<SongDto>> song) {
+            Map<ArtistTitleDto, List<SongDto>> songs, Entry<ArtistTitleDto, List<SongDto>> song,
+            StepProgress stepProgress) {
 
         ArtistTitleDto artistTitleDto = song.getKey();
         SongDto expectedSongDto = song.getValue().get(0);
@@ -127,7 +134,8 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
                     " " + expectedArtistTitle.getTitle());
         }
 
-        List<TrackMetadataDto> songSearchResultList = getMetadata(useFastSearch, searchQuery, searchQueryWithoutLabel);
+        List<TrackMetadataDto> songSearchResultList = getMetadata(useFastSearch, searchQuery, searchQueryWithoutLabel,
+                stepProgress);
 
         songSearchResultList.sort(new SmartDiscogsComparator(expectedSongDto, expectedArtistTitle));
 
@@ -139,14 +147,14 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
     }
 
     private List<TrackMetadataDto> getMetadata(boolean useFastSearch, SearchQueryDto searchQueryDto,
-            SearchQueryDto searchQueryDtoWithoutLabel) {
+            SearchQueryDto searchQueryDtoWithoutLabel, StepProgress stepProgress) {
 
         List<TrackMetadataDto> songSearchResultList = new ArrayList<>();
         try {
             CompletableFuture<List<TrackMetadataDto>> songFuture =
-                    supplyAsync(() -> searchServiceFacade.search(searchQueryDto, useFastSearch));
+                    supplyAsync(() -> doSearch(searchQueryDto, useFastSearch, stepProgress));
             CompletableFuture<List<TrackMetadataDto>> songWithoutLabelFuture =
-                    supplyAsync(() -> searchServiceFacade.search(searchQueryDtoWithoutLabel, useFastSearch));
+                    supplyAsync(() -> doSearch(searchQueryDtoWithoutLabel, useFastSearch, stepProgress));
             allOf(songFuture, songWithoutLabelFuture).get();
 
             songSearchResultList.addAll(songFuture.get());
@@ -155,6 +163,12 @@ public class FrontendFriendlyServiceImpl implements FrontendFriendlyService {
             log.warn("Can't search by {}", searchQueryDto, e);
         }
         return songSearchResultList;
+    }
+
+    private List<TrackMetadataDto> doSearch(SearchQueryDto queryDto, boolean useFastSearch, StepProgress stepProgress) {
+        List<TrackMetadataDto> searchResult = searchServiceFacade.search(queryDto, useFastSearch);
+        stepProgress.step();
+        return searchResult;
     }
 
     private SongDto toSongDto(TrackMetadataDto trackMetadataDto, String trackPos) {
