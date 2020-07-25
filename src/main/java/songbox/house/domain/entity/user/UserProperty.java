@@ -41,6 +41,9 @@ public class UserProperty {
     @Column(name = "search_audio_preview_enabled", columnDefinition = "boolean default false", nullable = false)
     private Boolean searchPreviewEnabled = false;
 
+    @Column(name = "lang", columnDefinition = "varchar(30)default 'ru'", nullable = false)
+    private String lang = "ru";
+
     //TODO remove after clearing DB(unused)
     @Column(length = 2048)
     private String vkCookie;
